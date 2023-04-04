@@ -1,0 +1,9 @@
+{
+    "params": {
+        "_select_":["_tablename_"],
+        "_create_table_channelname_":["_channelname_"]
+        },
+    "_select_": "select * from _tablename_;",
+    "create_table_channels": "create table channels (id int primary key, name varchar(500), url varchar(1000));",
+    "_create_table_channelname_": "create table _channelname__channel (channel_id int references channels(id), id int primary key, start_ms int, end_ms int, line varchar(10000))"
+}
