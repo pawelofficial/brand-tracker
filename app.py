@@ -6,5 +6,5 @@ def hello():
     return "<html><body><h1>Hello Best Bike App!</h1></body></html>\n"
 
 @app.route("/endpoint")
-def hello():
+def endpoint():
     return "<html><body><h1>Hello there my friend !</h1></body></html>\n"
