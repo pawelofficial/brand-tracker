@@ -8,3 +8,6 @@ def hello():
 @app.route("/endpoint")
 def endpoint():
     return "<html><body><h1>Hello there my friend !</h1></body></html>\n"
+
+if __name__ == '__main__':
+    app.run(port=80)
