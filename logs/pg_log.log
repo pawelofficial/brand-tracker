@@ -1,5 +1,5 @@
-INFO:pg_log:logger setup pg_log 2023-04-05T20:05:30.512739
-INFO:pg_log:connecting to pg  2023-04-05T20:05:30.512739
-INFO:pg_log:creating curr object 2023-04-05T20:05:30.528712
-INFO:pg_log:reading _create_table_channelname_ from json  2023-04-05T20:05:30.530213
+INFO:pg_log:logger setup pg_log 2023-04-07T22:31:20.721770
+INFO:pg_log:connecting to pg  2023-04-07T22:31:20.721770
+INFO:pg_log:creating curr object 2023-04-07T22:31:20.922599
+INFO:pg_log:reading _create_table_channelname_ from json with vars:  2023-04-07T22:31:20.924552
 _channelname_ : foo
