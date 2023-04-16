@@ -1,0 +1,96 @@
+INFO:pg_log:logger setup pg_log 2023-04-16T12:03:42.291718
+INFO:pg_log:connecting to pg  2023-04-16T12:03:42.291956
+INFO:pg_log:creating curr object 2023-04-16T12:03:42.302357
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.302878
+s : drop sequence channels_sequence cascade;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.306753
+status : DROP SEQUENCE
+INFO:pg_log:reading _create_sequence_sequencename_ from json with vars:  2023-04-16T12:03:42.306753
+_sequencename_ : channels_sequence
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.306753
+s : create sequence channels_sequence start 1 increment 1 minvalue 1 NO MAXVALUE;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.310980
+status : CREATE SEQUENCE
+INFO:pg_log:reading _create_table_channels_ from json with vars:  2023-04-16T12:03:42.310980
+_sequencename_ : channels_sequence
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.311510
+s : drop table if exists channels cascade;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.318293
+status : DROP TABLE
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.318293
+s : create table channels (channel_id int primary key default nextval('channels_sequence') ,
+title varchar(500),
+url varchar(1000),
+vid_ts timestamp,
+mod_ts timestamp default now () );
+INFO:pg_log:ddl status 2023-04-16T12:03:42.326799
+status : CREATE TABLE
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.326799
+s : drop sequence kitco_sequence cascade;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.329612
+status : DROP SEQUENCE
+INFO:pg_log:reading _create_sequence_sequencename_ from json with vars:  2023-04-16T12:03:42.329612
+_sequencename_ : kitco_sequence
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.329612
+s : create sequence kitco_sequence start 1 increment 1 minvalue 1 NO MAXVALUE;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.332613
+status : CREATE SEQUENCE
+INFO:pg_log:reading _create_table_channelname_ from json with vars:  2023-04-16T12:03:42.332613
+_channelname_ : kitco
+_sequencename_ : kitco_sequence
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.333131
+s : drop table if exists kitco_channel cascade;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.337113
+status : DROP TABLE
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.337113
+s : create table kitco_channel(channel_id int references channels(channel_id),
+vid_id int primary key default nextval('kitco_sequence'),
+ vid_title varchar(1000),
+vid_release_ts timestamp,
+mod_ts timestamp default now());
+INFO:pg_log:ddl status 2023-04-16T12:03:42.344775
+status : CREATE TABLE
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.345297
+s : drop sequence kitco_transcript_sequence cascade;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.349043
+status : DROP SEQUENCE
+INFO:pg_log:reading _create_sequence_sequencename_ from json with vars:  2023-04-16T12:03:42.349536
+_sequencename_ : kitco_transcript_sequence
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.349536
+s : create sequence kitco_transcript_sequence start 1 increment 1 minvalue 1 NO MAXVALUE;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.352104
+status : CREATE SEQUENCE
+INFO:pg_log:reading _create_table_channel_transcript_ from json with vars:  2023-04-16T12:03:42.352104
+_channelname_ : kitco
+_sequencename_ : kitco_transcript_sequence
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.352623
+s : drop table if exists kitco_transcript;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.354187
+status : DROP TABLE
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.354187
+s : create table kitco_transcript (channel_id int references channels(channel_id),
+vid_id int references kitco_channel(vid_id),
+transcript_id int primary key default nextval('kitco_transcript_sequence'),
+start_ms float,
+end_ms float,
+transcript varchar(10000),
+mod_ts timestamp default now ());
+INFO:pg_log:ddl status 2023-04-16T12:03:42.361913
+status : CREATE TABLE
+23-04-16T12:03:42.352104
+_channelname_ : kitco
+_sequencename_ : kitco_transcript_sequence
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.352623
+s : drop table if exists kitco_transcript;
+INFO:pg_log:ddl status 2023-04-16T12:03:42.354187
+status : DROP TABLE
+INFO:pg_log:executing ddl 2023-04-16T12:03:42.354187
+s : create table kitco_transcript (channel_id int references channels(channel_id),
+vid_id int references kitco_channel(vid_id),
+transcript_id int primary key default nextval('kitco_transcript_sequence'),
+start_ms float,
+end_ms float,
+transcript varchar(10000),
+mod_ts timestamp default now ());
+INFO:pg_log:ddl status 2023-04-16T12:03:42.361913
+status : CREATE TABLE

@@ -1,0 +1,16 @@
+{
+    "params": {
+        "_select_":["_tablename_"],
+        "_create_table_channels_":["_sequencename_"]
+        ,"_create_table_channelname_":["_channelname_","_sequencename_"]
+        ,"_create_table_channel_transcript_":["_channelname_","_sequencename_"]
+        ,"_create_sequence_sequencename_":["_sequencename_"]
+        },
+    "_select_": "select * from _tablename_;"
+    ,"_create_table_channels_": "create table channels (channel_id int primary key default nextval('_sequencename_') ,title varchar(500),url varchar(1000),vid_ts timestamp,mod_ts timestamp default now () );"
+    ,"_create_table_channelname_": "create table _channelname__channel(channel_id int references channels(channel_id),vid_id int primary key default nextval('_sequencename_'), vid_title varchar(1000),vid_release_ts timestamp,mod_ts timestamp default now());"
+    ,"_create_table_channel_transcript_":"create table _channelname__transcript (channel_id int references channels(channel_id),vid_id int references _channelname__channel(vid_id),transcript_id int primary key default nextval('_sequencename_'),start_ms float,end_ms float,transcript varchar(10000),mod_ts timestamp default now ());"
+    ,"_create_sequence_sequencename_":"create sequence _sequencename_ start 1 increment 1 minvalue 1 NO MAXVALUE;"
+}
+
+

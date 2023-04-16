@@ -1,10 +1,20 @@
 from flask import Flask, render_template, request , jsonify
 import logging 
-logging.basicConfig(filename='log.log', level=logging.DEBUG, 
+logging.basicConfig(filename='./logs/flask.log', level=logging.DEBUG, 
                     format='%(asctime)s:%(levelname)s:%(message)s')
 
 
+class myclass:
+    def __init__(self) -> None:
+        self.channels={'item1':None,'item2':None,'item3':None}
+    
+    
+    
+
+
+
 app = Flask(__name__)
+c=myclass()
 
 @app.route('/')
 def index():
@@ -17,28 +27,14 @@ def index():
     return render_template('home.html', title=title, content1=content1, content2=content2, services=services, footer_text=footer_text,tab3_string=tab3_string)
 
 
-@app.route('/update-item', methods=['POST'])
-def update_item():
-    item = request.form.get('item')
-    checked = request.form.get('checked')
-    # Do something with the item and checked value
-    # ...
-    print(item)
-    print(checked)
-    checkbox_state = request.form.getlist('todo-list')
-    print(checkbox_state)
-    return jsonify({'status': 'success'})
-
-
 @app.route('/checklist', methods=['POST'])
 def checklist():
     data = request.json
     name = data['name']
     isChecked = data['isChecked']
-    print(f'{name} is checked: {isChecked}')
-    logging.log(logging.INFO, 'This is a custom debug message')
-    logging.log(logging.INFO, F'{name} : {isChecked}')
-    
+    c.channels[name]=isChecked
+    print(name, isChecked)
+    logging.log(logging.INFO, f'c channels : {c.channels}')
     return jsonify({'message': 'Success'})
 
 if __name__=='__main__':
