@@ -162,9 +162,12 @@ class mypg:
         return 
     
     def get_channels(self):
-        t=self.select('SELECT channel_name,url FROM CHANNELS',to_list=True)
-        print(t)
-        return t 
+        tups=self.select('SELECT channel_name,url FROM CHANNELS')
+        d={}
+        print(tups)
+        for t in tups:
+            d[t[0]]=t[1]
+        return d
 
     
 

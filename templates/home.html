@@ -52,10 +52,10 @@
           <h3>available channels</h3>
           <section>
             <ul id="checklist" style="list-style-type:none;">
-              {% for channel in channels %}
+              {% for channel,url in python_d_items(d)  %}
               <li>
                 <input type="checkbox" name="{{ channel }}" value="{{ channel }}">
-                <a href="http://www.google.com" target="_blank">{{ channel }}</a>
+                <a href="{{ url }}" target="_blank">{{ channel }}</a>
                 
               </li>
               {% endfor %}
@@ -74,7 +74,7 @@
       
         <div id="tab3" class="tabcontent">
           <h3>Tab 3 Content </h3>
-          <p> {{ tab3_string }}  </p>
+          <p>  bla bla  </p>
         </div>
       </section>
       
@@ -103,7 +103,7 @@
   </main>
 
   <footer>
-    <p>{{ footer_text }}</p>
+    <p>Copyright © 2023 My Website</p>
   </footer>
 
 </body>

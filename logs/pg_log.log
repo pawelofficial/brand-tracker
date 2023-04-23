@@ -1,6 +1,6 @@
-INFO:pg_log:logger setup pg_log 2023-04-23T13:48:49.407053
-INFO:pg_log:connecting to pg  2023-04-23T13:48:49.407053
-INFO:pg_log:creating curr object 2023-04-23T13:48:49.419418
-INFO:pg_log:executing select statement 2023-04-23T13:48:49.419918
+INFO:pg_log:logger setup pg_log 2023-04-23T14:25:22.169113
+INFO:pg_log:connecting to pg  2023-04-23T14:25:22.169113
+INFO:pg_log:creating curr object 2023-04-23T14:25:22.190882
+INFO:pg_log:executing select statement 2023-04-23T14:25:22.191299
 s : SELECT channel_name,url FROM CHANNELS
-INFO:pg_log:select fetched 3 rows 2023-04-23T13:48:49.421418
+INFO:pg_log:select fetched 3 rows 2023-04-23T14:25:22.193073

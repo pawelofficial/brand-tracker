@@ -48,14 +48,14 @@ def test__insert_into_a_channel(channel='kitco'):
 
 
 # inserts dummy stuff 
-def test__insert_dummy_data(channel='kitco',channel_id=1):
+def test__insert_dummy_data(channel='kitco',channel_id=1,url='dummy'):
     u=Utils()
     pg=mypg()
     # insert entry into channels 
-    q=f'INSERT INTO CHANNELS(CHANNEL_ID,CHANNEL_NAME,URL) VALUES({channel_id},\'{channel}\',\'https://www.youtube.com/@kitco\');'
+    q=f'INSERT INTO CHANNELS(CHANNEL_ID,CHANNEL_NAME,URL) VALUES({channel_id},\'{channel}\',\'{url}\');'
     pg.ddl(q)
     # insert entry into a channel 
-    url='https://www.youtube.com/watch?v=idldi7pvpNQ&ab_channel=KitcoNEWS'
+    url=url
     #yt_id=pg.utils.parse_yt_url(url=url)
     yt_id='TBD'
     q=f'INSERT INTO {channel}_channel( channel_id,vid_title,yt_id,yt_url ) values (1,\'test\', \'{yt_id}\',\'{url}\')'
@@ -82,7 +82,10 @@ def test__insert_dummy_data(channel='kitco',channel_id=1):
 if __name__=='__main__':
     test__create_or_replace_channels_table()
     test__create_or_replace_a_channel_tables(channel='kitco')
-#    test__create_or_replace_a_channel_tables(channel='tdlr')
-    test__insert_dummy_data(channel='kitco',channel_id=1)
-#    test__insert_dummy_data(channel='tdlr',channel_id=2)
-#
+    test__create_or_replace_a_channel_tables(channel='tdlr')
+    test__create_or_replace_a_channel_tables(channel='palisades')
+
+    test__insert_dummy_data(channel='kitco',channel_id=1,url='https://www.youtube.com/@kitco')
+    test__insert_dummy_data(channel='tdlr',channel_id=2,url='https://www.youtube.com/@TheDavidLinReport')
+    test__insert_dummy_data(channel='palisades',channel_id=3,url='https://www.youtube.com/@PalisadeRadio')
+
