@@ -43,14 +43,28 @@
 
     <section>
         <div class="tab">
-          <button class="tablinks active" onclick="openTab(event, 'tab1')">Tab 1</button>
+          <button class="tablinks active" onclick="openTab(event, 'tab1')">Channels</button>
           <button class="tablinks" onclick="openTab(event, 'tab2')">Tab 2</button>
           <button class="tablinks" onclick="openTab(event, 'tab3')">Tab 3</button>
         </div>
         
         <div id="tab1" class="tabcontent", style="display:block;">
-          <h3>Tab 1 Content</h3>
-          <p>This is the content for Tab 1.</p>
+          <h3>available channels</h3>
+          <section>
+            <ul id="checklist" style="list-style-type:none;">
+              {% for channel in channels %}
+              <li>
+                <input type="checkbox" name="{{ channel }}" value="{{ channel }}">
+                <a href="http://www.google.com" target="_blank">{{ channel }}</a>
+                
+              </li>
+              {% endfor %}
+            </ul>
+          </section>
+          <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>
+
+          
+
         </div>
       
         <div id="tab2" class="tabcontent">
@@ -82,16 +96,6 @@
       </script>
 
 <!-- index.html -->
-<section>
-    <h2>Checklist</h2>
-    <ul id="checklist">
-      <li><input type="checkbox" name="item1" value="Item 1"> Item 1</li>
-      <li><input type="checkbox" name="item2" value="Item 2"> Item 2</li>
-      <li><input type="checkbox" name="item3" value="Item 3"> Item 3</li>
-    </ul>
-  </section>
-  
-  <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>
   
 
 

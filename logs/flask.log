@@ -142,3 +142,859 @@
 2023-04-15 14:41:21,607:WARNING: * Debugger is active!
 2023-04-15 14:41:21,614:INFO: * Debugger PIN: 141-355-768
 2023-04-15 14:41:21,637:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:45:14,248:INFO: * Restarting with stat
+2023-04-23 12:45:14,560:WARNING: * Debugger is active!
+2023-04-23 12:45:14,569:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:45:14,589:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:45:17,252:INFO:127.0.0.1 - - [23/Apr/2023 12:45:17] "GET / HTTP/1.1" 200 -
+2023-04-23 12:45:17,268:INFO:127.0.0.1 - - [23/Apr/2023 12:45:17] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:45:17,273:INFO:127.0.0.1 - - [23/Apr/2023 12:45:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:45:17,278:INFO:127.0.0.1 - - [23/Apr/2023 12:45:17] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:45:21,529:INFO:127.0.0.1 - - [23/Apr/2023 12:45:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2023-04-23 12:46:01,379:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 12:46:01,410:INFO: * Restarting with stat
+2023-04-23 12:46:01,716:WARNING: * Debugger is active!
+2023-04-23 12:46:01,723:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:46:01,742:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:46:14,932:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 12:46:14,960:INFO: * Restarting with stat
+2023-04-23 12:46:15,276:WARNING: * Debugger is active!
+2023-04-23 12:46:15,276:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:46:15,303:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:46:22,386:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 12:46:22,406:INFO: * Restarting with stat
+2023-04-23 12:46:56,761:INFO:logger setup pg_log 2023-04-23T12:46:56.761530
+2023-04-23 12:46:56,761:INFO:connecting to pg  2023-04-23T12:46:56.761530
+2023-04-23 12:46:56,772:INFO:creating curr object 2023-04-23T12:46:56.772713
+2023-04-23 12:49:13,321:INFO:logger setup pg_log 2023-04-23T12:49:13.321334
+2023-04-23 12:49:13,321:INFO:connecting to pg  2023-04-23T12:49:13.321334
+2023-04-23 12:49:13,337:INFO:creating curr object 2023-04-23T12:49:13.337986
+2023-04-23 12:49:30,257:INFO:logger setup pg_log 2023-04-23T12:49:30.257327
+2023-04-23 12:49:30,257:INFO:connecting to pg  2023-04-23T12:49:30.257327
+2023-04-23 12:49:30,271:INFO:creating curr object 2023-04-23T12:49:30.271964
+2023-04-23 12:49:30,272:INFO:executing select statement 2023-04-23T12:49:30.272464
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:49:30,273:INFO:select fetched 1 rows 2023-04-23T12:49:30.273465
+2023-04-23 12:49:40,936:INFO:logger setup pg_log 2023-04-23T12:49:40.936475
+2023-04-23 12:49:40,936:INFO:connecting to pg  2023-04-23T12:49:40.936475
+2023-04-23 12:49:40,947:INFO:creating curr object 2023-04-23T12:49:40.947851
+2023-04-23 12:49:40,948:INFO:executing select statement 2023-04-23T12:49:40.948393
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:49:40,949:INFO:select fetched 1 rows 2023-04-23T12:49:40.949887
+2023-04-23 12:49:40,965:INFO: * Restarting with stat
+2023-04-23 12:49:41,619:INFO:logger setup pg_log 2023-04-23T12:49:41.619959
+2023-04-23 12:49:41,619:INFO:connecting to pg  2023-04-23T12:49:41.619959
+2023-04-23 12:49:41,631:INFO:creating curr object 2023-04-23T12:49:41.631768
+2023-04-23 12:49:41,631:INFO:executing select statement 2023-04-23T12:49:41.631768
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:49:41,634:INFO:select fetched 1 rows 2023-04-23T12:49:41.634441
+2023-04-23 12:49:41,643:WARNING: * Debugger is active!
+2023-04-23 12:49:41,649:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:49:41,685:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:49:43,974:INFO:127.0.0.1 - - [23/Apr/2023 12:49:43] "GET / HTTP/1.1" 200 -
+2023-04-23 12:49:43,991:INFO:127.0.0.1 - - [23/Apr/2023 12:49:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:49:43,991:INFO:127.0.0.1 - - [23/Apr/2023 12:49:43] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:49:43,993:INFO:127.0.0.1 - - [23/Apr/2023 12:49:43] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:49:44,840:INFO:127.0.0.1 - - [23/Apr/2023 12:49:44] "GET / HTTP/1.1" 200 -
+2023-04-23 12:49:44,853:INFO:127.0.0.1 - - [23/Apr/2023 12:49:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:49:44,853:INFO:127.0.0.1 - - [23/Apr/2023 12:49:44] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:49:44,873:INFO:127.0.0.1 - - [23/Apr/2023 12:49:44] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:49:45,043:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "GET / HTTP/1.1" 200 -
+2023-04-23 12:49:45,056:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:49:45,058:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:49:45,080:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:49:45,501:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "GET / HTTP/1.1" 200 -
+2023-04-23 12:49:45,513:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:49:45,514:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:49:45,535:INFO:127.0.0.1 - - [23/Apr/2023 12:49:45] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:49:49,423:INFO:c channels : {'kitco': None, 'item1': True}
+2023-04-23 12:49:49,423:INFO:127.0.0.1 - - [23/Apr/2023 12:49:49] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:49:51,206:INFO:c channels : {'kitco': None, 'item1': True, 'item2': True}
+2023-04-23 12:49:51,207:INFO:127.0.0.1 - - [23/Apr/2023 12:49:51] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:49:51,740:INFO:c channels : {'kitco': None, 'item1': True, 'item2': True, 'item3': True}
+2023-04-23 12:49:51,740:INFO:127.0.0.1 - - [23/Apr/2023 12:49:51] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:57:16,599:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 12:57:16,665:INFO: * Restarting with stat
+2023-04-23 12:57:30,229:INFO:logger setup pg_log 2023-04-23T12:57:30.229573
+2023-04-23 12:57:30,229:INFO:connecting to pg  2023-04-23T12:57:30.229573
+2023-04-23 12:57:30,255:INFO:creating curr object 2023-04-23T12:57:30.255510
+2023-04-23 12:57:30,256:INFO:executing select statement 2023-04-23T12:57:30.256021
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:57:30,257:INFO:select fetched 1 rows 2023-04-23T12:57:30.257583
+2023-04-23 12:57:30,272:INFO: * Restarting with stat
+2023-04-23 12:57:30,900:INFO:logger setup pg_log 2023-04-23T12:57:30.900339
+2023-04-23 12:57:30,900:INFO:connecting to pg  2023-04-23T12:57:30.900339
+2023-04-23 12:57:30,922:INFO:creating curr object 2023-04-23T12:57:30.922908
+2023-04-23 12:57:30,923:INFO:executing select statement 2023-04-23T12:57:30.923447
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:57:30,924:INFO:select fetched 1 rows 2023-04-23T12:57:30.924486
+2023-04-23 12:57:30,934:WARNING: * Debugger is active!
+2023-04-23 12:57:30,936:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:57:30,975:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:57:34,565:INFO:127.0.0.1 - - [23/Apr/2023 12:57:34] "GET / HTTP/1.1" 200 -
+2023-04-23 12:57:34,577:INFO:127.0.0.1 - - [23/Apr/2023 12:57:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:57:34,579:INFO:127.0.0.1 - - [23/Apr/2023 12:57:34] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:57:34,601:INFO:127.0.0.1 - - [23/Apr/2023 12:57:34] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:57:37,112:INFO:c channels : {'kitco': None, 'a': True}
+2023-04-23 12:57:37,112:INFO:127.0.0.1 - - [23/Apr/2023 12:57:37] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:57:38,162:INFO:c channels : {'kitco': None, 'a': True, 'b': True}
+2023-04-23 12:57:38,162:INFO:127.0.0.1 - - [23/Apr/2023 12:57:38] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:57:40,210:INFO:c channels : {'kitco': None, 'a': True, 'b': True, 'c': True}
+2023-04-23 12:57:40,210:INFO:127.0.0.1 - - [23/Apr/2023 12:57:40] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:57:56,000:INFO:logger setup pg_log 2023-04-23T12:57:56.000782
+2023-04-23 12:57:56,000:INFO:connecting to pg  2023-04-23T12:57:56.000782
+2023-04-23 12:57:56,026:INFO:creating curr object 2023-04-23T12:57:56.026803
+2023-04-23 12:57:56,027:INFO:executing select statement 2023-04-23T12:57:56.027368
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:57:56,028:INFO:select fetched 1 rows 2023-04-23T12:57:56.028405
+2023-04-23 12:57:56,042:INFO: * Restarting with stat
+2023-04-23 12:57:56,670:INFO:logger setup pg_log 2023-04-23T12:57:56.670415
+2023-04-23 12:57:56,670:INFO:connecting to pg  2023-04-23T12:57:56.670415
+2023-04-23 12:57:56,695:INFO:creating curr object 2023-04-23T12:57:56.695711
+2023-04-23 12:57:56,696:INFO:executing select statement 2023-04-23T12:57:56.696209
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:57:56,697:INFO:select fetched 1 rows 2023-04-23T12:57:56.697709
+2023-04-23 12:57:56,708:WARNING: * Debugger is active!
+2023-04-23 12:57:56,713:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:57:56,750:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:57:58,449:INFO:127.0.0.1 - - [23/Apr/2023 12:57:58] "GET / HTTP/1.1" 200 -
+2023-04-23 12:57:58,461:INFO:127.0.0.1 - - [23/Apr/2023 12:57:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:57:58,463:INFO:127.0.0.1 - - [23/Apr/2023 12:57:58] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:57:58,486:INFO:127.0.0.1 - - [23/Apr/2023 12:57:58] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:57:59,912:INFO:c channels : {'kitco': True}
+2023-04-23 12:57:59,912:INFO:127.0.0.1 - - [23/Apr/2023 12:57:59] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:58:25,753:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 12:58:25,822:INFO: * Restarting with stat
+2023-04-23 12:58:26,577:INFO:logger setup pg_log 2023-04-23T12:58:26.577402
+2023-04-23 12:58:26,577:INFO:connecting to pg  2023-04-23T12:58:26.577402
+2023-04-23 12:58:26,589:INFO:creating curr object 2023-04-23T12:58:26.589814
+2023-04-23 12:58:26,590:INFO:executing select statement 2023-04-23T12:58:26.590217
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:58:26,592:INFO:select fetched 1 rows 2023-04-23T12:58:26.592241
+2023-04-23 12:58:26,601:WARNING: * Debugger is active!
+2023-04-23 12:58:26,606:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:58:26,646:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:58:27,243:INFO:c channels : {'kitco': False}
+2023-04-23 12:58:27,244:INFO:127.0.0.1 - - [23/Apr/2023 12:58:27] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:58:28,841:INFO:c channels : {'kitco': True}
+2023-04-23 12:58:28,841:INFO:127.0.0.1 - - [23/Apr/2023 12:58:28] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:58:29,591:INFO:c channels : {'kitco': False}
+2023-04-23 12:58:29,591:INFO:127.0.0.1 - - [23/Apr/2023 12:58:29] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:58:30,191:INFO:c channels : {'kitco': True}
+2023-04-23 12:58:30,191:INFO:127.0.0.1 - - [23/Apr/2023 12:58:30] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:58:30,701:INFO:c channels : {'kitco': False}
+2023-04-23 12:58:30,701:INFO:127.0.0.1 - - [23/Apr/2023 12:58:30] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:58:31,540:INFO:c channels : {'kitco': True}
+2023-04-23 12:58:31,541:INFO:127.0.0.1 - - [23/Apr/2023 12:58:31] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:58:44,614:INFO:127.0.0.1 - - [23/Apr/2023 12:58:44] "GET / HTTP/1.1" 200 -
+2023-04-23 12:58:44,628:INFO:127.0.0.1 - - [23/Apr/2023 12:58:44] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:58:44,629:INFO:127.0.0.1 - - [23/Apr/2023 12:58:44] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:58:44,630:INFO:127.0.0.1 - - [23/Apr/2023 12:58:44] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:59:30,785:INFO:127.0.0.1 - - [23/Apr/2023 12:59:30] "GET / HTTP/1.1" 200 -
+2023-04-23 12:59:30,796:INFO:127.0.0.1 - - [23/Apr/2023 12:59:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:59:30,799:INFO:127.0.0.1 - - [23/Apr/2023 12:59:30] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:59:30,820:INFO:127.0.0.1 - - [23/Apr/2023 12:59:30] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:59:32,375:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "GET / HTTP/1.1" 200 -
+2023-04-23 12:59:32,387:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:59:32,389:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:59:32,413:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:59:32,668:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "GET / HTTP/1.1" 200 -
+2023-04-23 12:59:32,677:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:59:32,680:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:59:32,684:INFO:127.0.0.1 - - [23/Apr/2023 12:59:32] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:59:33,232:INFO:127.0.0.1 - - [23/Apr/2023 12:59:33] "GET / HTTP/1.1" 200 -
+2023-04-23 12:59:33,248:INFO:127.0.0.1 - - [23/Apr/2023 12:59:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:59:33,249:INFO:127.0.0.1 - - [23/Apr/2023 12:59:33] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:59:33,255:INFO:127.0.0.1 - - [23/Apr/2023 12:59:33] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:59:37,138:INFO:logger setup pg_log 2023-04-23T12:59:37.138071
+2023-04-23 12:59:37,138:INFO:connecting to pg  2023-04-23T12:59:37.138071
+2023-04-23 12:59:37,161:INFO:creating curr object 2023-04-23T12:59:37.161995
+2023-04-23 12:59:37,162:INFO:executing select statement 2023-04-23T12:59:37.162549
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:59:37,164:INFO:select fetched 3 rows 2023-04-23T12:59:37.164124
+2023-04-23 12:59:37,177:INFO: * Restarting with stat
+2023-04-23 12:59:37,841:INFO:logger setup pg_log 2023-04-23T12:59:37.841369
+2023-04-23 12:59:37,841:INFO:connecting to pg  2023-04-23T12:59:37.841369
+2023-04-23 12:59:37,866:INFO:creating curr object 2023-04-23T12:59:37.866089
+2023-04-23 12:59:37,866:INFO:executing select statement 2023-04-23T12:59:37.866589
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:59:37,868:INFO:select fetched 3 rows 2023-04-23T12:59:37.868589
+2023-04-23 12:59:37,878:WARNING: * Debugger is active!
+2023-04-23 12:59:37,883:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:59:37,943:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 12:59:39,879:INFO:127.0.0.1 - - [23/Apr/2023 12:59:39] "GET / HTTP/1.1" 200 -
+2023-04-23 12:59:39,895:INFO:127.0.0.1 - - [23/Apr/2023 12:59:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 12:59:39,896:INFO:127.0.0.1 - - [23/Apr/2023 12:59:39] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 12:59:39,919:INFO:127.0.0.1 - - [23/Apr/2023 12:59:39] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 12:59:41,674:INFO:c channels : {'kitco': True, 'tdlr': None, 'palisades': None}
+2023-04-23 12:59:41,675:INFO:127.0.0.1 - - [23/Apr/2023 12:59:41] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:59:43,901:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': None}
+2023-04-23 12:59:43,902:INFO:127.0.0.1 - - [23/Apr/2023 12:59:43] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:59:46,167:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': True}
+2023-04-23 12:59:46,168:INFO:127.0.0.1 - - [23/Apr/2023 12:59:46] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 12:59:57,612:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 12:59:57,682:INFO: * Restarting with stat
+2023-04-23 12:59:58,385:INFO:logger setup pg_log 2023-04-23T12:59:58.385755
+2023-04-23 12:59:58,385:INFO:connecting to pg  2023-04-23T12:59:58.385755
+2023-04-23 12:59:58,396:INFO:creating curr object 2023-04-23T12:59:58.396943
+2023-04-23 12:59:58,397:INFO:executing select statement 2023-04-23T12:59:58.397422
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 12:59:58,398:INFO:select fetched 3 rows 2023-04-23T12:59:58.398923
+2023-04-23 12:59:58,408:WARNING: * Debugger is active!
+2023-04-23 12:59:58,413:INFO: * Debugger PIN: 141-355-768
+2023-04-23 12:59:58,451:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:00:19,023:INFO:c channels : {'kitco': False, 'tdlr': None, 'palisades': None}
+2023-04-23 13:00:19,023:INFO:127.0.0.1 - - [23/Apr/2023 13:00:19] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:00:26,109:INFO:c channels : {'kitco': False, 'tdlr': False, 'palisades': None}
+2023-04-23 13:00:26,110:INFO:127.0.0.1 - - [23/Apr/2023 13:00:26] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:00:26,448:INFO:c channels : {'kitco': False, 'tdlr': False, 'palisades': False}
+2023-04-23 13:00:26,448:INFO:127.0.0.1 - - [23/Apr/2023 13:00:26] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:00:33,273:INFO:c channels : {'kitco': False, 'tdlr': False, 'palisades': True}
+2023-04-23 13:00:33,274:INFO:127.0.0.1 - - [23/Apr/2023 13:00:33] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:00:37,068:INFO:c channels : {'kitco': False, 'tdlr': True, 'palisades': True}
+2023-04-23 13:00:37,068:INFO:127.0.0.1 - - [23/Apr/2023 13:00:37] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:00:49,312:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:00:49,383:INFO: * Restarting with stat
+2023-04-23 13:08:41,952:INFO:logger setup pg_log 2023-04-23T13:08:41.952132
+2023-04-23 13:08:41,953:INFO:connecting to pg  2023-04-23T13:08:41.953153
+2023-04-23 13:08:41,965:INFO:creating curr object 2023-04-23T13:08:41.965074
+2023-04-23 13:08:41,965:INFO:executing select statement 2023-04-23T13:08:41.965660
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:08:41,967:INFO:select fetched 3 rows 2023-04-23T13:08:41.967226
+2023-04-23 13:08:41,981:INFO: * Restarting with stat
+2023-04-23 13:08:42,693:INFO:logger setup pg_log 2023-04-23T13:08:42.693788
+2023-04-23 13:08:42,693:INFO:connecting to pg  2023-04-23T13:08:42.693788
+2023-04-23 13:08:42,705:INFO:creating curr object 2023-04-23T13:08:42.705695
+2023-04-23 13:08:42,706:INFO:executing select statement 2023-04-23T13:08:42.706192
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:08:42,707:INFO:select fetched 3 rows 2023-04-23T13:08:42.707696
+2023-04-23 13:08:42,716:WARNING: * Debugger is active!
+2023-04-23 13:08:42,722:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:08:42,762:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:08:42,772:INFO:127.0.0.1 - - [23/Apr/2023 13:08:42] "GET / HTTP/1.1" 200 -
+2023-04-23 13:08:42,792:INFO:127.0.0.1 - - [23/Apr/2023 13:08:42] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:08:42,888:INFO:127.0.0.1 - - [23/Apr/2023 13:08:42] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:08:43,030:INFO:127.0.0.1 - - [23/Apr/2023 13:08:43] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:08:45,677:INFO:c channels : {'kitco': True, 'tdlr': False, 'palisades': False}
+2023-04-23 13:08:45,678:INFO:127.0.0.1 - - [23/Apr/2023 13:08:45] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:08:46,031:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': False}
+2023-04-23 13:08:46,032:INFO:127.0.0.1 - - [23/Apr/2023 13:08:46] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:08:46,361:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': True}
+2023-04-23 13:08:46,361:INFO:127.0.0.1 - - [23/Apr/2023 13:08:46] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:09:31,008:INFO:127.0.0.1 - - [23/Apr/2023 13:09:31] "GET / HTTP/1.1" 200 -
+2023-04-23 13:09:31,020:INFO:127.0.0.1 - - [23/Apr/2023 13:09:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:09:31,021:INFO:127.0.0.1 - - [23/Apr/2023 13:09:31] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:09:31,023:INFO:127.0.0.1 - - [23/Apr/2023 13:09:31] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:11:05,672:INFO:logger setup pg_log 2023-04-23T13:11:05.672904
+2023-04-23 13:11:05,672:INFO:connecting to pg  2023-04-23T13:11:05.672904
+2023-04-23 13:11:05,697:INFO:creating curr object 2023-04-23T13:11:05.697480
+2023-04-23 13:11:05,697:INFO:executing select statement 2023-04-23T13:11:05.697978
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:11:05,699:INFO:select fetched 3 rows 2023-04-23T13:11:05.699479
+2023-04-23 13:11:05,713:INFO: * Restarting with stat
+2023-04-23 13:11:06,381:INFO:logger setup pg_log 2023-04-23T13:11:06.381408
+2023-04-23 13:11:06,381:INFO:connecting to pg  2023-04-23T13:11:06.381408
+2023-04-23 13:11:06,392:INFO:creating curr object 2023-04-23T13:11:06.392739
+2023-04-23 13:11:06,393:INFO:executing select statement 2023-04-23T13:11:06.393254
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:11:06,394:INFO:select fetched 3 rows 2023-04-23T13:11:06.394740
+2023-04-23 13:11:06,403:WARNING: * Debugger is active!
+2023-04-23 13:11:06,409:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:11:06,448:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:11:10,702:INFO:127.0.0.1 - - [23/Apr/2023 13:11:10] "GET / HTTP/1.1" 200 -
+2023-04-23 13:11:10,714:INFO:127.0.0.1 - - [23/Apr/2023 13:11:10] "GET /static/style.css HTTP/1.1" 200 -
+2023-04-23 13:11:10,715:INFO:127.0.0.1 - - [23/Apr/2023 13:11:10] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:11:10,736:INFO:127.0.0.1 - - [23/Apr/2023 13:11:10] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:13:28,129:INFO:127.0.0.1 - - [23/Apr/2023 13:13:28] "GET / HTTP/1.1" 200 -
+2023-04-23 13:13:28,143:INFO:127.0.0.1 - - [23/Apr/2023 13:13:28] "GET /static/style.css HTTP/1.1" 200 -
+2023-04-23 13:13:28,144:INFO:127.0.0.1 - - [23/Apr/2023 13:13:28] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:13:28,165:INFO:127.0.0.1 - - [23/Apr/2023 13:13:28] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:13:30,187:INFO:c channels : {'kitco': True, 'tdlr': False, 'palisades': False}
+2023-04-23 13:13:30,187:INFO:127.0.0.1 - - [23/Apr/2023 13:13:30] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:13:30,479:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': False}
+2023-04-23 13:13:30,480:INFO:127.0.0.1 - - [23/Apr/2023 13:13:30] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:13:30,779:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': True}
+2023-04-23 13:13:30,780:INFO:127.0.0.1 - - [23/Apr/2023 13:13:30] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:13:43,444:INFO:127.0.0.1 - - [23/Apr/2023 13:13:43] "GET / HTTP/1.1" 200 -
+2023-04-23 13:13:43,455:INFO:127.0.0.1 - - [23/Apr/2023 13:13:43] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:13:43,457:INFO:127.0.0.1 - - [23/Apr/2023 13:13:43] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:13:43,481:INFO:127.0.0.1 - - [23/Apr/2023 13:13:43] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:13:50,171:INFO:logger setup pg_log 2023-04-23T13:13:50.171844
+2023-04-23 13:13:50,171:INFO:connecting to pg  2023-04-23T13:13:50.171844
+2023-04-23 13:13:50,190:INFO:creating curr object 2023-04-23T13:13:50.190341
+2023-04-23 13:13:50,190:INFO:executing select statement 2023-04-23T13:13:50.190341
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:13:50,191:INFO:select fetched 3 rows 2023-04-23T13:13:50.191926
+2023-04-23 13:13:50,206:INFO: * Restarting with stat
+2023-04-23 13:13:50,917:INFO:logger setup pg_log 2023-04-23T13:13:50.917151
+2023-04-23 13:13:50,917:INFO:connecting to pg  2023-04-23T13:13:50.917151
+2023-04-23 13:13:50,928:INFO:creating curr object 2023-04-23T13:13:50.928224
+2023-04-23 13:13:50,928:INFO:executing select statement 2023-04-23T13:13:50.928725
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:13:50,930:INFO:select fetched 3 rows 2023-04-23T13:13:50.930248
+2023-04-23 13:13:50,940:WARNING: * Debugger is active!
+2023-04-23 13:13:50,946:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:13:50,984:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:14:18,876:INFO:logger setup pg_log 2023-04-23T13:14:18.876403
+2023-04-23 13:14:18,876:INFO:connecting to pg  2023-04-23T13:14:18.876403
+2023-04-23 13:14:18,891:INFO:creating curr object 2023-04-23T13:14:18.891982
+2023-04-23 13:14:18,892:INFO:executing select statement 2023-04-23T13:14:18.892485
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:14:18,893:INFO:select fetched 3 rows 2023-04-23T13:14:18.893982
+2023-04-23 13:14:18,903:INFO: * Restarting with stat
+2023-04-23 13:14:19,562:INFO:logger setup pg_log 2023-04-23T13:14:19.562181
+2023-04-23 13:14:19,562:INFO:connecting to pg  2023-04-23T13:14:19.562766
+2023-04-23 13:14:19,589:INFO:creating curr object 2023-04-23T13:14:19.589194
+2023-04-23 13:14:19,589:INFO:executing select statement 2023-04-23T13:14:19.589697
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:14:19,591:INFO:select fetched 3 rows 2023-04-23T13:14:19.591195
+2023-04-23 13:14:19,600:WARNING: * Debugger is active!
+2023-04-23 13:14:19,602:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:14:19,642:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:14:21,076:INFO:127.0.0.1 - - [23/Apr/2023 13:14:21] "GET / HTTP/1.1" 200 -
+2023-04-23 13:14:21,088:INFO:127.0.0.1 - - [23/Apr/2023 13:14:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:14:21,089:INFO:127.0.0.1 - - [23/Apr/2023 13:14:21] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:14:21,113:INFO:127.0.0.1 - - [23/Apr/2023 13:14:21] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:16:43,341:INFO:c channels : {'kitco': True, 'tdlr': False, 'palisades': False}
+2023-04-23 13:16:43,341:INFO:127.0.0.1 - - [23/Apr/2023 13:16:43] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:16:44,021:INFO:c channels : {'kitco': True, 'tdlr': False, 'palisades': True}
+2023-04-23 13:16:44,022:INFO:127.0.0.1 - - [23/Apr/2023 13:16:44] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:16:44,314:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': True}
+2023-04-23 13:16:44,314:INFO:127.0.0.1 - - [23/Apr/2023 13:16:44] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:25:53,153:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:25:53,215:INFO: * Restarting with stat
+2023-04-23 13:25:53,905:INFO:logger setup pg_log 2023-04-23T13:25:53.905716
+2023-04-23 13:25:53,905:INFO:connecting to pg  2023-04-23T13:25:53.905716
+2023-04-23 13:25:53,917:INFO:creating curr object 2023-04-23T13:25:53.917812
+2023-04-23 13:25:53,918:INFO:executing select statement 2023-04-23T13:25:53.918335
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:25:53,920:INFO:select fetched 3 rows 2023-04-23T13:25:53.920311
+2023-04-23 13:25:53,929:WARNING: * Debugger is active!
+2023-04-23 13:25:53,935:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:25:53,971:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:27:12,606:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:27:12,665:INFO: * Restarting with stat
+2023-04-23 13:27:13,336:INFO:logger setup pg_log 2023-04-23T13:27:13.336342
+2023-04-23 13:27:13,336:INFO:connecting to pg  2023-04-23T13:27:13.336342
+2023-04-23 13:27:13,348:INFO:creating curr object 2023-04-23T13:27:13.348850
+2023-04-23 13:27:13,349:INFO:executing select statement 2023-04-23T13:27:13.349348
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:27:13,350:INFO:select fetched 3 rows 2023-04-23T13:27:13.350851
+2023-04-23 13:27:13,390:WARNING: * Debugger is active!
+2023-04-23 13:27:13,399:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:27:13,439:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:27:59,101:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:27:59,162:INFO: * Restarting with stat
+2023-04-23 13:27:59,859:INFO:logger setup pg_log 2023-04-23T13:27:59.859614
+2023-04-23 13:27:59,860:INFO:connecting to pg  2023-04-23T13:27:59.860113
+2023-04-23 13:27:59,872:INFO:creating curr object 2023-04-23T13:27:59.872352
+2023-04-23 13:27:59,872:INFO:executing select statement 2023-04-23T13:27:59.872873
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:27:59,874:INFO:select fetched 3 rows 2023-04-23T13:27:59.874432
+2023-04-23 13:27:59,885:WARNING: * Debugger is active!
+2023-04-23 13:27:59,890:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:27:59,930:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:28:02,338:INFO:logger setup pg_log 2023-04-23T13:28:02.338845
+2023-04-23 13:28:02,338:INFO:connecting to pg  2023-04-23T13:28:02.338845
+2023-04-23 13:28:02,363:INFO:creating curr object 2023-04-23T13:28:02.363826
+2023-04-23 13:28:02,364:INFO:executing select statement 2023-04-23T13:28:02.364341
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:28:02,365:INFO:select fetched 3 rows 2023-04-23T13:28:02.365878
+2023-04-23 13:28:02,379:INFO: * Restarting with stat
+2023-04-23 13:28:03,038:INFO:logger setup pg_log 2023-04-23T13:28:03.038083
+2023-04-23 13:28:03,038:INFO:connecting to pg  2023-04-23T13:28:03.038750
+2023-04-23 13:28:03,049:INFO:creating curr object 2023-04-23T13:28:03.049604
+2023-04-23 13:28:03,050:INFO:executing select statement 2023-04-23T13:28:03.050123
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:28:03,051:INFO:select fetched 3 rows 2023-04-23T13:28:03.051675
+2023-04-23 13:28:03,061:WARNING: * Debugger is active!
+2023-04-23 13:28:03,065:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:28:03,101:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:28:05,003:INFO:127.0.0.1 - - [23/Apr/2023 13:28:05] "GET / HTTP/1.1" 200 -
+2023-04-23 13:28:05,017:INFO:127.0.0.1 - - [23/Apr/2023 13:28:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:28:05,020:INFO:127.0.0.1 - - [23/Apr/2023 13:28:05] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:28:05,044:INFO:127.0.0.1 - - [23/Apr/2023 13:28:05] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:28:26,974:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:28:27,047:INFO: * Restarting with stat
+2023-04-23 13:28:27,774:INFO:logger setup pg_log 2023-04-23T13:28:27.774476
+2023-04-23 13:28:27,774:INFO:connecting to pg  2023-04-23T13:28:27.774476
+2023-04-23 13:28:27,787:INFO:creating curr object 2023-04-23T13:28:27.787128
+2023-04-23 13:28:27,787:INFO:executing select statement 2023-04-23T13:28:27.787627
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:28:27,789:INFO:select fetched 3 rows 2023-04-23T13:28:27.789143
+2023-04-23 13:28:27,797:WARNING: * Debugger is active!
+2023-04-23 13:28:27,803:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:28:27,843:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:28:29,937:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:28:30,001:INFO: * Restarting with stat
+2023-04-23 13:29:01,470:INFO:logger setup pg_log 2023-04-23T13:29:01.470251
+2023-04-23 13:29:01,470:INFO:connecting to pg  2023-04-23T13:29:01.470251
+2023-04-23 13:29:01,493:INFO:creating curr object 2023-04-23T13:29:01.493985
+2023-04-23 13:29:01,494:INFO:executing select statement 2023-04-23T13:29:01.494530
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:29:01,495:INFO:select fetched 3 rows 2023-04-23T13:29:01.495569
+2023-04-23 13:29:01,510:INFO: * Restarting with stat
+2023-04-23 13:29:02,166:INFO:logger setup pg_log 2023-04-23T13:29:02.166630
+2023-04-23 13:29:02,166:INFO:connecting to pg  2023-04-23T13:29:02.166630
+2023-04-23 13:29:02,190:INFO:creating curr object 2023-04-23T13:29:02.190853
+2023-04-23 13:29:02,191:INFO:executing select statement 2023-04-23T13:29:02.191402
+s : SELECT CHANNEL_NAME FROM CHANNELS
+2023-04-23 13:29:02,192:INFO:select fetched 3 rows 2023-04-23T13:29:02.192453
+2023-04-23 13:29:02,202:WARNING: * Debugger is active!
+2023-04-23 13:29:02,208:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:29:02,243:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:29:03,825:INFO:127.0.0.1 - - [23/Apr/2023 13:29:03] "GET / HTTP/1.1" 200 -
+2023-04-23 13:29:03,837:INFO:127.0.0.1 - - [23/Apr/2023 13:29:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:29:03,840:INFO:127.0.0.1 - - [23/Apr/2023 13:29:03] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:29:03,863:INFO:127.0.0.1 - - [23/Apr/2023 13:29:03] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:29:04,419:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "GET / HTTP/1.1" 200 -
+2023-04-23 13:29:04,435:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:29:04,436:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:29:04,456:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:29:04,840:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "GET / HTTP/1.1" 200 -
+2023-04-23 13:29:04,853:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:29:04,854:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:29:04,877:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:29:04,995:INFO:127.0.0.1 - - [23/Apr/2023 13:29:04] "GET / HTTP/1.1" 200 -
+2023-04-23 13:29:05,009:INFO:127.0.0.1 - - [23/Apr/2023 13:29:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:29:05,011:INFO:127.0.0.1 - - [23/Apr/2023 13:29:05] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:29:05,033:INFO:127.0.0.1 - - [23/Apr/2023 13:29:05] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:29:05,176:INFO:127.0.0.1 - - [23/Apr/2023 13:29:05] "GET / HTTP/1.1" 200 -
+2023-04-23 13:29:05,190:INFO:127.0.0.1 - - [23/Apr/2023 13:29:05] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:29:05,190:INFO:127.0.0.1 - - [23/Apr/2023 13:29:05] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:29:05,211:INFO:127.0.0.1 - - [23/Apr/2023 13:29:05] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:29:47,766:INFO:127.0.0.1 - - [23/Apr/2023 13:29:47] "GET / HTTP/1.1" 200 -
+2023-04-23 13:29:47,777:INFO:127.0.0.1 - - [23/Apr/2023 13:29:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:29:47,778:INFO:127.0.0.1 - - [23/Apr/2023 13:29:47] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:29:47,801:INFO:127.0.0.1 - - [23/Apr/2023 13:29:47] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:30:15,863:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\mypg.py', reloading
+2023-04-23 13:30:15,934:INFO: * Restarting with stat
+2023-04-23 13:30:16,659:INFO:logger setup pg_log 2023-04-23T13:30:16.659794
+2023-04-23 13:30:16,659:INFO:connecting to pg  2023-04-23T13:30:16.659794
+2023-04-23 13:30:16,672:INFO:creating curr object 2023-04-23T13:30:16.672255
+2023-04-23 13:30:16,672:INFO:executing select statement 2023-04-23T13:30:16.672751
+s : SELECT CHANNEL_NAME,url FROM CHANNELS
+2023-04-23 13:30:16,674:INFO:select fetched 3 rows 2023-04-23T13:30:16.674271
+2023-04-23 13:30:16,684:WARNING: * Debugger is active!
+2023-04-23 13:30:16,690:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:30:16,732:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:30:32,391:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\mypg.py', reloading
+2023-04-23 13:30:32,460:INFO: * Restarting with stat
+2023-04-23 13:30:33,186:INFO:logger setup pg_log 2023-04-23T13:30:33.186298
+2023-04-23 13:30:33,186:INFO:connecting to pg  2023-04-23T13:30:33.186298
+2023-04-23 13:30:33,202:INFO:creating curr object 2023-04-23T13:30:33.202689
+2023-04-23 13:30:33,203:INFO:executing select statement 2023-04-23T13:30:33.203202
+s : SELECT CHANNEL_NAME,url FROM CHANNELS
+2023-04-23 13:30:33,204:INFO:select fetched 3 rows 2023-04-23T13:30:33.204688
+2023-04-23 13:30:33,213:WARNING: * Debugger is active!
+2023-04-23 13:30:33,219:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:30:33,257:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:31:25,270:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\mypg.py', reloading
+2023-04-23 13:31:25,338:INFO: * Restarting with stat
+2023-04-23 13:31:26,015:INFO:logger setup pg_log 2023-04-23T13:31:26.015549
+2023-04-23 13:31:26,015:INFO:connecting to pg  2023-04-23T13:31:26.015549
+2023-04-23 13:31:26,027:INFO:creating curr object 2023-04-23T13:31:26.027122
+2023-04-23 13:31:26,027:INFO:executing select statement 2023-04-23T13:31:26.027661
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:31:26,029:INFO:select fetched 3 rows 2023-04-23T13:31:26.029221
+2023-04-23 13:31:26,038:WARNING: * Debugger is active!
+2023-04-23 13:31:26,044:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:31:26,084:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:31:28,186:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\mypg.py', reloading
+2023-04-23 13:31:28,266:INFO: * Restarting with stat
+2023-04-23 13:31:28,954:INFO:logger setup pg_log 2023-04-23T13:31:28.954680
+2023-04-23 13:31:28,954:INFO:connecting to pg  2023-04-23T13:31:28.954680
+2023-04-23 13:31:28,966:INFO:creating curr object 2023-04-23T13:31:28.966813
+2023-04-23 13:31:28,967:INFO:executing select statement 2023-04-23T13:31:28.967330
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:31:28,968:INFO:select fetched 3 rows 2023-04-23T13:31:28.968314
+2023-04-23 13:31:28,977:WARNING: * Debugger is active!
+2023-04-23 13:31:28,983:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:31:29,023:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:31:32,151:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\mypg.py', reloading
+2023-04-23 13:31:32,216:INFO: * Restarting with stat
+2023-04-23 13:31:32,938:INFO:logger setup pg_log 2023-04-23T13:31:32.938036
+2023-04-23 13:31:32,938:INFO:connecting to pg  2023-04-23T13:31:32.938036
+2023-04-23 13:31:32,949:INFO:creating curr object 2023-04-23T13:31:32.949684
+2023-04-23 13:31:32,950:INFO:executing select statement 2023-04-23T13:31:32.950209
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:31:32,951:INFO:select fetched 3 rows 2023-04-23T13:31:32.951185
+2023-04-23 13:38:17,550:INFO:logger setup pg_log 2023-04-23T13:38:17.550700
+2023-04-23 13:38:17,550:INFO:connecting to pg  2023-04-23T13:38:17.550700
+2023-04-23 13:38:17,562:INFO:creating curr object 2023-04-23T13:38:17.562988
+2023-04-23 13:38:50,870:INFO:logger setup pg_log 2023-04-23T13:38:50.870977
+2023-04-23 13:38:50,870:INFO:connecting to pg  2023-04-23T13:38:50.870977
+2023-04-23 13:38:50,882:INFO:creating curr object 2023-04-23T13:38:50.882423
+2023-04-23 13:38:50,883:INFO:executing select statement 2023-04-23T13:38:50.883260
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:38:50,884:INFO:select fetched 3 rows 2023-04-23T13:38:50.884924
+2023-04-23 13:38:50,899:INFO: * Restarting with stat
+2023-04-23 13:38:51,571:INFO:logger setup pg_log 2023-04-23T13:38:51.571739
+2023-04-23 13:38:51,571:INFO:connecting to pg  2023-04-23T13:38:51.571739
+2023-04-23 13:38:51,586:INFO:creating curr object 2023-04-23T13:38:51.586682
+2023-04-23 13:38:51,587:INFO:executing select statement 2023-04-23T13:38:51.587239
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:38:51,588:INFO:select fetched 3 rows 2023-04-23T13:38:51.588802
+2023-04-23 13:38:51,597:WARNING: * Debugger is active!
+2023-04-23 13:38:51,602:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:38:51,637:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:38:53,872:INFO:127.0.0.1 - - [23/Apr/2023 13:38:53] "GET / HTTP/1.1" 200 -
+2023-04-23 13:38:53,887:INFO:127.0.0.1 - - [23/Apr/2023 13:38:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:38:53,889:INFO:127.0.0.1 - - [23/Apr/2023 13:38:53] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:38:53,913:INFO:127.0.0.1 - - [23/Apr/2023 13:38:53] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:38:54,646:INFO:127.0.0.1 - - [23/Apr/2023 13:38:54] "GET / HTTP/1.1" 200 -
+2023-04-23 13:38:54,657:INFO:127.0.0.1 - - [23/Apr/2023 13:38:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:38:54,658:INFO:127.0.0.1 - - [23/Apr/2023 13:38:54] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:38:54,661:INFO:127.0.0.1 - - [23/Apr/2023 13:38:54] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:38:55,925:INFO:127.0.0.1 - - [23/Apr/2023 13:38:55] "[35m[1mPOST /checklist HTTP/1.1[0m" 500 -
+2023-04-23 13:38:56,254:INFO:127.0.0.1 - - [23/Apr/2023 13:38:56] "[35m[1mPOST /checklist HTTP/1.1[0m" 500 -
+2023-04-23 13:38:56,712:INFO:127.0.0.1 - - [23/Apr/2023 13:38:56] "[35m[1mPOST /checklist HTTP/1.1[0m" 500 -
+2023-04-23 13:39:00,968:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:39:01,029:INFO: * Restarting with stat
+2023-04-23 13:40:13,627:INFO:logger setup pg_log 2023-04-23T13:40:13.627254
+2023-04-23 13:40:13,627:INFO:connecting to pg  2023-04-23T13:40:13.627254
+2023-04-23 13:40:13,650:INFO:creating curr object 2023-04-23T13:40:13.650922
+2023-04-23 13:40:13,651:INFO:executing select statement 2023-04-23T13:40:13.651401
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:13,652:INFO:select fetched 3 rows 2023-04-23T13:40:13.652921
+2023-04-23 13:40:13,668:INFO: * Restarting with stat
+2023-04-23 13:40:14,352:INFO:logger setup pg_log 2023-04-23T13:40:14.352279
+2023-04-23 13:40:14,352:INFO:connecting to pg  2023-04-23T13:40:14.352279
+2023-04-23 13:40:14,368:INFO:creating curr object 2023-04-23T13:40:14.368016
+2023-04-23 13:40:14,368:INFO:executing select statement 2023-04-23T13:40:14.368712
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:14,371:INFO:select fetched 3 rows 2023-04-23T13:40:14.371500
+2023-04-23 13:40:14,382:WARNING: * Debugger is active!
+2023-04-23 13:40:14,388:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:40:14,428:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:40:22,164:INFO:127.0.0.1 - - [23/Apr/2023 13:40:22] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:22,177:INFO:127.0.0.1 - - [23/Apr/2023 13:40:22] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:22,180:INFO:127.0.0.1 - - [23/Apr/2023 13:40:22] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:22,202:INFO:127.0.0.1 - - [23/Apr/2023 13:40:22] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:23,729:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:23,742:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:23,745:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:23,770:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:23,892:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:23,902:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:23,904:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:23,926:INFO:127.0.0.1 - - [23/Apr/2023 13:40:23] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:31,073:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:40:31,135:INFO: * Restarting with stat
+2023-04-23 13:40:31,876:INFO:logger setup pg_log 2023-04-23T13:40:31.876668
+2023-04-23 13:40:31,877:INFO:connecting to pg  2023-04-23T13:40:31.877170
+2023-04-23 13:40:31,888:INFO:creating curr object 2023-04-23T13:40:31.888967
+2023-04-23 13:40:31,888:INFO:executing select statement 2023-04-23T13:40:31.888967
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:31,890:INFO:select fetched 3 rows 2023-04-23T13:40:31.890468
+2023-04-23 13:40:31,900:WARNING: * Debugger is active!
+2023-04-23 13:40:31,906:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:40:31,952:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:40:33,010:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:40:33,074:INFO: * Restarting with stat
+2023-04-23 13:40:33,816:INFO:logger setup pg_log 2023-04-23T13:40:33.816264
+2023-04-23 13:40:33,816:INFO:connecting to pg  2023-04-23T13:40:33.816264
+2023-04-23 13:40:33,827:INFO:creating curr object 2023-04-23T13:40:33.827942
+2023-04-23 13:40:33,828:INFO:executing select statement 2023-04-23T13:40:33.828425
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:33,829:INFO:select fetched 3 rows 2023-04-23T13:40:33.829943
+2023-04-23 13:40:33,840:WARNING: * Debugger is active!
+2023-04-23 13:40:33,845:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:40:33,885:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:40:34,305:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:34,316:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:34,318:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:34,342:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:34,517:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:34,529:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:34,530:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:34,533:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:34,697:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:34,711:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:34,712:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:34,733:INFO:127.0.0.1 - - [23/Apr/2023 13:40:34] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:37,148:INFO:logger setup pg_log 2023-04-23T13:40:37.148320
+2023-04-23 13:40:37,148:INFO:connecting to pg  2023-04-23T13:40:37.148320
+2023-04-23 13:40:37,170:INFO:creating curr object 2023-04-23T13:40:37.170842
+2023-04-23 13:40:37,170:INFO:executing select statement 2023-04-23T13:40:37.170846
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:37,172:INFO:select fetched 3 rows 2023-04-23T13:40:37.172880
+2023-04-23 13:40:37,181:INFO: * Restarting with stat
+2023-04-23 13:40:37,880:INFO:logger setup pg_log 2023-04-23T13:40:37.880926
+2023-04-23 13:40:37,880:INFO:connecting to pg  2023-04-23T13:40:37.880926
+2023-04-23 13:40:37,892:INFO:creating curr object 2023-04-23T13:40:37.892309
+2023-04-23 13:40:37,892:INFO:executing select statement 2023-04-23T13:40:37.892696
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:37,894:INFO:select fetched 3 rows 2023-04-23T13:40:37.894211
+2023-04-23 13:40:37,910:WARNING: * Debugger is active!
+2023-04-23 13:40:37,915:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:40:37,955:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:40:39,869:INFO:127.0.0.1 - - [23/Apr/2023 13:40:39] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:39,882:INFO:127.0.0.1 - - [23/Apr/2023 13:40:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:39,886:INFO:127.0.0.1 - - [23/Apr/2023 13:40:39] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:39,909:INFO:127.0.0.1 - - [23/Apr/2023 13:40:39] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:40,381:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:40,394:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,395:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,415:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:40,546:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:40,558:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,561:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,584:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:40,711:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:40,720:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,723:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,745:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:40,883:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:40,895:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,897:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:40,919:INFO:127.0.0.1 - - [23/Apr/2023 13:40:40] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:52,669:INFO:logger setup pg_log 2023-04-23T13:40:52.669949
+2023-04-23 13:40:52,669:INFO:connecting to pg  2023-04-23T13:40:52.669949
+2023-04-23 13:40:52,681:INFO:creating curr object 2023-04-23T13:40:52.681692
+2023-04-23 13:40:52,682:INFO:executing select statement 2023-04-23T13:40:52.682356
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:52,684:INFO:select fetched 3 rows 2023-04-23T13:40:52.684131
+2023-04-23 13:40:52,698:INFO: * Restarting with stat
+2023-04-23 13:40:53,414:INFO:logger setup pg_log 2023-04-23T13:40:53.414011
+2023-04-23 13:40:53,414:INFO:connecting to pg  2023-04-23T13:40:53.414011
+2023-04-23 13:40:53,427:INFO:creating curr object 2023-04-23T13:40:53.427662
+2023-04-23 13:40:53,428:INFO:executing select statement 2023-04-23T13:40:53.428182
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:40:53,429:INFO:select fetched 3 rows 2023-04-23T13:40:53.429661
+2023-04-23 13:40:53,440:WARNING: * Debugger is active!
+2023-04-23 13:40:53,445:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:40:53,486:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:40:55,140:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:55,152:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,153:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,176:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:55,620:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:55,633:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,634:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,654:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:55,812:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:55,824:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,825:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,846:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:55,975:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:55,986:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,988:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:55,991:INFO:127.0.0.1 - - [23/Apr/2023 13:40:55] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:56,123:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:56,136:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,139:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,140:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:56,275:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:56,285:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,288:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,290:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:56,410:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:56,420:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,422:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,424:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:56,550:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:56,566:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,567:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,589:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:56,709:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:56,718:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,720:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,722:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:56,842:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:56,853:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,855:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:56,858:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:56,994:INFO:127.0.0.1 - - [23/Apr/2023 13:40:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,005:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,007:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,027:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:57,115:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,125:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,126:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,146:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:57,272:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,283:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,284:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,304:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:57,399:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,409:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,411:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,431:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:57,533:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,546:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,547:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,571:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:57,676:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,688:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,688:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,709:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:57,813:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,831:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,831:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,852:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:57,947:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:57,959:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,961:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:57,981:INFO:127.0.0.1 - - [23/Apr/2023 13:40:57] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:58,088:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:58,101:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:58,102:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:58,124:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:58,247:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:58,259:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:58,259:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:58,262:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:40:58,398:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "GET / HTTP/1.1" 200 -
+2023-04-23 13:40:58,410:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:40:58,410:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:40:58,432:INFO:127.0.0.1 - - [23/Apr/2023 13:40:58] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:41:21,492:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:41:21,561:INFO: * Restarting with stat
+2023-04-23 13:41:22,246:INFO:logger setup pg_log 2023-04-23T13:41:22.246530
+2023-04-23 13:41:22,246:INFO:connecting to pg  2023-04-23T13:41:22.246530
+2023-04-23 13:41:22,277:INFO:creating curr object 2023-04-23T13:41:22.277149
+2023-04-23 13:41:22,277:INFO:executing select statement 2023-04-23T13:41:22.277681
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:41:22,279:INFO:select fetched 3 rows 2023-04-23T13:41:22.279302
+2023-04-23 13:41:22,288:WARNING: * Debugger is active!
+2023-04-23 13:41:22,295:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:41:22,334:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:41:42,063:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\mypg.py', reloading
+2023-04-23 13:41:42,123:INFO: * Restarting with stat
+2023-04-23 13:41:42,815:INFO:logger setup pg_log 2023-04-23T13:41:42.814628
+2023-04-23 13:41:42,815:INFO:connecting to pg  2023-04-23T13:41:42.815627
+2023-04-23 13:41:42,826:INFO:creating curr object 2023-04-23T13:41:42.826772
+2023-04-23 13:41:42,827:INFO:executing select statement 2023-04-23T13:41:42.827255
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:41:42,828:INFO:select fetched 3 rows 2023-04-23T13:41:42.828781
+2023-04-23 13:41:46,012:INFO:logger setup pg_log 2023-04-23T13:41:46.012469
+2023-04-23 13:41:46,012:INFO:connecting to pg  2023-04-23T13:41:46.012469
+2023-04-23 13:41:46,037:INFO:creating curr object 2023-04-23T13:41:46.037614
+2023-04-23 13:41:46,038:INFO:executing select statement 2023-04-23T13:41:46.038133
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:41:46,039:INFO:select fetched 3 rows 2023-04-23T13:41:46.039171
+2023-04-23 13:42:23,450:INFO:logger setup pg_log 2023-04-23T13:42:23.450734
+2023-04-23 13:42:23,450:INFO:connecting to pg  2023-04-23T13:42:23.450734
+2023-04-23 13:42:23,470:INFO:creating curr object 2023-04-23T13:42:23.470502
+2023-04-23 13:42:23,470:INFO:executing select statement 2023-04-23T13:42:23.470502
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:42:23,472:INFO:select fetched 3 rows 2023-04-23T13:42:23.472068
+2023-04-23 13:42:51,475:INFO:logger setup pg_log 2023-04-23T13:42:51.475392
+2023-04-23 13:42:51,475:INFO:connecting to pg  2023-04-23T13:42:51.475392
+2023-04-23 13:42:51,488:INFO:creating curr object 2023-04-23T13:42:51.488231
+2023-04-23 13:42:51,488:INFO:executing select statement 2023-04-23T13:42:51.488774
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:42:51,490:INFO:select fetched 3 rows 2023-04-23T13:42:51.490862
+2023-04-23 13:42:51,505:INFO: * Restarting with stat
+2023-04-23 13:42:52,164:INFO:logger setup pg_log 2023-04-23T13:42:52.164779
+2023-04-23 13:42:52,164:INFO:connecting to pg  2023-04-23T13:42:52.164779
+2023-04-23 13:42:52,177:INFO:creating curr object 2023-04-23T13:42:52.177212
+2023-04-23 13:42:52,177:INFO:executing select statement 2023-04-23T13:42:52.177750
+s : SELECT channel_name FROM CHANNELS
+2023-04-23 13:42:52,179:INFO:select fetched 3 rows 2023-04-23T13:42:52.179356
+2023-04-23 13:42:52,188:WARNING: * Debugger is active!
+2023-04-23 13:42:52,193:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:42:52,232:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:42:56,445:INFO:127.0.0.1 - - [23/Apr/2023 13:42:56] "GET / HTTP/1.1" 200 -
+2023-04-23 13:42:56,459:INFO:127.0.0.1 - - [23/Apr/2023 13:42:56] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:42:56,461:INFO:127.0.0.1 - - [23/Apr/2023 13:42:56] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:42:56,485:INFO:127.0.0.1 - - [23/Apr/2023 13:42:56] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:42:57,847:INFO:127.0.0.1 - - [23/Apr/2023 13:42:57] "[35m[1mPOST /checklist HTTP/1.1[0m" 500 -
+2023-04-23 13:42:58,481:INFO:127.0.0.1 - - [23/Apr/2023 13:42:58] "[35m[1mPOST /checklist HTTP/1.1[0m" 500 -
+2023-04-23 13:44:01,095:INFO:logger setup pg_log 2023-04-23T13:44:01.095019
+2023-04-23 13:44:01,095:INFO:connecting to pg  2023-04-23T13:44:01.095019
+2023-04-23 13:44:01,122:INFO:creating curr object 2023-04-23T13:44:01.122886
+2023-04-23 13:44:01,123:INFO:executing select statement 2023-04-23T13:44:01.123399
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:01,124:INFO:select fetched 3 rows 2023-04-23T13:44:01.124887
+2023-04-23 13:44:01,142:INFO: * Restarting with stat
+2023-04-23 13:44:01,837:INFO:logger setup pg_log 2023-04-23T13:44:01.837727
+2023-04-23 13:44:01,837:INFO:connecting to pg  2023-04-23T13:44:01.837727
+2023-04-23 13:44:01,852:INFO:creating curr object 2023-04-23T13:44:01.852939
+2023-04-23 13:44:01,853:INFO:executing select statement 2023-04-23T13:44:01.853460
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:01,855:INFO:select fetched 3 rows 2023-04-23T13:44:01.855033
+2023-04-23 13:44:01,865:WARNING: * Debugger is active!
+2023-04-23 13:44:01,870:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:44:01,908:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:44:05,013:INFO: * Detected change in 'c:\\gh\\brand-tracker\\brand-tracker\\app.py', reloading
+2023-04-23 13:44:05,081:INFO: * Restarting with stat
+2023-04-23 13:44:08,094:INFO:logger setup pg_log 2023-04-23T13:44:08.094828
+2023-04-23 13:44:08,094:INFO:connecting to pg  2023-04-23T13:44:08.094828
+2023-04-23 13:44:08,106:INFO:creating curr object 2023-04-23T13:44:08.106862
+2023-04-23 13:44:08,107:INFO:executing select statement 2023-04-23T13:44:08.107380
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:08,108:INFO:select fetched 3 rows 2023-04-23T13:44:08.108862
+2023-04-23 13:44:14,103:INFO:logger setup pg_log 2023-04-23T13:44:14.103373
+2023-04-23 13:44:14,103:INFO:connecting to pg  2023-04-23T13:44:14.103373
+2023-04-23 13:44:14,117:INFO:creating curr object 2023-04-23T13:44:14.117287
+2023-04-23 13:44:14,117:INFO:executing select statement 2023-04-23T13:44:14.117835
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:14,119:INFO:select fetched 3 rows 2023-04-23T13:44:14.119802
+2023-04-23 13:44:14,134:INFO: * Restarting with stat
+2023-04-23 13:44:14,824:INFO:logger setup pg_log 2023-04-23T13:44:14.824177
+2023-04-23 13:44:14,824:INFO:connecting to pg  2023-04-23T13:44:14.824177
+2023-04-23 13:44:14,835:INFO:creating curr object 2023-04-23T13:44:14.835849
+2023-04-23 13:44:14,836:INFO:executing select statement 2023-04-23T13:44:14.836367
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:14,837:INFO:select fetched 3 rows 2023-04-23T13:44:14.837854
+2023-04-23 13:44:14,847:WARNING: * Debugger is active!
+2023-04-23 13:44:14,854:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:44:14,895:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:44:17,524:INFO:127.0.0.1 - - [23/Apr/2023 13:44:17] "GET / HTTP/1.1" 200 -
+2023-04-23 13:44:17,535:INFO:127.0.0.1 - - [23/Apr/2023 13:44:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:44:17,538:INFO:127.0.0.1 - - [23/Apr/2023 13:44:17] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:44:17,559:INFO:127.0.0.1 - - [23/Apr/2023 13:44:17] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:44:30,173:INFO:logger setup pg_log 2023-04-23T13:44:30.173427
+2023-04-23 13:44:30,173:INFO:connecting to pg  2023-04-23T13:44:30.173427
+2023-04-23 13:44:30,199:INFO:creating curr object 2023-04-23T13:44:30.199501
+2023-04-23 13:44:30,200:INFO:executing select statement 2023-04-23T13:44:30.200042
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:30,201:INFO:select fetched 3 rows 2023-04-23T13:44:30.201645
+2023-04-23 13:44:41,212:INFO:logger setup pg_log 2023-04-23T13:44:41.212904
+2023-04-23 13:44:41,212:INFO:connecting to pg  2023-04-23T13:44:41.212904
+2023-04-23 13:44:41,228:INFO:creating curr object 2023-04-23T13:44:41.228639
+2023-04-23 13:44:41,229:INFO:executing select statement 2023-04-23T13:44:41.229138
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:41,230:INFO:select fetched 3 rows 2023-04-23T13:44:41.230658
+2023-04-23 13:44:47,138:INFO:logger setup pg_log 2023-04-23T13:44:47.138542
+2023-04-23 13:44:47,138:INFO:connecting to pg  2023-04-23T13:44:47.138542
+2023-04-23 13:44:47,152:INFO:creating curr object 2023-04-23T13:44:47.152526
+2023-04-23 13:44:47,153:INFO:executing select statement 2023-04-23T13:44:47.152526
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:47,154:INFO:select fetched 3 rows 2023-04-23T13:44:47.154128
+2023-04-23 13:44:47,169:INFO: * Restarting with stat
+2023-04-23 13:44:47,835:INFO:logger setup pg_log 2023-04-23T13:44:47.835390
+2023-04-23 13:44:47,835:INFO:connecting to pg  2023-04-23T13:44:47.835390
+2023-04-23 13:44:47,847:INFO:creating curr object 2023-04-23T13:44:47.847981
+2023-04-23 13:44:47,848:INFO:executing select statement 2023-04-23T13:44:47.848479
+s : SELECT channel_name,url FROM CHANNELS
+2023-04-23 13:44:47,849:INFO:select fetched 3 rows 2023-04-23T13:44:47.849980
+2023-04-23 13:44:47,858:WARNING: * Debugger is active!
+2023-04-23 13:44:47,864:INFO: * Debugger PIN: 141-355-768
+2023-04-23 13:44:47,906:INFO: * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2023-04-23 13:44:49,329:INFO:127.0.0.1 - - [23/Apr/2023 13:44:49] "GET / HTTP/1.1" 200 -
+2023-04-23 13:44:49,356:INFO:127.0.0.1 - - [23/Apr/2023 13:44:49] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:44:49,360:INFO:127.0.0.1 - - [23/Apr/2023 13:44:49] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:44:49,393:INFO:127.0.0.1 - - [23/Apr/2023 13:44:49] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:44:51,801:INFO:c channels : {'kitco': True, 'tdlr': False, 'palisades': False}
+2023-04-23 13:44:51,802:INFO:127.0.0.1 - - [23/Apr/2023 13:44:51] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:44:52,538:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': False}
+2023-04-23 13:44:52,539:INFO:127.0.0.1 - - [23/Apr/2023 13:44:52] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:44:53,063:INFO:c channels : {'kitco': True, 'tdlr': True, 'palisades': True}
+2023-04-23 13:44:53,064:INFO:127.0.0.1 - - [23/Apr/2023 13:44:53] "POST /checklist HTTP/1.1" 200 -
+2023-04-23 13:44:54,418:INFO:127.0.0.1 - - [23/Apr/2023 13:44:54] "[33mGET /www.google.com HTTP/1.1[0m" 404 -
+2023-04-23 13:44:56,413:INFO:127.0.0.1 - - [23/Apr/2023 13:44:56] "[33mGET /www.google.com HTTP/1.1[0m" 404 -
+2023-04-23 13:45:30,194:INFO:127.0.0.1 - - [23/Apr/2023 13:45:30] "GET / HTTP/1.1" 200 -
+2023-04-23 13:45:30,207:INFO:127.0.0.1 - - [23/Apr/2023 13:45:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:45:30,209:INFO:127.0.0.1 - - [23/Apr/2023 13:45:30] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:45:30,230:INFO:127.0.0.1 - - [23/Apr/2023 13:45:30] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:47:16,989:INFO:127.0.0.1 - - [23/Apr/2023 13:47:16] "GET / HTTP/1.1" 200 -
+2023-04-23 13:47:17,021:INFO:127.0.0.1 - - [23/Apr/2023 13:47:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:47:17,025:INFO:127.0.0.1 - - [23/Apr/2023 13:47:17] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:47:17,049:INFO:127.0.0.1 - - [23/Apr/2023 13:47:17] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -
+2023-04-23 13:48:08,641:INFO:127.0.0.1 - - [23/Apr/2023 13:48:08] "GET / HTTP/1.1" 200 -
+2023-04-23 13:48:08,655:INFO:127.0.0.1 - - [23/Apr/2023 13:48:08] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2023-04-23 13:48:08,656:INFO:127.0.0.1 - - [23/Apr/2023 13:48:08] "[36mGET /static/js/checklist.js HTTP/1.1[0m" 304 -
+2023-04-23 13:48:08,658:INFO:127.0.0.1 - - [23/Apr/2023 13:48:08] "[33mGET /static/js/checkboxes.js HTTP/1.1[0m" 404 -

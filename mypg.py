@@ -3,6 +3,7 @@ import psycopg2
 import json 
 import os 
 from utils import Utils
+import psycopg2.extras as extras
 import re 
 class mypg:
     def __init__(self) -> None:
@@ -18,6 +19,7 @@ class mypg:
         self.conn = self._set_conn()
         self.cur = self._set_curr() 
         self.rows=None 
+        self.channels_d={'kitco':1} # ids of channels 
         
         
         
@@ -26,7 +28,6 @@ class mypg:
 
         
     # returns conn object
-    
     def _set_conn(self):
         self.utils.log_variable(logger=self.logger,msg='connecting to pg ')
         conn = psycopg2.connect(
@@ -48,6 +49,7 @@ class mypg:
         except psycopg2.Error as e:
             print(f'error connecting to pg \n {e}')
         return cur 
+    
     # pg doesnt have create or replace hence this wrapper for create table string 
     def create_or_replace(self,s,cascade=False):
         match = re.search(r'create\s+table\s+(\w+)\s+\(', s, re.IGNORECASE)
@@ -82,7 +84,7 @@ class mypg:
         return self.cur.statusmessage
     
     # sends select string statement and fetches nrows, all by default 
-    def select(self,s,nrows : int =None ):
+    def select(self,s,nrows : int =None,to_list=False ):
         self.utils.log_variable(logger=self.logger,msg='executing select statement', s=s)
         self.cur.execute(s)
         if nrows is None:  # select * 
@@ -94,7 +96,10 @@ class mypg:
             self.rows=self.cur.fetchmany(nrows)
         self.utils.log_variable(logger=self.logger,msg=f'select fetched {len(self.rows)} rows')
         
-            
+        if to_list:
+            l=[t[0] for t in self.rows]
+            return l 
+        
         return self.rows 
 
     # pings pg 
@@ -115,22 +120,68 @@ class mypg:
             s= s.replace(k,v)
         return s.replace(',',',\n')
         
-    def insert_subs_df_to_pg(self,df,tablename,mapper):
-        self.utils.log_variable(logger=self.logger,msg='inserting df to pg', tablename=tablename)
-        pass
+    def insert_subs_df_to_pg(self,df,channel='kitco',yt_id='test'):
+        self.utils.log_variable(logger=self.logger,msg='inserting df to pg', channel=channel)
+        tablename=f'{channel}_transcript'  # insert into _transcript table for provided channel 
+
+        # get channel id for the channel 
+        channel_id=self.select(s=f'select channel_id from channels where channel_name=\'{channel}\'',to_list=True) # get channel id from channels table 
+        if channel_id==[]:
+            self.utils.log_variable(logger=self.logger,msg='missing channel in channels table', channel=channel)
+            print('ERROR missing channel in channels table ')
+            return 
+        channel_id=channel_id[0]
+        # get vid id for the video 
+        vid_id=self.select(s=f'select vid_id from {channel}_channel where yt_id=\'{yt_id}\'',to_list=True) # get yt id from channels table 
+        if channel_id==[]:
+            self.utils.log_variable(logger=self.logger,msg=f'ERROR missing video in a {channel} table', yt_id=yt_id)
+            print('ERROR missing video in a {channel} table ')
+            return 
+        vid_id=vid_id[0]
+
+
+                
+        subs_df_cols=['st','en','txt']
+        tbl_cols=['channel_id','vid_id','st','en','txt']
+        tbl_cols=','.join(tbl_cols)
+
+        tuples = [tuple([channel_id,vid_id] + list(r)) for r in df[subs_df_cols].to_numpy()]
+        
+        
+
+        query=f'INSERT INTO {tablename}({tbl_cols}) VALUES %s'            
+        try:
+            extras.execute_values(self.cur, query, tuples)
+            self.conn.commit()
+            print('bulk insert worked')
+        except  Exception as er:
+            self.conn.rollback()
+            self.cur=self._set_curr()
+            print(f'bulk insert didnt work. {er}')
+            self.utils.log_variable(logger=self.logger,msg='bulk insert error',er=er)
+        return 
+    
+    def get_channels(self):
+        t=self.select('SELECT channel_name,url FROM CHANNELS',to_list=True)
+        print(t)
+        return t 
+
+    
 
 
 
 
 
 if __name__=='__main__':
-    
     pg=mypg()
-    x=pg.read_query(query_name='create_table_channels')
-    print(x)
+    fp=pg.utils.path_join('tests','subs_df.csv')
+    df=pg.utils.read_df(fp=fp)
+    pg.insert_subs_df_to_pg(df=df)
+    exit(1)    
+    cols=df.columns
+    mapper={'st', 'en', 'st_flt', 'en_flt', 'dif', 'pause_flt', 'txt'}
+    tbl_cols=['channel_id','vid_id','start_ms','end_ms','transcript']
     
-    x=pg.read_query(query_name='_create_table_channelname_',_channelname_='kitco')
-    print(x)
-
-    x=pg.read_query(query_name='_create_table_channel_transcript_',_channelname_='kitco')
-    print(x)
+    exit(1)
+    
+    pg.insert_subs_df_to_pg(df=df,tablename='kitco_transcript',mapper=mapper)
