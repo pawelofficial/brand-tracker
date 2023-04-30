@@ -13,29 +13,41 @@ def test__ddl(channel='kitco'):
     s='drop table foobar;'
     pg.ddl(s=s )
     
-def test__select():
+def test__match_select_list(s='select foo,bark, kez from mytable;'):
     pg=mypg()
-    s='SELECT channel_id from channels'
-    x=pg.select(s=s)
-    x2=pg.select(s=s,to_list=True)
-    print(x)
-    print(x2)
+    res=pg.match_select_list(s=s)
+    print(res)
+
+    
+def test__select(s= None):
+    pg=mypg()
+    if s is None:
+        s='SELECT * from channels'
+    l1,l2=pg.select(s=s,to_dicts=True)
+    print(l1)
+    print(l2)
+
     
 def test__get_channels():
     pg=mypg()
     t=pg.get_channels()
     print(t)
 
+def test__scan_df():
+    u=Utils()
+    pg=mypg()
+    fp=u.path_join('tests','subs_df.csv')
+    df=u.read_df(fp=fp)
+    pg.subs_df=df
+    pg.scan_subs_df()
+    print(pg.subs_df)
+    
+    
     
     
 
-def test__create_or_replace_sequences(channel='kitco'):
-    pg=mypg()
-    pg.ddl('drop sequence test__sequence cascade;')
-    s=pg.read_query(query_name='_create_sequence_sequencename_',_sequencename_='test__sequence')
-    pg.ddl(s=s)
-    
+
 if __name__=='__main__':
+#    test__match_select_list()
+    
     test__get_channels()
-    exit(1)
-    test__select()

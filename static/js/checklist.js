@@ -1,5 +1,6 @@
 // checklist.js
-const checklist = document.getElementById('checklist');
+const checklist = document.getElementById('channels');
+
 
 // Attach event listener to checkboxes
 checklist.addEventListener('change', (event) => {
@@ -9,7 +10,7 @@ checklist.addEventListener('change', (event) => {
 
   // Send AJAX request to Flask
   const xhr = new XMLHttpRequest();
-  xhr.open('POST', '/checklist');
+  xhr.open('POST', '/channels');
   xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
   xhr.onload = () => {
     if (xhr.status === 200) {

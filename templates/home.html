@@ -51,8 +51,8 @@
         <div id="tab1" class="tabcontent", style="display:block;">
           <h3>available channels</h3>
           <section>
-            <ul id="checklist" style="list-style-type:none;">
-              {% for channel,url in python_d_items(d)  %}
+            <ul id="channels" style="list-style-type:none;">
+              {% for channel,url in python_d_items(channels)  %}
               <li>
                 <input type="checkbox" name="{{ channel }}" value="{{ channel }}">
                 <a href="{{ url }}" target="_blank">{{ channel }}</a>
@@ -61,21 +61,34 @@
               {% endfor %}
             </ul>
           </section>
-          <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>
-
-          
-
+          <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>  <!--          <script>attachCheckboxListeners('checklist', '/checklist');</script>-->
         </div>
-      
+
         <div id="tab2" class="tabcontent">
-          <h3>Tab 2 Content</h3>
-          <p>This is the content for Tab 2.</p>
+          <h3>configs</h3>
+          <section>
+            <ul id="configs" style="list-style-type:none;">
+              {% for channel,url in python_d_items(configs)  %}
+              <li>
+                <input type="checkbox" name="{{ channel }}" value="{{ channel }}">
+                <a href="{{ url }}" target="_blank">{{ channel }}</a>
+              </li>
+              {% endfor %}
+
+            </ul>
+          </section>
+
+
         </div>
+
+
       
         <div id="tab3" class="tabcontent">
           <h3>Tab 3 Content </h3>
           <p>  bla bla  </p>
         </div>
+
+
       </section>
       
       <script>

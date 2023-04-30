@@ -1,4 +1,5 @@
 import os 
+import re 
 import psycopg2
 import json 
 import os 
@@ -20,7 +21,7 @@ class mypg:
         self.cur = self._set_curr() 
         self.rows=None 
         self.channels_d={'kitco':1} # ids of channels 
-        
+        self.subs_df=None
         
         
         self.queries_json=os.path.abspath('./pg_scripts.json')
@@ -84,7 +85,7 @@ class mypg:
         return self.cur.statusmessage
     
     # sends select string statement and fetches nrows, all by default 
-    def select(self,s,nrows : int =None,to_list=False ):
+    def select(self,s,nrows : int =None,to_dicts=False, to_list=False ):
         self.utils.log_variable(logger=self.logger,msg='executing select statement', s=s)
         self.cur.execute(s)
         if nrows is None:  # select * 
@@ -96,11 +97,32 @@ class mypg:
             self.rows=self.cur.fetchmany(nrows)
         self.utils.log_variable(logger=self.logger,msg=f'select fetched {len(self.rows)} rows')
         
+        # returns list of first items 
         if to_list:
             l=[t[0] for t in self.rows]
             return l 
         
+        # returns lists of dictionaries corresponding to data 
+        if to_dicts: 
+            colnames = [desc[0] for desc in self.cur.description]
+            l1=[dict(zip(colnames, row)) for row in self.rows]
+            l2 = {col: [row[i] for row in self.rows] for i, col in enumerate(colnames)}
+            return l1,l2
+            
+        
         return self.rows 
+    
+    def match_select_list(self,s):
+        select_pattern = re.compile(r'SELECT\s+(.*?)\s+FROM', re.IGNORECASE)
+        match = select_pattern.search(s)
+        if match:
+            column_list = match.group(1)
+            return [col.strip() for col in column_list.split(',')]
+        else:
+            return None
+        
+
+
 
     # pings pg 
     def ping(self):
@@ -120,7 +142,10 @@ class mypg:
             s= s.replace(k,v)
         return s.replace(',',',\n')
         
-    def insert_subs_df_to_pg(self,df,channel='kitco',yt_id='test'):
+    def insert_subs_df_to_pg(self,subs_df = None,channel='kitco',yt_id='test'):
+        if subs_df is None:
+            subs_df=self.subs_df
+                
         self.utils.log_variable(logger=self.logger,msg='inserting df to pg', channel=channel)
         tablename=f'{channel}_transcript'  # insert into _transcript table for provided channel 
 
@@ -139,16 +164,11 @@ class mypg:
             return 
         vid_id=vid_id[0]
 
-
-                
         subs_df_cols=['st','en','txt']
         tbl_cols=['channel_id','vid_id','st','en','txt']
         tbl_cols=','.join(tbl_cols)
-
-        tuples = [tuple([channel_id,vid_id] + list(r)) for r in df[subs_df_cols].to_numpy()]
-        
-        
-
+        tuples = [tuple([channel_id,vid_id] + list(r)) for r in self.subs_df[subs_df_cols].to_numpy()]
+                
         query=f'INSERT INTO {tablename}({tbl_cols}) VALUES %s'            
         try:
             extras.execute_values(self.cur, query, tuples)
@@ -160,14 +180,31 @@ class mypg:
             print(f'bulk insert didnt work. {er}')
             self.utils.log_variable(logger=self.logger,msg='bulk insert error',er=er)
         return 
-    
+
+    def scan_subs_df(self,keywords=['bitcoin','cardano']):
+        keyword=keywords[0]
+        matches={k:False for k in keywords}
+        for no, row in self.subs_df.iterrows():
+            for keyword in keywords:
+                escaped_word = re.escape(keyword)
+                pattern = r'\b' + escaped_word + r'\b'
+                match = re.search(pattern, row['txt'])
+                if match:
+                    matched=True
+                else:
+                    matched=False
+                matches[keyword]=matched
+            self.subs_df.loc[no,'json'] = f'{matches}'
+
+            
+        
+    # returns dictionary - returns dictionary of channel names and urls
     def get_channels(self):
         tups=self.select('SELECT channel_name,url FROM CHANNELS')
-        d={}
-        print(tups)
-        for t in tups:
-            d[t[0]]=t[1]
-        return d
+        l,d=self.select('SELECT channel_name,url FROM CHANNELS',to_dicts=True)
+        return {k:v for k,v in zip(d['channel_name'],d['url'])} # {'kitco': 'https://www.youtube.com/@kitco', 'tdlr': 'https://www.youtube.com/@TheDavidLinReport', 'palisades': 'https://www.youtube.com/@PalisadeRadio'}
+
+
 
     
 
