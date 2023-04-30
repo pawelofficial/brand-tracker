@@ -69,17 +69,8 @@ class usr_json:
 
 
 u=usr_json()
-print(u)
 u['channels']='foo'
-u['channels']='bar'
-u['keywords']='foo'
-u['keywords']='foo'
-u['keywords']='bar'
-u['foo']='bar'
-u['username']='bar'
-u['username']='kez'
 u['sentiment']=True
-print(u)
 
  
 
@@ -91,6 +82,7 @@ class website:
         self.logger= self.utils.setup_logger(name='website_log',log_file=f'website_log.log')
         self.pg=mypg()
         self.channels=self.pg.get_channels()
+        self.keywords=self.pg.get_keywords()
         self.configs={'foo':'bar','kez':'bark'}
         self.json=usr_json()
         
@@ -121,14 +113,15 @@ def index():
                            , services=['Service 1', 'Service 2', 'Service 3']
                            ,channels=w.channels
                            ,configs = w.configs
+                           ,keywords=w.keywords
                            )
 
 
 
 
 @app.route('/channels', methods=['POST'])
-def checklist():
-    print('checklist ')
+def channels():
+    print('checklist endpoint')
     t_w.log_state()
     data = request.json             # get data from website 
     name, isChecked =data['name'],data['isChecked']
@@ -136,8 +129,25 @@ def checklist():
     t_w.log_state()
     return jsonify({'message': 'Success'})
 
+@app.route('/keywords', methods=['POST'])
+def keywords():
+    print('keywords endpoint')
+    data = request.json             # get data from website 
+    name, isChecked =data['name'],data['isChecked']
+    
+    return jsonify({'message': 'Success'})
+
+
+@app.route('/configs', methods=['POST'])
+def configs():
+    print('configs endpoint')
+    data = request.json             # get data from website 
+    name, isChecked =data['name'],data['isChecked']
+    
+    return jsonify({'message': 'Success'})
+
 
 
 if __name__=='__main__':
     app.run(debug=True)
-    
+    #          <!-- <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>  -->

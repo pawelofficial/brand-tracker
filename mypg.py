@@ -22,7 +22,7 @@ class mypg:
         self.rows=None 
         self.channels_d={'kitco':1} # ids of channels 
         self.subs_df=None
-        
+        self.keywords=['bitcoin','cardano','gold','silver','apple']
         
         self.queries_json=os.path.abspath('./pg_scripts.json')
         self.queries_d=json.load( open(self.queries_json,'r'))
@@ -142,7 +142,7 @@ class mypg:
             s= s.replace(k,v)
         return s.replace(',',',\n')
         
-    def insert_subs_df_to_pg(self,subs_df = None,channel='kitco',yt_id='test'):
+    def insert_subs_df_to_pg(self,subs_df = None,channel='kitco',yt_id='test',**kwargs):
         if subs_df is None:
             subs_df=self.subs_df
                 
@@ -166,10 +166,13 @@ class mypg:
 
         subs_df_cols=['st','en','txt']
         tbl_cols=['channel_id','vid_id','st','en','txt']
+        for k,v in kwargs.items():
+            subs_df_cols.append(k)
+            tbl_cols.append(v)
+        
         tbl_cols=','.join(tbl_cols)
         tuples = [tuple([channel_id,vid_id] + list(r)) for r in self.subs_df[subs_df_cols].to_numpy()]
-                
-        query=f'INSERT INTO {tablename}({tbl_cols}) VALUES %s'            
+        query=f"INSERT INTO {tablename}({tbl_cols}) VALUES %s"           
         try:
             extras.execute_values(self.cur, query, tuples)
             self.conn.commit()
@@ -182,8 +185,8 @@ class mypg:
         return 
 
     def scan_subs_df(self,keywords=['bitcoin','cardano']):
-        keyword=keywords[0]
-        matches={k:False for k in keywords}
+        #keyword=keywords[0]
+        matches={k:None for k in self.keywords}
         for no, row in self.subs_df.iterrows():
             for keyword in keywords:
                 escaped_word = re.escape(keyword)
@@ -194,7 +197,7 @@ class mypg:
                 else:
                     matched=False
                 matches[keyword]=matched
-            self.subs_df.loc[no,'json'] = f'{matches}'
+            self.subs_df.loc[no,'json'] = json.dumps(matches) # gotta do json dumps so psycopg worko
 
             
         
@@ -204,6 +207,8 @@ class mypg:
         l,d=self.select('SELECT channel_name,url FROM CHANNELS',to_dicts=True)
         return {k:v for k,v in zip(d['channel_name'],d['url'])} # {'kitco': 'https://www.youtube.com/@kitco', 'tdlr': 'https://www.youtube.com/@TheDavidLinReport', 'palisades': 'https://www.youtube.com/@PalisadeRadio'}
 
+    def get_keywords(self):
+        return {k:None for k in self.keywords}
 
 
     

@@ -53,7 +53,9 @@ def test__insert_dummy_data(channel='kitco',channel_id=1,url='dummy'):
     df=u.read_df(fp=fp)
     pg.subs_df=df
     pg.scan_subs_df()
-    pg.insert_subs_df_to_pg(subs_df=df,channel=channel,yt_id=yt_id)
+    print(pg.subs_df)
+
+    pg.insert_subs_df_to_pg(subs_df=df,channel=channel,yt_id=yt_id,json='json')
     
     
     

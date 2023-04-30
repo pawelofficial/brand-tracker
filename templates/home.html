@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <script src="{{ url_for('static', filename='/js/checkboxes.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/checkbox_listener.js') }}"></script>
 </head>
 <body>
   <header>
@@ -44,12 +44,12 @@
     <section>
         <div class="tab">
           <button class="tablinks active" onclick="openTab(event, 'tab1')">Channels</button>
-          <button class="tablinks" onclick="openTab(event, 'tab2')">Tab 2</button>
-          <button class="tablinks" onclick="openTab(event, 'tab3')">Tab 3</button>
+          <button class="tablinks" onclick="openTab(event, 'tab2')">Keywords</button>
+          <button class="tablinks" onclick="openTab(event, 'tab3')">Configs</button>
         </div>
         
         <div id="tab1" class="tabcontent", style="display:block;">
-          <h3>available channels</h3>
+          <h3>Choose channels</h3>
           <section>
             <ul id="channels" style="list-style-type:none;">
               {% for channel,url in python_d_items(channels)  %}
@@ -61,32 +61,50 @@
               {% endfor %}
             </ul>
           </section>
-          <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>  <!--          <script>attachCheckboxListeners('checklist', '/checklist');</script>-->
+         <!-- <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>  -->
+         <script>
+          attachCheckboxListeners('channels', '/channels');
+        </script>
         </div>
 
+        
         <div id="tab2" class="tabcontent">
-          <h3>configs</h3>
+          <h3>choose keywords</h3>
           <section>
-            <ul id="configs" style="list-style-type:none;">
-              {% for channel,url in python_d_items(configs)  %}
+            <ul id="keywords" style="list-style-type:none;">
+              {% for k,v in python_d_items(keywords)  %}
               <li>
-                <input type="checkbox" name="{{ channel }}" value="{{ channel }}">
-                <a href="{{ url }}" target="_blank">{{ channel }}</a>
+                <input type="checkbox" name="{{ k }}" value="{{ v }}">
+                <label for="{{ k }}">{{ k }}</label>
               </li>
               {% endfor %}
-
             </ul>
           </section>
+          <script>
+            attachCheckboxListeners('keywords', '/keywords');
+          </script>
+        </div>
 
-
+        <div id="tab3" class="tabcontent">
+          <h3>choose configs</h3>
+          <section>
+            <ul id="configs" style="list-style-type:none;">
+              {% for k,v in python_d_items(configs)  %}
+              <li>
+                <input type="checkbox" name="{{ k }}" value="{{ v }}">
+                <label for="{{ k }}">{{ k }}</label>
+              </li>
+              {% endfor %}
+            </ul>
+          </section>
+          <script>
+            attachCheckboxListeners('configs', '/configs');
+          </script>
         </div>
 
 
       
-        <div id="tab3" class="tabcontent">
-          <h3>Tab 3 Content </h3>
-          <p>  bla bla  </p>
-        </div>
+
 
 
       </section>

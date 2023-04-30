@@ -6,7 +6,6 @@ function attachCheckboxListeners(checklistId, endpointUrl) {
     const item = event.target;
     const isChecked = item.checked;
     const name = item.name;
-
     // Send AJAX request to Flask
     const xhr = new XMLHttpRequest();
     xhr.open('POST', endpointUrl);
