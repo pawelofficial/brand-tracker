@@ -201,12 +201,13 @@ class mypg:
 
             
         
-    # returns dictionary - returns dictionary of channel names and urls
+    # returns available channels
     def get_channels(self):
         tups=self.select('SELECT channel_name,url FROM CHANNELS')
         l,d=self.select('SELECT channel_name,url FROM CHANNELS',to_dicts=True)
         return {k:v for k,v in zip(d['channel_name'],d['url'])} # {'kitco': 'https://www.youtube.com/@kitco', 'tdlr': 'https://www.youtube.com/@TheDavidLinReport', 'palisades': 'https://www.youtube.com/@PalisadeRadio'}
 
+    # returns available keywords 
     def get_keywords(self):
         return {k:None for k in self.keywords}
 

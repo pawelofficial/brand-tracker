@@ -6,19 +6,61 @@
   <title>{{ title }}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <script src="{{ url_for('static', filename='/js/checkbox_listener.js') }}"></script>
+  <script src="{{ url_for('static', filename='/js/susi.js') }}"></script>
 </head>
 <body>
   <header>
     <h1>Welcome to My Website</h1>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Contact</a></li>
+        <div class="susi" >
+        <li><a  href="#" id="user">Logged in as: Guest</a></li> 
+        <li><a  href="#" id="signup-link" onclick="switchModal('signup-modal')">Sign Up</a></li> 
+        <li><a  href="#" id="signin-link"onclick="switchModal('signin-modal')">Sign In</a></li> 
+      </div>
       </ul>
     </nav>
   </header>
+<!-- Modal for Sign-up -->
+<div id="signup-modal" class="modal" >
+  <div class="modal-content">
+    <span class="close" onclick="hideModal('signup-modal')">&times;</span>
+    <h2>Sign up</h2>
+    <form class="modal-form" id="signup-form">
+      <label for="email">Email:</label>
+      <input  class="form-input" type="email" id="email" name="email"><br>
+      <label for="password">Password:</label>
+      <input  class="form-input" type="password" id="password" name="password"><br>
+      <label for="confirm-password">Confirm Password:</label>
+      <input  class="form-input" type="password" id="confirm-password" name="confirm-password"><br>
+      <input type="submit" value="Sign Up" id="signup-button">
+    </form>
+  </div>
+</div>
+<script>
+  addModalClickListener('signup-modal');
+  addSendToBackend("signup-modal" ,'signup-form','signup-button','/signup')
+</script>
+
+
+<div id="signin-modal" class="modal">
+  <div class="modal-content">
+    <span class="close"onclick="hideModal('signin-modal')">&times;</span>
+    <h2>Sign in</h2>
+    <div id="status-message"></div>
+    <form class="modal-form" id="signin-form" >
+      <label for="email"  >Email:</label>
+      <input class="form-input" type="email" id="email" name="email"><br>
+      <label for="password">Password:</label>
+      <input class="form-input" type="password" id="password" name="password"><br>
+      <input type="submit" value="Sign In" id="signin-button">
+    </form>
+  </div>
+</div>
+<script>
+  addModalClickListener('signin-modal');
+  addSendToBackend("signin-modal" ,'signin-form','signin-button','/signin')
+</script>
 
   <main>
     <section>
@@ -47,7 +89,7 @@
           <button class="tablinks" onclick="openTab(event, 'tab2')">Keywords</button>
           <button class="tablinks" onclick="openTab(event, 'tab3')">Configs</button>
         </div>
-        
+        <!-- tab 1 -->
         <div id="tab1" class="tabcontent", style="display:block;">
           <h3>Choose channels</h3>
           <section>
@@ -61,13 +103,12 @@
               {% endfor %}
             </ul>
           </section>
-         <!-- <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>  -->
          <script>
           attachCheckboxListeners('channels', '/channels');
         </script>
         </div>
 
-        
+        <!-- tab 2 -->
         <div id="tab2" class="tabcontent">
           <h3>choose keywords</h3>
           <section>
@@ -84,10 +125,13 @@
             attachCheckboxListeners('keywords', '/keywords');
           </script>
         </div>
-
+        <!-- tab 3 -->
         <div id="tab3" class="tabcontent">
           <h3>choose configs</h3>
           <section>
+            <label for="email">mail</label>
+            <input type="email" id="email" name="email" required placeholder="your email ">
+
             <ul id="configs" style="list-style-type:none;">
               {% for k,v in python_d_items(configs)  %}
               <li>
@@ -96,6 +140,7 @@
               </li>
               {% endfor %}
             </ul>
+
           </section>
           <script>
             attachCheckboxListeners('configs', '/configs');

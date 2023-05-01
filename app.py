@@ -5,6 +5,8 @@ import logging
 #                    format='%(asctime)s:%(levelname)s:%(message)s')
 from mypg import mypg
 from utils import Utils
+import hashlib
+
 
 # logs all state variables of a class 
 class traceback:
@@ -145,6 +147,34 @@ def configs():
     name, isChecked =data['name'],data['isChecked']
     
     return jsonify({'message': 'Success'})
+
+
+
+@app.route('/signup', methods=['POST'])
+def signup():
+    print('this is signup')
+    data = request.json
+    print(data)
+    data = {k:hashlib.md5(v.encode()).hexdigest()  for k,v in data.items() if k in ['password','confirm-password'] }
+    print(data) # for testing purposes, prints the received data to the console
+    # do something with the received data here, like add it to a database
+#    return 'Success!' # return a response to the client, indicating that the request was successful
+    response_data = {'success': True, 'message': 'Invalid email or password'}
+    return jsonify(response_data), 200
+
+
+@app.route('/signin', methods=['POST'])
+def signin():
+    print('this is signin')
+    data = request.json
+    print(data)
+    data = {k:hashlib.md5(v.encode()).hexdigest()  for k,v in data.items() if k in ['password','confirm-password'] }
+    print(data) # for testing purposes, prints the received data to the console
+    # do something with the received data here, like add it to a database
+#    return 'Success!' # return a response to the client, indicating that the request was successful
+    response_data = {'success': True, 'message': 'Invalid email or password'}
+    return jsonify(response_data), 200
+
 
 
 
