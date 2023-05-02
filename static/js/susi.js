@@ -25,30 +25,11 @@ function switchModal(elementID) {
 }
 
 
-function addSendToBackendOld(formId, submitId,endpoint) {
-    const form = document.getElementById(formId);
-    const submit = document.getElementById(submitId);
-  
-    submit.addEventListener('click', (event) => {
-      event.preventDefault(); // prevent the default form submission behavior
-      const formData = new FormData(form); // create a new FormData object from the form
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', endpoint); // change the endpoint URL to your Flask endpoint
-      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          console.log(xhr.responseText);
-        }
-      };
-      xhr.send(JSON.stringify(Object.fromEntries(formData.entries()))); // convert the FormData object to a plain object and send it as JSON
-    });
-  }
-  
+
 
   function addSendToBackend(modalID, formId, submitId, endpoint) {
     const form = document.getElementById(formId);
     const submit = document.getElementById(submitId);
-  
     submit.addEventListener('click', (event) => {
       event.preventDefault(); // prevent the default form submission behavior
       const formData = new FormData(form); // create a new FormData object from the form
@@ -65,11 +46,6 @@ function addSendToBackendOld(formId, submitId,endpoint) {
             document.getElementById(modalID).style.display = "none";
             console.log(response.message);
 
-            // make the form green
-            // const formInputs = document.getElementsByClassName("form-input");
-            // for (let i = 0; i < formInputs.length; i++) {
-            //   formInputs[i].style.backgroundColor = 'rgba(144,238,144,0.8)';
-            // };
           } else { // susi fail 
             document.getElementById('user').textContent = 'Logged in as: Guest';
             // document.getElementById('signin-form').style.backgroundColor = 'red';
@@ -77,12 +53,24 @@ function addSendToBackendOld(formId, submitId,endpoint) {
             for (let i = 0; i < formInputs.length; i++) {
               formInputs[i].style.backgroundColor = 'rgba(255, 192, 203, 0.5)';
             };
-
-
         }
         }
       };
       xhr.send(JSON.stringify(Object.fromEntries(formData.entries())));
     });
   }
+  
+  function connectToSocketIO() {
+    const socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.on('connect', function() {
+      console.log('Connected to server!');
+    });
+  
+    socket.on('update_txt', function(data) {
+      console.log('Received new text:', data.txt);
+      // update the frontend with the new text value
+      document.querySelector('#test').textContent = data.txt;
+    });
+  }
+  
   

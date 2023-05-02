@@ -1,6 +1,8 @@
 from typing import Any
-from flask import Flask, render_template, request , jsonify
+from flask import Flask, render_template, request , jsonify, session
 import logging 
+from flask_socketio import SocketIO, emit
+
 #logging.basicConfig(filename='./logs/flask.log', level=logging.DEBUG, 
 #                    format='%(asctime)s:%(levelname)s:%(message)s')
 from mypg import mypg
@@ -87,7 +89,8 @@ class website:
         self.keywords=self.pg.get_keywords()
         self.configs={'foo':'bar','kez':'bark'}
         self.json=usr_json()
-        
+        self.usr='guest'
+        self.txt='foobar'
         
     @property
     def channels(self):
@@ -103,7 +106,8 @@ w=website()
 t_w=traceback(c=w)
 
 app = Flask(__name__)
-
+app.secret_key = 'your_secret_key'
+socketio = SocketIO(app)
 
 @app.route('/')
 def index():
@@ -116,8 +120,15 @@ def index():
                            ,channels=w.channels
                            ,configs = w.configs
                            ,keywords=w.keywords
+                           ,usr=w.usr
+                           ,txt=w.txt
                            )
 
+
+@socketio.on('update_txt')
+def handle_update_txt():
+    print('update_txt')
+    emit('txt_update', {'txt': w.txt})
 
 
 
@@ -153,25 +164,31 @@ def configs():
 @app.route('/signup', methods=['POST'])
 def signup():
     print('this is signup')
+    w.txt='signup'
+    socketio.emit('update_txt', {'txt': 'New text value'});
     data = request.json
-    print(data)
-    data = {k:hashlib.md5(v.encode()).hexdigest()  for k,v in data.items() if k in ['password','confirm-password'] }
+    data['password']=hashlib.md5(data['password'].encode()).hexdigest()
+    data['confirm-password']=hashlib.md5(data['confirm-password'].encode()).hexdigest()
+    session['user_id'] = data['email']
+
     print(data) # for testing purposes, prints the received data to the console
-    # do something with the received data here, like add it to a database
-#    return 'Success!' # return a response to the client, indicating that the request was successful
+    # response_data,response_code = pg.signup_user(data)
     response_data = {'success': True, 'message': 'Invalid email or password'}
+    session['user_id'] = data['email']
     return jsonify(response_data), 200
 
 
 @app.route('/signin', methods=['POST'])
 def signin():
     print('this is signin')
+    w.txt='signin'
+    socketio.emit('update_txt', {'txt': 'New text value'});
     data = request.json
-    print(data)
-    data = {k:hashlib.md5(v.encode()).hexdigest()  for k,v in data.items() if k in ['password','confirm-password'] }
+    data['password']=hashlib.md5(data['password'].encode()).hexdigest()
+    session['user_id'] = data['email']
     print(data) # for testing purposes, prints the received data to the console
-    # do something with the received data here, like add it to a database
-#    return 'Success!' # return a response to the client, indicating that the request was successful
+
+
     response_data = {'success': True, 'message': 'Invalid email or password'}
     return jsonify(response_data), 200
 
@@ -180,4 +197,5 @@ def signin():
 
 if __name__=='__main__':
     app.run(debug=True)
+    socketio.run(app,debug=True)
     #          <!-- <script src="{{ url_for('static', filename='js/checklist.js') }}"></script>  -->
