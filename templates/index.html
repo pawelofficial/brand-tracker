@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your App</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+
+    <h1>Microsoft Identity Python Web App</h1>
+    <h2>Welcome {{ user }}!</h2>
+
+
+    <div id="susi_div">
+        <ul>
+            <li><a href="{{ url_for('login') }}">Sign in</a></li>
+            <li><a href="{{ url_for('logout') }}">Sign Out</a></li>
+        </ul>
+    </div>
+
+    <label>
+        <input type="checkbox" name="example_checkbox" value="example_value" checked>
+        Click me!
+      </label>
+
+
+</body>
+</html>
