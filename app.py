@@ -49,8 +49,12 @@ def auth_response():
 
 @app.route("/")
 def index():
-    user = session.get('user', {'name': 'guest'})
-    user_name = user['name']
+    llog(session=session)
+    user = session.get('user', 'guest')
+    if user =='guest':
+        user_name = 'guest'
+    else:
+        user_name = user['preferred_username']
     
     if not (app.config["CLIENT_ID"] and app.config["CLIENT_SECRET"]):
         llog(s='missing client id or secret',client_id=app.config["CLIENT_ID"],client_secret=app.config["CLIENT_SECRET"])
