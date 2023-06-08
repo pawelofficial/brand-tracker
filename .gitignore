@@ -1,2 +1,5 @@
 .env
 *.env
+*.json3
+*.csv
+*.log
