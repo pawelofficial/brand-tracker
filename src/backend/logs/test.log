@@ -1,0 +1,4 @@
+INFO:test.log:setting up  test.log at c:\gh\brand-tracker\brand-tracker\src\backend\logs\test.log   
+INFO:test.log:test 
+u_logger : <Logger test.log (INFO)>
+mode : w 

@@ -1,0 +1,3 @@
+INFO:db_log:logger setup db_log 2023-05-13T20:41:47.517060
+INFO:db_log:connecting to sql 2023-05-13T20:41:48.194777
+    row : [('Microsoft SQL Azure (RTM) - 12.0.2000.8 \n\tMar 30 2023 16:38:37 \n\tCopyright (C) 2022 Microsoft Corporation\n',)]

@@ -1,0 +1,12 @@
+{
+    "params": {
+        "_select_":["_tablename_"],
+        "_create_table_channels_":["_sequencename_"],
+        "_create_table_channelname_":["_channelname_"],
+        "_create_table_channel_transcript_":["_channelname_"]
+    },
+    "_select_": "SELECT * FROM _tablename_;",
+    "_create_table_channels_": "CREATE TABLE channels (channel_id int IDENTITY(1,1) PRIMARY KEY, channel_name varchar(500), url varchar(1000), mod_ts datetime DEFAULT CURRENT_TIMESTAMP);",
+    "_create_table_channelname_": "CREATE TABLE _channelname__channel (channel_id int FOREIGN KEY REFERENCES channels(channel_id), vid_id int IDENTITY(1,1) PRIMARY KEY, vid_title varchar(1000), yt_id varchar(20), yt_url varchar(200), vid_release_ts datetime, mod_ts datetime DEFAULT CURRENT_TIMESTAMP);",
+    "_create_table_channel_transcript_": "CREATE TABLE _channelname__transcript (channel_id int FOREIGN KEY REFERENCES channels(channel_id), vid_id int FOREIGN KEY REFERENCES _channelname__channel(vid_id), transcript_id int IDENTITY(1,1) PRIMARY KEY, st varchar(50), en varchar(50), txt varchar(10000), json nvarchar(max), mod_ts datetime DEFAULT CURRENT_TIMESTAMP);"
+}
