@@ -1,0 +1,24 @@
+{
+    "params": {
+        "_select_":["_tablename_"],
+        "_create_table_channels_":["_sequencename_"]
+        ,"_create_table_channelname_":["_channelname_"]
+        ,"_create_table_channel_transcript_":["_channelname_"]
+        ,"_create_sequence_sequencename_":["_sequencename_"]
+        ,"_list_tables_":["_schemaname_"]
+        ,"_drop_table_cascade_":["_schemaname_,_tablename_"] 
+        ,"_insert_into_channels_":["_channelname_,_channelurl_"]
+        ,"_insert_into_channelname_":["_channelname_,_channel_id_,_vid_title_,_yt_id_,_yt_url_"]
+        },
+    "_select_": "select * from _tablename_;"
+    ,"_create_table_channels_": "create table channels (channel_id serial primary key ,channel_name varchar(500),url varchar(1000) unique,mod_ts timestamp default now () );"
+    ,"_create_table_channelname_": "create table _channelname__channel(channel_id int references channels(channel_id),vid_id serial primary key, vid_title varchar(1000),yt_id varchar(20),yt_url varchar(200) unique,vid_release_ts timestamp,mod_ts timestamp default now());"
+    ,"_create_table_channel_transcript_":"create table _channelname__transcript (channel_id int references channels(channel_id),vid_id int references _channelname__channel(vid_id),transcript_id serial primary key,st varchar(50),en varchar(50),txt varchar(10000),json jsonb, mod_ts timestamp default now ());"
+    ,"_create_sequence_sequencename_":"create sequence _sequencename_ start 1 increment 1 minvalue 1 NO MAXVALUE;"
+    ,"_list_tables_":"SELECT * FROM information_schema.tables  WHERE table_schema = '_schemaname_'"
+    ,"_drop_table_cascade_":"drop table _schemaname_._tablename_ cascade;"
+    ,"_insert_into_channels_":"insert into channels (channel_name,url) values ('_channelname_','_channelurl_');"
+    ,"_insert_into_channelname_":"insert into _channelname__channel(channel_id,vid_title,yt_id,yt_url) values(_channel_id_,'_vid_title_','_yt_id_','_yt_url_');"
+}
+
+

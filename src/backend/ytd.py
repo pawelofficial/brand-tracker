@@ -112,6 +112,66 @@ class Ytd:
         self.subs_df=tmp_df    
         return self.subs_df,self.subs_fp
         
+        # concats df on time 
+    def concat_on_time(self, subs_df=None, N=60):
+        # Determine whether the input dataframe was provided or not
+        external = False if subs_df is None else True
+        subs_df = self.subs_df if subs_df is None else subs_df
+
+        # Define the function that will be applied to 'txt' column
+        def replace_double_spaces(s):
+            return s.replace('  ', ' ')
+
+        # Apply the function to 'txt' column
+        for no, row in subs_df.iterrows():
+            subs_df.loc[no, 'txt'] = replace_double_spaces(row['txt'])
+
+        # Define the condition for '_concat_on_condition' method
+        cond = lambda prev_row, cur_row:  cur_row['st_flt'] // N == prev_row['st_flt'] // N
+
+        # Define the function for '_concat_on_condition' method
+        def concatenate_rows(prev_row, cur_row):
+            prev_row['txt'] += ' ' + cur_row['txt']
+            prev_row['en_flt'] = cur_row['en_flt']
+            prev_row['en'] = cur_row['en']
+            return prev_row, cur_row, True
+
+        # Apply '_concat_on_condition' method
+        subs_df = self._concat_on_condition(subs_df=subs_df, cond=cond, func=concatenate_rows)
+
+        # Calculate 'dif' column
+        subs_df['dif'] = np.round(subs_df['en_flt'] - subs_df['st_flt'], 2 )
+
+        # Update self.subs_df if the input dataframe was not provided
+        if not external:
+            self.subs_df = subs_df
+
+        return subs_df
+
+
+    def _concat_on_condition(self,subs_df,cond = None,func=None ):
+        df=subs_df.copy(deep=True)
+        no=1                            
+        df['index']=df.index
+        while no<len(df):
+            #self._calculate_pause_to_next(df=df)
+            df['dif']=np.round(df['en_flt']-df['st_flt'],2 ) # calculate dif col 
+            prev_row=df.iloc[no-1].to_dict()
+            cur_row=df.iloc[no].to_dict()
+            c=cond(prev_row,cur_row)
+            if not c:
+                no+=1
+            else:
+                prev_row,cur_row,bl = func(prev_row,cur_row)
+                df.loc[prev_row['index']]=prev_row
+                df.loc[cur_row['index']]=cur_row
+                if bl:
+                    df.drop(cur_row['index'],inplace=True)
+                    no-=1
+                no+=1
+        df.drop('index',axis=1,inplace=True)
+        return df
+        
     def _clean_txt(self,s : str,**kwargs): # cleans up string 
         self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         
@@ -169,8 +229,14 @@ class Ytd:
     ###        print(video['videoId'])
         
         
+def wf__download_subs(url = None):
+    """ downloads and parses subs into data tmp directory """
+    if url is None:
+        url='https://www.youtube.com/watch?v=T3UtaZB0UjY&ab_channel=DavidLin'
+    ytd=Ytd()
+    ytd.download_subs(url=url)
+    ytd.parse_subs()
+        
         
 if __name__=='__main__':
-    ytd=Ytd()
-    url='https://www.youtube.com/watch?v=L_spEO5IpcQ&ab_channel=KitcoNEWS'
-    ytd.scan_channel(url=url)
+    wf__download_subs()

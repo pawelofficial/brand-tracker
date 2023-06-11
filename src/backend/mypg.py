@@ -3,13 +3,21 @@ import re
 import psycopg2
 import json 
 import os 
-from utils import Utils
 import psycopg2.extras as extras
 import re 
+import inspect 
+import pandas as pd 
+from fuzzywuzzy import fuzz
+
+if __name__!='__main__':    
+    from .utils import Utils   # import for tests 
+else:
+    from utils import Utils 
+
 class mydb:
     def __init__(self) -> None:
         self.utils=Utils()
-        self.logger= self.utils.setup_logger(name='pg_log',log_file=f'pg_log.log')
+        self.logger=self.utils.setup_logger(log_name='pg.log')
         self.pg_schema={
             'db':'citus'
             ,'usr':'citus'
@@ -23,10 +31,10 @@ class mydb:
         self.rows=None 
         self.channels_d={'kitco':1} # ids of channels 
         self.subs_df=None
-        self.keywords=['bitcoin','cardano','gold','silver','apple']
         
-        self.queries_json=os.path.abspath('./pg_scripts.json')
+        self.queries_json=self.utils.path_join('pg_scripts.json')   
         self.queries_d=json.load( open(self.queries_json,'r'))
+
 
         
     # returns conn object
@@ -43,7 +51,8 @@ class mydb:
     
     # returs cursor object 
     def _set_curr(self,conn=None):
-        self.utils.log_variable(logger=self.logger,msg='creating curr object')
+        self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
+
         if conn is None:
             conn=self.conn
         try:
@@ -54,6 +63,7 @@ class mydb:
     
     # pg doesnt have create or replace hence this wrapper for create table string 
     def create_or_replace(self,s,cascade=False):
+        self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         match = re.search(r'create\s+table\s+(\w+)\s+\(', s, re.IGNORECASE)
         match = re.search(r'create\s+table\s+(\w+)\s*\(', s, re.IGNORECASE)
         if match:
@@ -71,7 +81,7 @@ class mydb:
         return 
     
     def ddl(self,s): # executes ddl 
-        self.utils.log_variable(logger=self.logger,msg='executing ddl', s=s)
+        self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         try:
             self.cur.execute(s)
             self.conn.commit()
@@ -86,14 +96,14 @@ class mydb:
         return self.cur.statusmessage
     
     # sends select string statement and fetches nrows, all by default 
-    def select(self,s,nrows : int =None,to_dicts=False, to_list=False ):
-        self.utils.log_variable(logger=self.logger,msg='executing select statement', s=s)
+    def select(self,s,nrows : int =None,to_dicts=False, to_list=False,to_df=True ):
+        self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         self.cur.execute(s)
-        if nrows is None:  # select * 
+        if nrows is None:
             self.rows = self.cur.fetchall()
-        elif isinstance(nrows,int): # select nrows 
+        elif isinstance(nrows,int): 
             if nrows <= 0 : 
-                print('i cannot select {nrows} from the table my brother in chryst ')
+                print('i cannot select {nrows} from the table my brother in christ ')
                 return 
             self.rows=self.cur.fetchmany(nrows)
         self.utils.log_variable(logger=self.logger,msg=f'select fetched {len(self.rows)} rows')
@@ -108,7 +118,12 @@ class mydb:
             colnames = [desc[0] for desc in self.cur.description]
             l1=[dict(zip(colnames, row)) for row in self.rows]
             l2 = {col: [row[i] for row in self.rows] for i, col in enumerate(colnames)}
-            return l1,l2
+            return l1
+        
+        if to_df:
+            colnames = [desc[0] for desc in self.cur.description]
+            l1=[dict(zip(colnames, row)) for row in self.rows]
+            return pd.DataFrame(l1)
             
         
         return self.rows 
@@ -122,9 +137,6 @@ class mydb:
         else:
             return None
         
-
-
-
     # pings pg 
     def ping(self):
         self.utils.log_variable(logger=self.logger, msg = ' pinging pg ')
@@ -133,46 +145,42 @@ class mydb:
         return self.rows 
 
     # reads query from pg_scripts json and lets you parameterize it, ORMs are too difficult my brother in christ 
-    def read_query(self,query_name,**kwargs):
+    def read_query(self,query_name, **kwargs):
         self.utils.log_variable(logger=self.logger,msg=f'reading {query_name} from json with vars: ',**kwargs)
         s=self.queries_d[query_name]
         for k,v in kwargs.items():
             if k not in s:
-                print('not a correct parameter my brother in christ?')
+                print(f'not a correct parameter my brother in christ? {k}')
+                print(s)
                 return 
             s= s.replace(k,v)
         return s.replace(',',',\n')
         
-    def insert_subs_df_to_pg(self,subs_df = None,channel='kitco',yt_id='test',**kwargs):
+    def insert_subs_df_to_pg(self,subs_df = None,channelname='tdlr',vid_id='1',columns_mapping=None,**kwargs):
         if subs_df is None:
             subs_df=self.subs_df
                 
-        self.utils.log_variable(logger=self.logger,msg='inserting df to pg', channel=channel)
-        tablename=f'{channel}_transcript'  # insert into _transcript table for provided channel 
+        self.utils.log_variable(logger=self.logger,msg='inserting df to pg', channel=channelname)
+        
+        tablename=f'{channelname}_transcript'  # insert into _transcript table for provided channel 
 
         # get channel id for the channel 
-        channel_id=self.select(s=f'select channel_id from channels where channel_name=\'{channel}\'',to_list=True) # get channel id from channels table 
+        channel_id=self.select(s=f'select channel_id from channels where channel_name=\'{channelname}\'',to_list=True) # get channel id from channels table 
         if channel_id==[]:
-            self.utils.log_variable(logger=self.logger,msg='missing channel in channels table', channel=channel)
+            self.utils.log_variable(logger=self.logger,msg='missing channel in channels table', channel=channelname)
             print('ERROR missing channel in channels table ')
             return 
         channel_id=channel_id[0]
         # get vid id for the video 
-        vid_id=self.select(s=f'select vid_id from {channel}_channel where yt_id=\'{yt_id}\'',to_list=True) # get yt id from channels table 
-        if channel_id==[]:
-            self.utils.log_variable(logger=self.logger,msg=f'ERROR missing video in a {channel} table', yt_id=yt_id)
-            print('ERROR missing video in a {channel} table ')
-            return 
-        vid_id=vid_id[0]
 
-        subs_df_cols=['st','en','txt']
-        tbl_cols=['channel_id','vid_id','st','en','txt']
+        subs_df_cols=['st','en','txt','json']
+        tbl_cols=['channel_id','vid_id','st','en','txt','json']
         for k,v in kwargs.items():
             subs_df_cols.append(k)
             tbl_cols.append(v)
         
         tbl_cols=','.join(tbl_cols)
-        tuples = [tuple([channel_id,vid_id] + list(r)) for r in self.subs_df[subs_df_cols].to_numpy()]
+        tuples = [tuple([channel_id,vid_id] + list(r)) for r in subs_df[subs_df_cols].to_numpy()]
         query=f"INSERT INTO {tablename}({tbl_cols}) VALUES %s"           
         try:
             extras.execute_values(self.cur, query, tuples)
@@ -185,23 +193,8 @@ class mydb:
             self.utils.log_variable(logger=self.logger,msg='bulk insert error',er=er)
         return 
 
-    def scan_subs_df(self,keywords=['bitcoin','cardano']):
-        #keyword=keywords[0]
-        matches={k:None for k in self.keywords}
-        for no, row in self.subs_df.iterrows():
-            for keyword in keywords:
-                escaped_word = re.escape(keyword)
-                pattern = r'\b' + escaped_word + r'\b'
-                match = re.search(pattern, row['txt'])
-                if match:
-                    matched=True
-                else:
-                    matched=False
-                matches[keyword]=matched
-            self.subs_df.loc[no,'json'] = json.dumps(matches) # gotta do json dumps so psycopg worko
 
-            
-        
+
     # returns available channels
     def get_channels(self):
         tups=self.select('SELECT channel_name,url FROM CHANNELS')
@@ -213,15 +206,10 @@ class mydb:
         return {k:None for k in self.keywords}
 
 
-    
-
-
-
-
 
 if __name__=='__main__':
-    pg=mydb()
-    pg.ping()
+    #wf__recreate_schema()
+    
     exit(1)
     
     fp=pg.utils.path_join('tests','subs_df.csv')

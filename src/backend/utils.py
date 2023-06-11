@@ -153,6 +153,9 @@ class Utils:
         for l in stdout.splitlines():
             out.append(l.strip())
         return out
+    
+    def read_csv(self,df_fp):
+        return pd.read_csv(df_fp)
             
 
 
