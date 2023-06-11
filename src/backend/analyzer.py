@@ -27,6 +27,8 @@ class Analyzer():
         self.keywords=['bitcoin','cardano','gold','silver','apple']
         self.use_fuzzy_matching=False
         self.fuzzy_threshold=80
+        self.positive_keywords = ['good', 'improve', 'growth', 'profit', 'benefit', 'up', 'increase','moon','buy','bulish','great','long']
+        self.negative_keywords = ['bad', 'decline', 'loss', 'risk', 'down', 'decrease','sell','short','dump','crash','bearish','cliff']
     
     def scan_subs_df(self,keywords=None,subs_df=None):
         #keyword=keywords[0]
@@ -52,6 +54,10 @@ class Analyzer():
             subs_df.loc[no,'json'] = json.dumps(matches) # gotta do json dumps so psycopg worko
         return subs_df
         
+    def calculate_sentiment(self,text):
+        positive_score = sum(word in text.lower().split() for word in self.positive_keywords)
+        negative_score = sum(word in text.lower().split() for word in self.negative_keywords)
+        return positive_score - negative_score
 
 
 
