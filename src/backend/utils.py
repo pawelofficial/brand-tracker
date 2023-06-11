@@ -57,13 +57,14 @@ class Utils:
             s+= f'\n{k} : {v}'
         self.logger.log(lvl, f'{msg} {s} '   )
 
-    def path_join(self,*args):
+    def path_join(self,*args) -> str:
         if self.logger is not None:
             self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name}')   
         try:
             return os.path.join(self.cur_dir, *args)
         except TypeError:
-            logging.error("Arguments must be strings.")
+            #logging.error("Arguments must be strings.")
+            raise ValueError("All arguments to path_join must be strings.") from None
             return None
         
     def close_logger(self):
@@ -94,6 +95,9 @@ class Utils:
         if os.path.exists(fp):
             os.rmdir(fp)
             self.log_variable(msg=f'removed {fp} ')
+    def build_url(self,id):
+        prefix='https://www.youtube.com/watch?v='
+        return prefix+id
 
     def parse_url(self,url) -> dict:
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
@@ -130,16 +134,6 @@ class Utils:
            ,"orig_url":url }
         return d
 
-    def flt_to_ts(self,ff : float): # float to timestamp string
-        self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
-        if ff != ff: # float is nan:
-            ff=0
-        hh=ff/60/60//1
-        mm=(ff-hh*60*60)/60//1
-        ss=(ff-hh*60*60-mm*60)//1
-        fff=(ff-hh*60*60-mm*60-ss)*1000
-        return '{:02d}:{:02d}:{:02d}.{:03d}'.format(int(hh), int(mm), int(ss),int(fff))
-
     def df_insert_d(self,df: pd.DataFrame, d : dict,clear_d=True ):
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         df.loc[len(df)]=d 
@@ -147,15 +141,6 @@ class Utils:
             for k,v in d.items():
                 d[k]=None
                 
-    def clean_txt(self,s : str,**kwargs): # cleans up string 
-        self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
-        custom_d={k:v for k,v in kwargs.items()}
-        translation_table = str.maketrans({'\xa0': ' ', '\n': ' ', '\t': ' ', '\r': ' ','\u200b':''})
-        translation_table.update(custom_d)
-        translation_table[ord("\n")] = " "
-        clean_string = s.translate(translation_table)
-        return clean_string.strip().replace('  ',' ')
-
     def dump_df(self,df,fp=None,dir_fp=None,fname=None):
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         if fp is None:
@@ -163,6 +148,12 @@ class Utils:
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         x=df.to_csv(fp,index=False)
 
+    def parse_stdout(self,stdout):
+        out=[]
+        for l in stdout.splitlines():
+            out.append(l.strip())
+        return out
+            
 
 
 if __name__=='__main__':

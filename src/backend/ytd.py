@@ -1,4 +1,4 @@
-from utils import Utils
+
 import inspect 
 import logging 
 import chardet
@@ -7,14 +7,20 @@ import pandas as pd
 import numpy as np 
 import re 
 
-class ytd:
+# i will never learn how to do the imports in python 
+if __name__!='__main__':    
+    from .utils import Utils   # import for tests 
+else:
+    from utils import Utils 
+
+class Ytd:
     def __init__(self) -> None:
         # objects 
         self.utils = Utils()
         self.logger=self.utils.setup_logger(log_name='ytd.log')
         
         # settings
-        self.tmp_dir=self.utils.path_join(self.utils.cur_dir,'data','tmp')  # used by download_subs
+        self.tmp_dir=self.utils.path_join(self.utils.cur_dir,'data','tmp')  # used by download_subs,parse_subs
         self.subs_lang='en'                                                 # used by download_subs                                  
         self.subs_format='json3'                                            # used by download_subs
         
@@ -62,7 +68,8 @@ class ytd:
             fname=f'raw_subs_' 
         else:
             fname=f'raw_subs_{self.vid_title}_'
-        self.raw_fp=self.utils.path_join(self.tmp_dir,fname)+f'.{self.subs_lang}.{self.subs_format}'
+        self.raw_fp=self.utils.path_join(self.tmp_dir,fname)
+#        self.raw_fp=self.utils.path_join(self.tmp_dir,fname)+f'.{self.subs_lang}.{self.subs_format}'
         l=["yt-dlp","-o", f"{self.raw_fp}","--skip-download"]
         l+=[vid_url,"--force-overwrites",
             "--no-write-subs",  
@@ -70,6 +77,7 @@ class ytd:
             "--sub-format",self.subs_format,
             "--sub-langs",self.subs_lang] # en.* might be better here 
         stdout, stderr,returncode  =self.utils.subprocess_run(l) 
+        self.raw_fp=self.utils.path_join(self.tmp_dir,fname)+f'.{self.subs_lang}.{self.subs_format}'
         return self.raw_fp
         
     def parse_subs(self,dump_df=True,fname='subs_df',output_dir_fp=None):
@@ -96,16 +104,23 @@ class ytd:
                 self.utils.df_insert_d(df=tmp_df,d=subs_d)
         tmp_df['dif']=np.round(tmp_df['en_flt']-tmp_df['st_flt'],2 ) # calculate dif col 
         self.subs_df=tmp_df
-        
         if dump_df:
             fname=fname.replace('.csv','')+'.csv'
             output_dir_fp=output_dir_fp or self.tmp_dir
             self.utils.dump_df(df=self.subs_df,dir_fp=output_dir_fp,fname=fname)
             self.subs_fp=self.utils.path_join(output_dir_fp,fname)
-            
         self.subs_df=tmp_df    
         return self.subs_df,self.subs_fp
         
+    def _clean_txt(self,s : str,**kwargs): # cleans up string 
+        self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
+        
+        custom_d={k:v for k,v in kwargs.items()}
+        translation_table = str.maketrans({'\xa0': ' ', '\n': ' ', '\t': ' ', '\r': ' ','\u200b':''})
+        translation_table.update(custom_d)
+        translation_table[ord("\n")] = " "
+        clean_string = s.translate(translation_table)
+        return clean_string.strip().replace('  ',' ')
         
     def _parse_json_pld(self,p,no):
         subs_d={}
@@ -116,22 +131,46 @@ class ytd:
         else:
             subs_d['en_flt']=np.round(subs_d['st_flt']+int(p['dDurationMs'])/1000.0,2)
             
-        subs_d['st']=self.utils.flt_to_ts(ff=subs_d['st_flt'])
-        subs_d['en']=self.utils.flt_to_ts(ff=subs_d['en_flt'])
+        subs_d['st']=self._flt_to_ts(ff=subs_d['st_flt'])
+        subs_d['en']=self._flt_to_ts(ff=subs_d['en_flt'])
         txt=' '.join([d['utf8'] for d in p['segs'] if d['utf8']!='\n']  ).replace('  ',' ').strip()
         
         rs=[r'\[.*\]',r"^,|,$",r"^\[\w+",r"[aA-zZ]*\]"] # clean up stuff from yt 
         for r in rs:
             txt=re.sub(r,'',txt).replace('[','').replace(']','') # 
-        subs_d['txt']=self.utils.clean_txt(txt)
+        subs_d['txt']=self._clean_txt(txt)
         return subs_d    
     
+    def _flt_to_ts(self,ff : float): # float to timestamp string
+        self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
+        if ff != ff: # float is nan:
+            ff=0
+        hh=ff/60/60//1
+        mm=(ff-hh*60*60)/60//1
+        ss=(ff-hh*60*60-mm*60)//1
+        fff=(ff-hh*60*60-mm*60-ss)*1000
+        return '{:02d}:{:02d}:{:02d}.{:03d}'.format(int(hh), int(mm), int(ss),int(fff))
+
+    # tessted up to n = 100 
+    def scan_channel(self,url,n=10):
+        self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
+        vid_url=self.utils.parse_url(url)['channel_url']   
+        l=["yt-dlp","--get-id","--skip-download",vid_url,"--playlist-end", f"{n}"]
+        stdout, stderr,returncode =self.utils.subprocess_run(l)
+        ids=self.utils.parse_stdout(stdout=stdout)
+        urls=[self.utils.build_url(id) for id in ids]
+        ds=[self.utils.parse_url(url) for url in urls]
+        return ds,urls
+    
+    ###def scan_channel_scrape(self,url,n=10): # needs this wierd id of a channel 
+    ###    d=self.utils.parse_url(url)
+    ###    videos = scrapetube.get_channel("KitcoNEWS")
+    ###    for video in videos:
+    ###        print(video['videoId'])
+        
+        
         
 if __name__=='__main__':
-    ytd=ytd()
-
-
+    ytd=Ytd()
     url='https://www.youtube.com/watch?v=L_spEO5IpcQ&ab_channel=KitcoNEWS'
-    ytd.get_url_title(url=url)
-    ytd.download_subs(url=url)
-    ytd.parse_subs()
+    ytd.scan_channel(url=url)
