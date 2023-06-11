@@ -28,7 +28,7 @@ class Analyzer():
         self.use_fuzzy_matching=False
         self.fuzzy_threshold=80
         self.positive_keywords = ['good', 'improve', 'growth', 'profit', 'benefit', 'up', 'increase','moon','buy','bulish','great','long','euphoria']
-        self.negative_keywords = ['bad', 'decline', 'loss', 'risk', 'down', 'decrease','sell','short','dump','crash','bearish','cliff','panic','blood','bloodbath']
+        self.negative_keywords = ['bad', 'decline', 'loss', 'risk', 'down', 'decrease','sell','short','dump','crash','bearish','cliff','panic','blood','bloodbath','cautious']
     
     def scan_subs_df(self,keywords=None,subs_df=None):
         if subs_df is None:
