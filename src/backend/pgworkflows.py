@@ -109,7 +109,7 @@ def wf__upload_new_transcript(subs_fp=None,channelname='tdlr',vid_id='1'):
         
     print(subs_df)
 
-    subs_df=an.scan_subs_df(subs_df=subs_df)
+    subs_df=an.make_keywords_column(subs_df=subs_df)
     print(subs_df)
     pg.insert_subs_df_to_pg(subs_df=subs_df
                             ,channelname=channelname

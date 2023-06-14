@@ -7,7 +7,7 @@ y=backend.Ytd()
 pg=backend.mydb()
 
 #### yt
-wf__download_subs()
+wf__download_subs() # download subs 
 
 #### pg:
 clear_schema()                 # clear schema of tdlr tables 

@@ -148,6 +148,19 @@ class Utils:
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         x=df.to_csv(fp,index=False)
 
+    def dump_hdf(self,df,fp=None,dir_fp=None,fname=None,meta_dic={}):
+        self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
+        if fp is None:
+            fp=self.path_join(dir_fp,fname)
+        self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
+
+        metadata_df=pd.DataFrame(meta_dic,index=[0])
+        print(meta_dic)
+        fp=fp.replace('.h5','')+'.h5'
+        with pd.HDFStore(f'{fp}') as hdf:
+            hdf.put('data', df, format='table', data_columns=True)
+            hdf.put('metadata', metadata_df, format='table', data_columns=True)
+
     def parse_stdout(self,stdout):
         out=[]
         for l in stdout.splitlines():
@@ -156,6 +169,17 @@ class Utils:
     
     def read_csv(self,df_fp):
         return pd.read_csv(df_fp)
+    
+    def read_hdf(self,hdf_fp,keys=['data','metadata']):
+        with pd.HDFStore(hdf_fp) as hdf:
+            if keys is None:
+                keys = hdf.keys()
+            df = hdf[keys[0]]
+            metadata_df = hdf[keys[1]]
+
+        # Convert the metadata dataframe back to a dict
+        metadata = metadata_df.to_dict('records')[0]
+        return df,metadata
             
 
 

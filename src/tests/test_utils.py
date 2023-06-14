@@ -42,7 +42,31 @@ class TestUtils(unittest.TestCase):
         self.assertTrue(os.path.exists(fp))
         self.utils.remove_dir(fp)
 
+    def test_dump_df(self):
+        input_fp=os.path.join(os.path.dirname(os.path.abspath(__file__)),'tests_inputs','subs_df.csv')
+        output_fp=os.path.join(os.path.dirname(os.path.abspath(__file__)),'tests_outputs','subs_df.csv')
+        df=self.utils.read_csv(input_fp)        
+        self.utils.dump_df(df,output_fp)
+        self.assertTrue(os.path.exists(input_fp))
+        self.assertTrue(os.path.exists(output_fp))
 
+    def test_dump_hdf(self):
+        input_fp=os.path.join(os.path.dirname(os.path.abspath(__file__)),'tests_inputs','subs_df.csv')
+        output_fp=os.path.join(os.path.dirname(os.path.abspath(__file__)),'tests_outputs','subs_df.h5')
+        df=self.utils.read_csv(input_fp)        
+        yt_url='https://www.youtube.com/watch?v=tZe0HFFWyoc&ab_channel=DavidLin'
+        self.utils.dump_hdf(df,output_fp,meta_dic={'meta':'test','url':yt_url})
+        self.assertTrue(os.path.exists(input_fp))
+        self.assertTrue(os.path.exists(output_fp))
+        
+    def test_read_hdf(self):
+        input_fp=os.path.join(os.path.dirname(os.path.abspath(__file__)),'tests_outputs','subs_df.h5')     
+        df,meta=self.utils.read_hdf(input_fp)
+        self.assertTrue(len(df)!=0)
+        self.assertTrue(len(meta)!=0)
+        
 
+###
+###
 if __name__ == '__main__':
     unittest.main()

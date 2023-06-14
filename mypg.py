@@ -185,7 +185,7 @@ class mydb:
             self.utils.log_variable(logger=self.logger,msg='bulk insert error',er=er)
         return 
 
-    def scan_subs_df(self,keywords=['bitcoin','cardano']):
+    def make_keywords_column(self,keywords=['bitcoin','cardano']):
         #keyword=keywords[0]
         matches={k:None for k in self.keywords}
         for no, row in self.subs_df.iterrows():
@@ -199,6 +199,7 @@ class mydb:
                     matched=False
                 matches[keyword]=matched
             self.subs_df.loc[no,'json'] = json.dumps(matches) # gotta do json dumps so psycopg worko
+
 
             
         

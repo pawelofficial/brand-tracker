@@ -4,3 +4,4 @@
 *.csv
 *.log
 *.pyc
+*.h5
