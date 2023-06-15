@@ -7,7 +7,16 @@ import psycopg2.extras as extras
 import re 
 import inspect 
 import pandas as pd 
+import matplotlib.pyplot as plt
+import numpy as np
+#pd.set_option('display.max_columns', None)  # display all columns
+#pd.set_option('display.max_rows', None)  # display all rows
+pd.set_option('display.max_colwidth', None)  # display all contents of a column
 from fuzzywuzzy import fuzz
+import nltk 
+#nltk.download('vader_lexicon')
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
 
 if __name__!='__main__':    
     from .utils import Utils   # import for tests 
@@ -25,47 +34,97 @@ class Analyzer():
         self.subs_fp=None 
         self.subs_df=None 
         self.subs_meta=None # metadata of subs df 
-        self.keywords=['bitcoin','cardano','gold','silver','apple']
+        self.keywords=['market','gold','bitcoin','cash','tech','stock','crypto'] #   ['cardano','silver','apple','market','fed']
         self.use_fuzzy_matching=False
         self.fuzzy_threshold=80
         self.positive_keywords = ['good', 'improve', 'growth', 'profit', 'benefit', 'up', 'increase','moon','buy','bulish','great','long','euphoria']
         self.negative_keywords = ['bad', 'decline', 'loss', 'risk', 'down', 'decrease','sell','short','dump','crash','bearish','cliff','panic','blood','bloodbath','cautious']
         self.positive_dict = {word: 1 for word in  self.positive_keywords}
         self.negative_dict = {word: -1 for word in self.negative_keywords}
+        self.reports_config={
+            #'rows_with_keywords_columns':['txt','ts_url','positive_sentiment','negative_sentiment','st']
+            'rows_with_keywords_columns':['compound_sentiment','st','ts_url','txt','positive_sentiment','negative_sentiment']
+            ,'plot_cols':{'x':'st','y':['positive_sentiment','negative_sentiment']}
+        }
+        self.standard_columns={'json_column':'json_column'
+                               ,'ts_url':'ts_url'
+                               }
+        self.png_name = 'plot.png'
+        self.png_fp=self.tmp_dir
     
-    # calculates sentiment based on positive and negative keywords
+    # find matches in string - returns dictionar yo f true false based on keywords 
     def calculate_keywords(self, text, keywords=None):
         if keywords is None:
             keywords = self.keywords
-
         matches = {k: None for k in keywords}
-
         for keyword in keywords:
             escaped_word = re.escape(keyword)
             pattern = r'\b' + escaped_word + r'\b'
             match = re.search(pattern.lower(), text.lower())
             if self.use_fuzzy_matching:
                 match = fuzz.ratio(keyword.lower(), text.lower()) > self.fuzzy_threshold
-
             matches[keyword] = bool(match)
-
         return json.dumps(matches)  # jsonify the matches
-
-
-        # ads sentiment of a string 
     
     # calculates sentiment of a string 
-    def calculate_sentiment(self,text):
+    def calculate_sentiment_custom(self,text):
         words = text.split()
         positive_score = sum(self.positive_dict.get(word, 0) for word in words)
         negative_score = sum(self.negative_dict.get(word, 0) for word in words)
         return positive_score, negative_score
 
-    # adds series to a dataframe 
-    def add_col_to_df(self,col_series,col_name, subs_df=None):
-        if subs_df is None:
+    def calculate_sentiment(self, text):
+        sia = SentimentIntensityAnalyzer()
+        sentiment_score = sia.polarity_scores(text)
+        return -sentiment_score['neg'],sentiment_score['pos'],sentiment_score['neu'],sentiment_score['compound']
+
+    def calculate_url_ts(self,st,url,key='vid_url'):
+        ff=self.utils.ts_to_flt(st)
+        d=self.utils.parse_url(url)
+        ts_url=f'{d[key]}#t={ff}'
+        return ts_url
+        
+    def make_plot(self,subs_df=None,cols=None,png_name=None,png_fp=None):
+        if subs_df is None :
             subs_df=self.subs_df
-        subs_df[col_name]=col_series
+        if cols is None:
+            cols=self.reports_config['plot_cols']
+        if png_name is None :
+            png_name=self.png_name
+        if png_fp is None:
+            png_fp=self.png_fp
+            
+
+        plt.figure(figsize=(10,6))
+        
+        y_col=cols['y']
+        x_col=cols['x']
+
+        
+
+
+        if isinstance(y_col, list):
+            for col in y_col:
+                print(col)
+                mask = subs_df[col] != -999
+                plt.plot(subs_df[x_col][mask], subs_df[col][mask], 'o', label=col)
+        else:
+            mask = subs_df[y_col] != -999
+            plt.plot(subs_df[x_col][mask], subs_df[y_col][mask], 'o', label=y_col)
+
+            
+        plt.xlabel(x_col)
+        plt.ylabel('Values')
+        plt.legend()
+        plt.title('Data Plot')
+        plt.grid(True)
+        print(png_fp)
+        plt.savefig(png_fp)
+        plt.close()
+        
+    # adds series to a dataframe s
+
+            
             
     # poor mans overloading 
     def apply_to_dataframe(self,src_col,tgt_col,fun,subs_df=None):
@@ -98,16 +157,65 @@ class Analyzer():
         for no,col_name in enumerate(tgt_col):
             subs_df[col_name]=out[no]
             
+    def make_calulations(self,url = None):
+        if url is None:
+            url=self.subs_meta['url']
+        self.apply_to_dataframe(src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','compound_sentiment'] ,fun=self.calculate_sentiment)
+        self.apply_to_dataframe(src_col='txt',tgt_col=self.standard_columns['json_column'],fun=self.calculate_keywords)    
+        self.apply_to_dataframe(src_col='st',tgt_col=self.standard_columns['ts_url'],fun=lambda x: self.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
 
+    # makes ts report df - does not mutate subs df 
+    def make_ts_report(self,keywords=None,subs_df=None,cols=None,json_column=None):
+        if subs_df is None:
+            subs_df=self.subs_df
+        if cols is None:
+            cols=self.reports_config['rows_with_keywords_columns']
+        if json_column is None:
+            json_column=self.standard_columns['json_column']
+        if keywords is None:
+            keywords=self.keywords
+        
+        tmp_df=pd.DataFrame(columns=['keyword',*cols])
+        
+        # Create a boolean mask for each keyword and combine them using the logical OR operator
+        for keyword in keywords:
+            boolean_mask = subs_df[json_column].apply(lambda x: json.loads(x)[keyword] if keyword in json.loads(x) else False)
+            selected_rows = subs_df[boolean_mask][cols]
+            # Add a new column 'keyword' that stores the current keyword
+            selected_rows['keyword'] = keyword
+            # Concatenate the selected_rows DataFrame to tmp_df
+            tmp_df = pd.concat([tmp_df, selected_rows], ignore_index=True)
+            tmp_df=self.utils.move_col_to_end(df=tmp_df,column_to_move='ts_url')
+            tmp_df=self.utils.move_col_to_end(df=tmp_df,column_to_move='txt')
 
+        aggregates_d={}
+        for keyword in self.keywords:
+            msk=tmp_df['keyword']==keyword
+            data=tmp_df[msk]['compound_sentiment']
+            aggregates_d[keyword]=np.round(data.mean(),3)
+            
+        msk=subs_df['compound_sentiment']!=0
+        aggregates_d['overall_sentiment']=np.round(subs_df[msk]['compound_sentiment'].mean(),3)
+        return tmp_df,aggregates_d
+        
 if __name__=='__main__':
     an=Analyzer()
+    s="""like to talk about the dollar relationship but the higher dollar does put a little pressure on gold I think go all will make new heights this year there's no doubt that I think it's going higher uh I think right now you're"""
+    s='gold'
+    score=an.calculate_sentiment(s)
+    print(score)
+    exit(1)
+    
     subs_df_fp=an.utils.path_join(an.tmp_dir,'subs_df.h5')
     an.subs_df,an.subs_meta=an.utils.read_hdf(subs_df_fp)
-    an.make_keywords_column()
-    an.apply_to_dataframe(src_col='txt',tgt_col=['positive_sentiment','negative_sentiment'],fun=an.calculate_sentiment)
-    an.apply_to_dataframe(src_col='txt',tgt_col='keywords_json',fun=an.calculate_keywords)
-    an.utils.dump_df(df=an.subs_df,dir_fp=an.tmp_dir,fname='subs_df.csv')
-    print(an.subs_df)
-    print(an.subs_meta)
+
+    an.apply_to_dataframe(src_col='txt',tgt_col=['positive_sentiment','negative_sentiment'],fun=an.calculate_sentiment_custom)
+    an.apply_to_dataframe(src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neu','comp'] ,fun=an.calculate_sentiment)
+    an.apply_to_dataframe(src_col='txt',tgt_col=an.standard_columns['json_column'],fun=an.calculate_keywords)    
+    url='https://www.youtube.com/watch?v=tZe0HFFWyoc&ab_channel=DavidLin'
+    url='https://www.youtube.com/watch?v=tZe0HFFWyoc&ab_channel=DavidLin'
+    an.apply_to_dataframe(src_col='st',tgt_col=an.standard_columns['ts_url'],fun=lambda x: an.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
     
+    an.utils.dump_df(df=an.subs_df,dir_fp=an.tmp_dir,fname='subs_df.csv')
+    an.select_rows_with_keywords()
+

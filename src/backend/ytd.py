@@ -61,14 +61,16 @@ class Ytd:
         return isavailable, langs_d
     
     # downloads subs 
-    def download_subs(self,url):
+    def download_subs(self,url,out_dir=None):
         self.utils.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')   
         vid_url=self.utils.parse_url(url)['vid_url'] 
+        if out_dir is None:
+            out_dir=self.tmp_dir
         if self.vid_title is None:
             fname=f'raw_subs_' 
         else:
             fname=f'raw_subs_{self.vid_title}_'
-        self.raw_fp=self.utils.path_join(self.tmp_dir,fname)
+        self.raw_fp=self.utils.path_join(out_dir,fname)
 #        self.raw_fp=self.utils.path_join(self.tmp_dir,fname)+f'.{self.subs_lang}.{self.subs_format}'
         l=["yt-dlp","-o", f"{self.raw_fp}","--skip-download"]
         l+=[vid_url,"--force-overwrites",
@@ -77,7 +79,7 @@ class Ytd:
             "--sub-format",self.subs_format,
             "--sub-langs",self.subs_lang] # en.* might be better here 
         stdout, stderr,returncode  =self.utils.subprocess_run(l) 
-        self.raw_fp=self.utils.path_join(self.tmp_dir,fname)+f'.{self.subs_lang}.{self.subs_format}'
+        self.raw_fp=self.utils.path_join(out_dir,fname)+f'.{self.subs_lang}.{self.subs_format}'
         return self.raw_fp
         
     def parse_subs(self,dump_df=True,fname='subs_df',output_dir_fp=None):

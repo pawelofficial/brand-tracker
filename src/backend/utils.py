@@ -180,7 +180,21 @@ class Utils:
         # Convert the metadata dataframe back to a dict
         metadata = metadata_df.to_dict('records')[0]
         return df,metadata
-            
+    
+    def ts_to_flt(self,st,to_int=True,prepend=-10):
+        h, m, s = map(float, st.split(':'))
+        out= h * 3600 + m * 60 + s + prepend 
+        if to_int:
+            return int(out)
+        return out 
+    def move_col_to_end(self,df,column_to_move):
+
+        columns = [col for col in df.columns if col != column_to_move]
+        columns.append(column_to_move)
+
+
+        return df[columns]
+    
 
 
 if __name__=='__main__':

@@ -1,19 +1,17 @@
 if __name__!='__main__':    
     from .utils import Utils   
     from .mypg import mydb
+    from .ytd import Ytd
     from .analyzer import Analyzer
 else:
     from utils import Utils 
     from mypg import mydb 
     from analyzer import Analyzer
+    from ytd import YTd
     
 
-#  channels                channel_id PK                                                                url unique 
-#  channelname             channel_id FK(channels), vid_id PK                                           url unique
-#  channelname_transcript  channel_id FK(channels), vid_id FK(channelname), transcript_id PK            url unique 
-#
-#
-    # clears schema based on mask and tables list 
+
+# ------- pg workflows ----------------
 def clear_schema(schemaname='public'
                  ,and_mask={'table_type':'BASE TABLE','table_name':'%tdlr%'}
                  ,tables_list=['channels']) :
@@ -61,8 +59,6 @@ def wf__recreate_schema(channelname='tdlr'): # channelname --> channel_id
     df=pg.select(s=s3)
     print(df)
 
-# in: channelname 
-# out: --> vid_id
 def wf__upload_new_channel(channelname='tdlr',url=None): 
     """ uploads new channel to channels table """
     if url is None:
@@ -99,7 +95,6 @@ def wf__upload_new_vid(channelname='tdlr', vid_title=None,yt_url=None,yt_id=None
     df=pg.select(s=s)
     print(df)
 
-
 def wf__upload_new_transcript(subs_fp=None,channelname='tdlr',vid_id='1'):
     pg=mydb()
     an=Analyzer()
@@ -117,11 +112,48 @@ def wf__upload_new_transcript(subs_fp=None,channelname='tdlr',vid_id='1'):
                             ,channelname=channelname
                             ,vid_id=vid_id
                             )
-#
+
+# ------- ytd workflows ----------------
+
+def wf__download_subs(url = None):
+    """ downloads and parses subs into data tmp directory """
+    if url is None:
+        url='https://www.youtube.com/watch?v=T3UtaZB0UjY&ab_channel=DavidLin'
+    ytd=Ytd()
+    ytd.download_subs(url=url)
+    ytd.parse_subs()
+    ytd.concat_on_time(N=30)
+    ytd.utils.dump_df(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.csv'))
+
+
+def wf__make_report(url=None):
+    if url is None:
+        url='https://www.youtube.com/watch?v=T3UtaZB0UjY&ab_channel=DavidLin'
+        url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
+        url='https://www.youtube.com/watch?v=9_uvb_8Hd5I&ab_channel=DavidLin'
+    ytd=Ytd()
+    ytd.download_subs(url=url)
+    ytd.parse_subs()
+    ytd.concat_on_time(N=15)
+    ytd.utils.dump_hdf(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.h5'),meta_dic={'url':url})
+    ytd.utils.dump_df(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.csv'))
+    
+    an=Analyzer()
+    an.subs_df,an.subs_meta=an.utils.read_hdf(hdf_fp=ytd.utils.path_join('data','tmp','subs_df.h5'))
+    an.make_calulations()
+    report_df,aggregates_d=an.make_ts_report()
+    print(aggregates_d)
+    an.utils.dump_df(report_df,fp=an.utils.path_join('data','tmp','report_keywords_df.csv'))
+    
+    cols=an.reports_config['rows_with_keywords_columns']
+    an.utils.dump_df(an.subs_df[cols],fp=an.utils.path_join('data','tmp','report_df.csv'))
+    
+    an.make_plot()
+#    print(an.subs_df[cols].tail(25))
 
 
 
 if __name__=='__main__':
     #wf__recreate_schema()
     
-    clear_schema()
+    wf__make_report()
