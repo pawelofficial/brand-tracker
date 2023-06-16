@@ -131,6 +131,7 @@ def wf__make_report(url=None):
         url='https://www.youtube.com/watch?v=T3UtaZB0UjY&ab_channel=DavidLin'
         url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
         url='https://www.youtube.com/watch?v=9_uvb_8Hd5I&ab_channel=DavidLin'
+        url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
     ytd=Ytd()
     ytd.download_subs(url=url)
     ytd.parse_subs()
@@ -141,14 +142,14 @@ def wf__make_report(url=None):
     an=Analyzer()
     an.subs_df,an.subs_meta=an.utils.read_hdf(hdf_fp=ytd.utils.path_join('data','tmp','subs_df.h5'))
     an.make_calulations()
-    report_df,aggregates_d=an.make_ts_report()
+    ts_report_df,aggregates_d=an.make_ts_report()
     print(aggregates_d)
-    an.utils.dump_df(report_df,fp=an.utils.path_join('data','tmp','report_keywords_df.csv'))
+    an.utils.dump_df(ts_report_df,fp=an.utils.path_join('data','tmp','ts_report_df.csv'))
     
-    cols=an.reports_config['rows_with_keywords_columns']
-    an.utils.dump_df(an.subs_df[cols],fp=an.utils.path_join('data','tmp','report_df.csv'))
+    #cols=an.reports_config['rows_with_keywords_columns']
+    #an.utils.dump_df(an.subs_df[cols],fp=an.utils.path_join('data','tmp','report_df.csv'))
     
-    an.make_plot()
+    an.make_plot(subs_df=an.subs_df,ts_report_df=ts_report_df)
 #    print(an.subs_df[cols].tail(25))
 
 

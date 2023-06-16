@@ -9,6 +9,7 @@ import inspect
 import pandas as pd 
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.lines as mlines
 #pd.set_option('display.max_columns', None)  # display all columns
 #pd.set_option('display.max_rows', None)  # display all rows
 pd.set_option('display.max_colwidth', None)  # display all contents of a column
@@ -43,8 +44,13 @@ class Analyzer():
         self.negative_dict = {word: -1 for word in self.negative_keywords}
         self.reports_config={
             #'rows_with_keywords_columns':['txt','ts_url','positive_sentiment','negative_sentiment','st']
-            'rows_with_keywords_columns':['compound_sentiment','st','ts_url','txt','positive_sentiment','negative_sentiment']
-            ,'plot_cols':{'x':'st','y':['positive_sentiment','negative_sentiment']}
+            'rows_with_keywords_columns':['sentiment','st','ts_url','txt','positive_sentiment','negative_sentiment','en']
+            ,'plot_cols':{'x':'st','y':['sentiment','sentiment_ema']}
+            ,'plot_markers':{'sentiment':'x','sentiment_ema':'o'}
+            ,'plot_colors':{'sentiment':'b','sentiment_ema':'k'}
+            ,'plot_linestyles':{'sentiment':'','sentiment_ema':'-'}
+            ,'keywords_colors':{'gold':'gold','bitcoin':'blue','crypto':'royalblue','tech':'cyan','market':'red','stock':'darkred','cash':'green','dollar':'lighgreen'}
+        
         }
         self.standard_columns={'json_column':'json_column'
                                ,'ts_url':'ts_url'
@@ -76,7 +82,9 @@ class Analyzer():
     def calculate_sentiment(self, text):
         sia = SentimentIntensityAnalyzer()
         sentiment_score = sia.polarity_scores(text)
-        return -sentiment_score['neg'],sentiment_score['pos'],sentiment_score['neu'],sentiment_score['compound']
+        if abs(sentiment_score['compound'])>0.75:
+            strong_sentiment=1
+        return -sentiment_score['neg'],sentiment_score['pos'],sentiment_score['neu'],sentiment_score['compound'],strong_sentiment
 
     def calculate_url_ts(self,st,url,key='vid_url'):
         ff=self.utils.ts_to_flt(st)
@@ -84,7 +92,8 @@ class Analyzer():
         ts_url=f'{d[key]}#t={ff}'
         return ts_url
         
-    def make_plot(self,subs_df=None,cols=None,png_name=None,png_fp=None):
+    # makes a plot 
+    def make_plot(self,subs_df=None,cols=None,png_name=None,png_fp=None,ts_report_df=None):
         if subs_df is None :
             subs_df=self.subs_df
         if cols is None:
@@ -94,33 +103,55 @@ class Analyzer():
         if png_fp is None:
             png_fp=self.png_fp
             
+        tmp_df=subs_df.copy()
+        tmp_df['sentiment_ema']=tmp_df['sentiment'].ewm(span=5, adjust=False).mean()
+        
+        tmp_df['st']=tmp_df['st'].apply(lambda x: self.utils.ts_to_flt(x))
+        tmp_df['en']=tmp_df['en'].apply(lambda x: self.utils.ts_to_flt(x))
+        ts_report_df['st']=ts_report_df['st'].apply(lambda x: self.utils.ts_to_flt(x))
+        ts_report_df['en']=ts_report_df['en'].apply(lambda x: self.utils.ts_to_flt(x))
 
         plt.figure(figsize=(10,6))
-        
         y_col=cols['y']
         x_col=cols['x']
-
-        
-
-
+        marker_dict=self.reports_config['plot_markers']
+        color_dict=self.reports_config['plot_colors']
+        linestyle_dict=self.reports_config['plot_linestyles']
         if isinstance(y_col, list):
             for col in y_col:
-                print(col)
-                mask = subs_df[col] != -999
-                plt.plot(subs_df[x_col][mask], subs_df[col][mask], 'o', label=col)
-        else:
-            mask = subs_df[y_col] != -999
-            plt.plot(subs_df[x_col][mask], subs_df[y_col][mask], 'o', label=y_col)
+                mask = tmp_df[col] != -999
+                plt.plot(tmp_df[x_col][mask], tmp_df[col][mask], marker=marker_dict[col], color=color_dict[col],linestyle=linestyle_dict[col],label=col)
 
-            
+        else:
+            mask = tmp_df[y_col] != -999
+            plt.plot(tmp_df[x_col][mask], tmp_df[y_col][mask],marker=marker_dict[col], color=color_dict[col],linestyle=linestyle_dict[col],label=col)
+
+        keywords_colors=self.reports_config['keywords_colors']
+        for keyword in self.keywords:
+            condition_mask = ts_report_df['keyword'] == keyword
+            for x, width in zip(ts_report_df[x_col][condition_mask], (ts_report_df['en'] - ts_report_df[x_col])[condition_mask]):
+                plt.bar(x, height=2, width=width, bottom=-1, color=keywords_colors[keyword], align='edge', alpha=0.3)
+
+        # Get the legend handles and labels for the plot
+        handles, labels = plt.gca().get_legend_handles_labels()
+
+        # For each keyword, create a legend entry and add it to the list
+        for keyword, color in keywords_colors.items():
+            handles.append(mlines.Line2D([0], [0], color=color, lw=4, label=keyword))
+
+        # Add the combined legend to the plot
+       # plt.legend(handles=handles, loc='upper left')
+        plt.legend(handles=handles, loc='center left', bbox_to_anchor=(1, 0.5))
+
         plt.xlabel(x_col)
-        plt.ylabel('Values')
-        plt.legend()
-        plt.title('Data Plot')
+        plt.ylabel('Sentiment score 1 - positive / -1 -> negative')
+        plt.title('Video sentiment')
         plt.grid(True)
         print(png_fp)
         plt.savefig(png_fp)
         plt.close()
+
+
         
     # adds series to a dataframe s
 
@@ -160,7 +191,7 @@ class Analyzer():
     def make_calulations(self,url = None):
         if url is None:
             url=self.subs_meta['url']
-        self.apply_to_dataframe(src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','compound_sentiment'] ,fun=self.calculate_sentiment)
+        self.apply_to_dataframe(src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','sentiment','strong_sentiment'] ,fun=self.calculate_sentiment)
         self.apply_to_dataframe(src_col='txt',tgt_col=self.standard_columns['json_column'],fun=self.calculate_keywords)    
         self.apply_to_dataframe(src_col='st',tgt_col=self.standard_columns['ts_url'],fun=lambda x: self.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
 
@@ -191,11 +222,11 @@ class Analyzer():
         aggregates_d={}
         for keyword in self.keywords:
             msk=tmp_df['keyword']==keyword
-            data=tmp_df[msk]['compound_sentiment']
+            data=tmp_df[msk]['sentiment']
             aggregates_d[keyword]=np.round(data.mean(),3)
             
-        msk=subs_df['compound_sentiment']!=0
-        aggregates_d['overall_sentiment']=np.round(subs_df[msk]['compound_sentiment'].mean(),3)
+        msk=subs_df['sentiment']!=0
+        aggregates_d['overall_sentiment']=np.round(subs_df[msk]['sentiment'].mean(),3)
         return tmp_df,aggregates_d
         
 if __name__=='__main__':
