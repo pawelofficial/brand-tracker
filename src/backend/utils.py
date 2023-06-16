@@ -191,10 +191,13 @@ class Utils:
 
         columns = [col for col in df.columns if col != column_to_move]
         columns.append(column_to_move)
-
-
         return df[columns]
-    
+
+    def calculate_url_ts(self,st,url,key='vid_url'):
+        ff=self.ts_to_flt(st)
+        d=self.parse_url(url)
+        ts_url=f'{d[key]}#t={ff}'
+        return ts_url
 
 
 if __name__=='__main__':
