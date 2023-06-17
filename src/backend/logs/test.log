@@ -1,4 +1,4 @@
-INFO:test.log:2023-06-14 12:23:35,400:executing Utils.log_variable
-INFO:test.log:2023-06-14 12:23:35,400:setting up test.log at C:\gh\brand-tracker\brand-tracker\src\backend\logs\test.log   
-INFO:test.log:2023-06-14 12:23:35,400:executing Utils.log_variable
-INFO:test.log:2023-06-14 12:23:35,400:executing Utils.path_join  
+INFO:test.log:2023-06-17 10:56:28,384:executing Utils.log_variable
+INFO:test.log:2023-06-17 10:56:28,384:setting up test.log at C:\gh\brand-tracker\brand-tracker\src\backend\logs\test.log   
+INFO:test.log:2023-06-17 10:56:28,384:executing Utils.log_variable
+INFO:test.log:2023-06-17 10:56:28,384:executing Utils.path_join  

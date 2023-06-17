@@ -10,6 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.lines as mlines
+import base64
 #pd.set_option('display.max_columns', None)  # display all columns
 #pd.set_option('display.max_rows', None)  # display all rows
 pd.set_option('display.max_colwidth', None)  # display all contents of a column
@@ -50,6 +51,7 @@ class Analyzer():
             ,'plot_colors':{'sentiment':'b','sentiment_ema':'k'}
             ,'plot_linestyles':{'sentiment':'','sentiment_ema':'-'}
             ,'keywords_colors':{'gold':'gold','bitcoin':'blue','crypto':'royalblue','tech':'cyan','market':'red','stock':'darkred','cash':'green','dollar':'lightgreen'}
+            ,'ts_report_columns':['keyword','sentiment','st','ts_url','txt']
         
         }
         self.standard_columns={'json_column':'json_column'
@@ -78,6 +80,7 @@ class Analyzer():
         positive_score = sum(self.positive_dict.get(word, 0) for word in words)
         negative_score = sum(self.negative_dict.get(word, 0) for word in words)
         return positive_score, negative_score
+    
     # calulate sentiment on a stinr 
     def calculate_sentiment(self, text) ->tuple:
         sia = SentimentIntensityAnalyzer()
@@ -99,20 +102,13 @@ class Analyzer():
             raise ValueError('tgt_col should be either a string or a list of strings')
         
     # applies function to dataframe - adds new column 
-    def apply_to_dataframe_single(self,src_col,tgt_col,fun,subs_df=None,mutate=True):
+    def apply_to_dataframe_single(self,src_col,tgt_col,fun,subs_df=None):
         if subs_df is None:
             subs_df=self.subs_df    
-        tmp_df=subs_df.copy()
-        tmp_df[tgt_col]=tmp_df[src_col].apply(fun)
+        subs_df[tgt_col]=subs_df[src_col].apply(fun)
         
-        if mutate:
-            subs_df[tgt_col]=tmp_df[tgt_col]
-            return subs_df
-        else:
-            return tmp_df    
-    
     # applies function to df - adds new columns 
-    def apply_to_dataframe_multiple(self,src_col,tgt_col : list ,fun,subs_df=None,mutate=True):
+    def apply_to_dataframe_multiple(self,src_col,tgt_col : list ,fun,subs_df=None):
         if subs_df is None:
             subs_df=self.subs_df    
         s = subs_df[src_col].apply(fun)
@@ -123,14 +119,23 @@ class Analyzer():
         for no,col_name in enumerate(tgt_col):
             subs_df[col_name]=out[no]
             
-    def make_ts_report_calculations(self,url = None):
+    def make_ts_report_calculations(self,url = None,subs_df=None,mutate=False):
         if url is None:
             url=self.subs_meta['url']
-        self.apply_to_dataframe(src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','sentiment','strong_sentiment'] ,fun=self.calculate_sentiment)
-        self.apply_to_dataframe(src_col='txt',tgt_col=['json_column','dict_column'],fun=self.calculate_keywords)    
-        self.apply_to_dataframe(src_col='st',tgt_col=self.standard_columns['ts_url'],fun=lambda x: self.utils.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
+        if subs_df is None:
+            subs_df=self.subs_df
+        if mutate:
+            tmp_df=subs_df
+        else:
+            tmp_df=subs_df.copy()
+            
+        self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','sentiment','strong_sentiment'] ,fun=self.calculate_sentiment)
+        self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['json_column','dict_column'],fun=self.calculate_keywords)    
+        self.apply_to_dataframe(subs_df=tmp_df,src_col='st',tgt_col=self.standard_columns['ts_url'],fun=lambda x: self.utils.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
+        return tmp_df
 
     # makes ts report df - does not mutate subs df 
+    # requires additional columns json_column,sentiment coming from make_ts_report_calculations
     def make_ts_report(self,keywords=None,subs_df=None,cols=None,json_column=None):
         if subs_df is None:
             subs_df=self.subs_df
@@ -161,6 +166,8 @@ class Analyzer():
             
         msk=subs_df['sentiment']!=0
         aggregates_d['overall_sentiment']=np.round(subs_df[msk]['sentiment'].mean(),3)
+        
+        tmp_df=tmp_df.sort_values(['keyword','st'])
         return tmp_df,aggregates_d
         
     def make_plot(self,ts_report_df,subs_df=None,cols=None,png_name=None,png_fp=None):
@@ -172,8 +179,8 @@ class Analyzer():
             png_name=self.png_name
         if png_fp is None:
             png_fp=self.png_fp
-        png_fp=self.utils.path_join(png_fp,png_name)
-        print(png_fp)
+            png_fp=self.utils.path_join(png_fp,png_name)
+
         tmp_df=subs_df.copy()
         tmp_df['sentiment_ema']=tmp_df['sentiment'].ewm(span=5, adjust=False).mean()
         
@@ -221,6 +228,75 @@ class Analyzer():
         print(png_fp)
         plt.savefig(png_fp)
         plt.close()
+
+    def make_html_report(self,ts_report_df,aggregates_dic,png_fp,meta_dic,output_dir=None,fname=None):
+        if output_dir is None:
+            output_dir=self.tmp_dir
+        if fname is None:
+            fname='html_report.html'
+        out_fp=self.utils.path_join(output_dir,fname)
+        
+        vid_title=meta_dic['title']
+        vid_url=meta_dic['url']
+        
+        title=f'''<h1>Transcript Report for <a href="{vid_url}">{vid_title}</a></h1>'''
+        agg_d=f'''<pre>{json.dumps(aggregates_dic,indent=4)}</pre>'''
+        img=open(png_fp,'rb').read()
+        img_base64 = base64.b64encode(img).decode()
+        html=ts_report_df.to_html()
+        df_lines=[]
+        df_lines.append(f"<table>")
+        df_lines.append(f"<tr>")
+        for col in ts_report_df.columns:
+            if col in self.reports_config['ts_report_columns']:
+                df_lines.append(f"<th>{col}</th>")
+        df_lines.append(f"</tr>")
+        for _,row in ts_report_df.iterrows():
+            dic=row.to_dict()
+            dic['st']=self.utils.flt_to_ts(dic['st'])
+            dic['en']=self.utils.flt_to_ts(dic['en'])
+            df_lines.append(f"<tr>")
+            for k,v in dic.items() :
+                if k in self.reports_config['ts_report_columns']:
+                    df_lines.append(f"<td>{v}</td>")
+            df_lines.append(f"</tr>")
+        df_lines.append("</table>")
+        df_lines='\n'.join(df_lines)
+        
+            
+        
+        style = '''
+            <style>
+                table {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                }
+                td, th {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                }
+                th {
+                    padding-top: 12px;
+                    padding-bottom: 12px;
+                    text-align: left;
+                    background-color: #4CAF50;
+                    color: white;
+                }
+            </style>
+            '''
+        email_contents=f'''\
+            {style}
+            {title}
+            {agg_d}
+            <h2>Image</h2>
+            <img src="data:image/png;base64,{img_base64}">
+            <h2>Dataframe</h2>
+            {df_lines}
+            '''
+
+        with open(out_fp, 'w') as file:
+            file.write(email_contents)
+
 if __name__=='__main__':
     an=Analyzer()
     s="""like to talk about the dollar relationship but the higher dollar does put a little pressure on gold I think go all will make new heights this year there's no doubt that I think it's going higher uh I think right now you're"""

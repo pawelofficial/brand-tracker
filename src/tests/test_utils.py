@@ -55,7 +55,7 @@ class TestUtils(unittest.TestCase):
         output_fp=os.path.join(os.path.dirname(os.path.abspath(__file__)),'tests_outputs','subs_df.h5')
         df=self.utils.read_csv(input_fp)        
         yt_url='https://www.youtube.com/watch?v=tZe0HFFWyoc&ab_channel=DavidLin'
-        self.utils.dump_hdf(df,output_fp,meta_dic={'meta':'test','url':yt_url})
+        self.utils.dump_hdf(df,output_fp,meta_dic={'meta':'test','url':yt_url,'title':'test_title'})
         self.assertTrue(os.path.exists(input_fp))
         self.assertTrue(os.path.exists(output_fp))
         

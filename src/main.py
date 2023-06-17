@@ -20,3 +20,13 @@ from backend.workflows import wf__make_report
 wf__make_report()
 
 
+
+
+
+
+# download, parse, concat subs -> upload to cosmos ->  video_subs
+# make ts report on out of video_subs              ->  video_ts_report , aggregates
+# make png out of video subs and video ts report   ->  video plot 
+# make report per user 
+# send report 
+

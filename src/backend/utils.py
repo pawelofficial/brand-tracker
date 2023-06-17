@@ -141,12 +141,15 @@ class Utils:
             for k,v in d.items():
                 d[k]=None
                 
-    def dump_df(self,df,fp=None,dir_fp=None,fname=None):
+    def dump_df(self,df,fp=None,dir_fp=None,fname=None,to_html=False):
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
         if fp is None:
             fp=self.path_join(dir_fp,fname)
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
-        x=df.to_csv(fp,index=False)
+        if not to_html:
+            x=df.to_csv(fp,index=False)
+        else:
+            df.to_htmp(fp,index=False)
 
     def dump_hdf(self,df,fp=None,dir_fp=None,fname=None,meta_dic={}):
         self.log_variable(msg=f'executing {self.__class__.__name__}.{inspect.currentframe().f_code.co_name} ')
@@ -181,24 +184,45 @@ class Utils:
         metadata = metadata_df.to_dict('records')[0]
         return df,metadata
     
-    def ts_to_flt(self,st,to_int=True,prepend=-10):
+    def ts_to_flt(self,st,to_int=True,prepend=0):
         h, m, s = map(float, st.split(':'))
         out= h * 3600 + m * 60 + s + prepend 
+        if out <0:
+            out=0
         if to_int:
             return int(out)
         return out 
+    def flt_to_ts(self, seconds):
+        h = int(seconds // 3600)
+        m = int((seconds % 3600) // 60)
+        s = int(seconds % 60)
+        return "{}:{:02d}:{:02d}".format(h, m, s)
+
     def move_col_to_end(self,df,column_to_move):
 
         columns = [col for col in df.columns if col != column_to_move]
         columns.append(column_to_move)
         return df[columns]
 
-    def calculate_url_ts(self,st,url,key='vid_url'):
-        ff=self.ts_to_flt(st)
+    def calculate_url_ts_old(self,st,url,key='vid_url',prepend=-5,to_link=True):
+        ff=self.ts_to_flt(st,prepend=prepend)
         d=self.parse_url(url)
+        if to_link:
+            if ff==0:
+                return f'<a href="{url}">link</a>' 
+            ts_url = f'{d[key]}#t={ff}'
+            return f'<a href="{ts_url}">link</a>'
+        
+        if ff==0:
+            return url 
         ts_url=f'{d[key]}#t={ff}'
         return ts_url
 
+    def calculate_url_ts(self, st, url, key='vid_url', prepend=-3, to_link=True):
+        ff = self.ts_to_flt(st, prepend=prepend)
+        d = self.parse_url(url)
+        ts_url = url if ff==0 else f'{d[key]}#t={ff}'
+        return f'<a href="{ts_url}"  target="_blank" >link</a>' if to_link else ts_url
 
 if __name__=='__main__':
     u=Utils() 
