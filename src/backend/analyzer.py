@@ -49,14 +49,21 @@ class Analyzer():
         self.negative_dict = {word: -1 for word in self.negative_keywords}
         self.reports_config={
             #'rows_with_keywords_columns':['txt','ts_url','positive_sentiment','negative_sentiment','st']
-            'rows_with_keywords_columns':['sentiment','st','ts_url','txt','positive_sentiment','negative_sentiment','en']
-            ,'plot_cols':{'x':'st','y':['sentiment','sentiment_ema']}
-            ,'plot_markers':{'sentiment':'x','sentiment_ema':'o'}
-            ,'plot_colors':{'sentiment':'b','sentiment_ema':'k'}
-            ,'plot_linestyles':{'sentiment':'','sentiment_ema':'-'}
+            'rows_with_keywords_columns':['st','ts_url','txt','sadness','joy','love','anger','fear','surprise','how_strong','en']
+            ,'plot_cols':{'x':'st','y':['sadness','joy','love','anger','fear','surprise']}
+            #,'plot_markers':{'sadness':'x','joy':'x','anger':'x','fear':'x','surprise':'x','love':'x'}
+            #,'plot_linestyles':{'sadness':'-','joy':'-','anger':'-','fear':'-','surprise':'-','love':'-'}
+            ,'plot_markers': {'sadness': 'x', 'joy': 'o', 'anger': '^', 'fear': 's', 'surprise': 'p', 'love': '*'}
+            ,'plot_linestyles': {'sadness': '-', 'joy': '--', 'anger': '-.', 'fear': ':', 'surprise': '-', 'love': '--'}
+
+            ,'plot_colors':{'sadness':'blue','joy':'gold','anger':'black','fear':'red','surprise':'green','love':'magenta'}
+            
             ,'keywords_colors':{'gold':'gold','bitcoin':'blue','crypto':'royalblue','tech':'cyan','market':'red','stock':'darkred','cash':'green','dollar':'lightgreen'}
-            ,'ts_report_columns':['keyword','sentiment','st','ts_url','txt']
-        
+            #,'sentiment_colors':{'sadness':'blue','joy':'gold','anger':'black','fear':'red','surprise':'green','love':'magenta'}
+            ,'sentiment_colors':{'sadness':'black','joy':'black','anger':'black','fear':'black','surprise':'black','love':'black'}
+            ,'aggregate_sentiment_column':None
+            ,'ts_report_columns':['keyword','sadness','joy','love','anger','fear','surprise','how_strong','st','ts_url','txt']
+            ,'sentiment_columns':['sadness','joy','love','anger','fear','surprise']
         }
         self.standard_columns={'json_column':'json_column'
                                ,'ts_url':'ts_url'
@@ -66,7 +73,7 @@ class Analyzer():
         self.rp=RestorePuncts()
         self.nlp = pipeline("text-classification"
                             ,model='bhadresh-savani/distilbert-base-uncased-emotion'
-                            , return_all_scores=True)
+                            , top_k=None) # ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
 
     
     # find keywords in a string  
@@ -97,7 +104,19 @@ class Analyzer():
             return keys_dic
         result = self.nlp(text)[0]
         d=parse_output(result,self.nlp)
-        return d 
+        
+        my_labels=['very strong','somewhat strong','neutral']
+        for label in my_labels:
+            vals=[v for k,v in d.items()]
+            if any(vals)>75:
+                label=my_labels[0]
+            elif any(vals)>50:
+                label=my_labels[1]
+            else:
+                label=my_labels[2]
+            
+        d['how_strong']=label
+        return [d[k] for k in  d.keys()] # ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'] 
 
     
     # calulate sentiment on a stinr 
@@ -148,14 +167,15 @@ class Analyzer():
         else:
             tmp_df=subs_df.copy()
             
-        self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','sentiment','strong_sentiment'] ,fun=self.calculate_sentiment)
+        #self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','sentiment','strong_sentiment'] ,fun=self.calculate_sentiment)
+        self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['sadness','joy','love','anger','fear','surprise','how_strong'] ,fun=self.calculate_sentiment_custom)
         self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['json_column','dict_column'],fun=self.calculate_keywords)    
         self.apply_to_dataframe(subs_df=tmp_df,src_col='st',tgt_col=self.standard_columns['ts_url'],fun=lambda x: self.utils.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
         return tmp_df
 
     # makes ts report df - does not mutate subs df 
     # requires additional columns json_column,sentiment coming from make_ts_report_calculations
-    def make_ts_report(self,keywords=None,subs_df=None,cols=None,json_column=None):
+    def make_ts_report(self,keywords=None,subs_df=None,cols=None,json_column=None,sentiment_cols=None):
         if subs_df is None:
             subs_df=self.subs_df
         if cols is None:
@@ -164,6 +184,8 @@ class Analyzer():
             json_column=self.standard_columns['json_column']
         if keywords is None:
             keywords=self.keywords
+        if sentiment_cols is None:
+            sentiment_cols=self.reports_config['sentiment_columns']
         
         tmp_df=pd.DataFrame(columns=['keyword',*cols])
         # Create a boolean mask for each keyword and combine them using the logical OR operator
@@ -177,18 +199,23 @@ class Analyzer():
             tmp_df=self.utils.move_col_to_end(df=tmp_df,column_to_move='ts_url')
             tmp_df=self.utils.move_col_to_end(df=tmp_df,column_to_move='txt')
 
-        aggregates_d={}
-        for keyword in self.keywords:
-            msk=tmp_df['keyword']==keyword
-            data=tmp_df[msk]['sentiment']
-            aggregates_d[keyword]=np.round(data.mean(),3)
-            
-        msk=subs_df['sentiment']!=0
-        aggregates_d['overall_sentiment']=np.round(subs_df[msk]['sentiment'].mean(),3)
-        
-        tmp_df=tmp_df.sort_values(['keyword','st'])
-        return tmp_df,aggregates_d
-        
+
+        aggregates_dic_keywords = {keyword: {sentiment_col: None for sentiment_col in sentiment_cols} for keyword in self.keywords}
+
+        for sentiment_col in sentiment_cols:
+            for keyword in self.keywords:
+                msk=tmp_df['keyword']==keyword                                  # get rows with a keyword 
+                data=tmp_df[msk][sentiment_col]
+                aggregates_dic_keywords[keyword][sentiment_col]=np.round(data.mean(),3)
+
+        aggregates_dic_sentiment={emotion:None for emotion in sentiment_cols}
+        for col in sentiment_cols:
+            msk=tmp_df[col]!=0
+            aggregates_dic_sentiment[col]=np.round(tmp_df[msk][col].mean(),3)
+    
+
+        return tmp_df,aggregates_dic_keywords,aggregates_dic_sentiment
+
     def make_plot(self,ts_report_df,subs_df=None,cols=None,png_name=None,png_fp=None):
         if subs_df is None :
             subs_df=self.subs_df
@@ -201,8 +228,10 @@ class Analyzer():
             png_fp=self.utils.path_join(png_fp,png_name)
 
         tmp_df=subs_df.copy()
-        tmp_df['sentiment_ema']=tmp_df['sentiment'].ewm(span=5, adjust=False).mean()
-        
+        aggregate_sentiment_column=self.reports_config['aggregate_sentiment_column']
+        if aggregate_sentiment_column is not None:
+            tmp_df[aggregate_sentiment_column+'_ema']=tmp_df[aggregate_sentiment_column].ewm(span=5, adjust=False).mean()
+        tmp_df['st_bu']=tmp_df['st']
         tmp_df['st']=tmp_df['st'].apply(lambda x: self.utils.ts_to_flt(x))
         tmp_df['en']=tmp_df['en'].apply(lambda x: self.utils.ts_to_flt(x))
         ts_report_df['st']=ts_report_df['st'].apply(lambda x: self.utils.ts_to_flt(x))
@@ -212,32 +241,34 @@ class Analyzer():
         y_col=cols['y']
         x_col=cols['x']
         marker_dict=self.reports_config['plot_markers']
-        color_dict=self.reports_config['plot_colors']
+        color_dict=self.reports_config['sentiment_colors']
         linestyle_dict=self.reports_config['plot_linestyles']
+
         if isinstance(y_col, list):
             for col in y_col:
                 mask = tmp_df[col] != -999
-                plt.plot(tmp_df[x_col][mask], tmp_df[col][mask], marker=marker_dict[col], color=color_dict[col],linestyle=linestyle_dict[col],label=col)
-
+                data=tmp_df[col][mask].ewm(span=5, adjust=False).mean()
+                max_y = data.max()
+                max_x = tmp_df[x_col][mask][data.idxmax()]
+                plt.plot(tmp_df[x_col][mask], data, marker=marker_dict[col], color=color_dict[col],linestyle=linestyle_dict[col],label=col)
+                plt.annotate(col, (max_x, max_y), textcoords="offset points", xytext=(10,0))
         else:
             mask = tmp_df[y_col] != -999
-            plt.plot(tmp_df[x_col][mask], tmp_df[y_col][mask],marker=marker_dict[col], color=color_dict[col],linestyle=linestyle_dict[col],label=col)
+            data=tmp_df[y_col][mask].ewm(span=5, adjust=False).mean()
+            plt.plot(tmp_df[x_col][mask], data,marker=marker_dict[col], color=color_dict[col],linestyle=linestyle_dict[col],label=col)
 
         keywords_colors=self.reports_config['keywords_colors']
         for keyword in self.keywords:
             condition_mask = ts_report_df['keyword'] == keyword
             for x, width in zip(ts_report_df[x_col][condition_mask], (ts_report_df['en'] - ts_report_df[x_col])[condition_mask]):
-                plt.bar(x, height=2, width=width, bottom=-1, color=keywords_colors[keyword], align='edge', alpha=0.3)
+                plt.bar(x, height=100, width=width, bottom=0, color=keywords_colors[keyword], align='edge', alpha=0.3)
 
-        # Get the legend handles and labels for the plot
         handles, labels = plt.gca().get_legend_handles_labels()
 
-        # For each keyword, create a legend entry and add it to the list
         for keyword, color in keywords_colors.items():
             handles.append(mlines.Line2D([0], [0], color=color, lw=4, label=keyword))
 
-        # Add the combined legend to the plot
-       # plt.legend(handles=handles, loc='upper left')
+
         plt.legend(handles=handles, loc='center left', bbox_to_anchor=(1, 0.5))
 
         plt.xlabel(x_col)

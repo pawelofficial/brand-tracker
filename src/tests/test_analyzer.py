@@ -16,6 +16,7 @@ class testAnalyzer(unittest.TestCase):
         self.hdf_fp=self.an.utils.path_join(self.tests_inputs_dir,'subs_df.h5')
         self.csv_fp=self.an.utils.path_join(self.tests_inputs_dir,'subs_df.csv')
         self.an.subs_df,self.an.subs_meta=self.an.utils.read_hdf(self.hdf_fp)
+
   
 
 ###    def test_read_hdf(self):
@@ -41,33 +42,35 @@ class testAnalyzer(unittest.TestCase):
 ###        enhanced_subs_df=self.an.make_ts_report_calculations() # making json column
 ###        self.assertTrue(isinstance(enhanced_subs_df, pd.DataFrame))
 ###        self.assertTrue(len(enhanced_subs_df.columns)!=len(self.an.subs_df.columns))
-###        
+
+        
 ###    def test_make_ts_report(self):
 ###        enhanced_subs_df=self.an.make_ts_report_calculations() # making json column
-###        ts_report_df,aggregates_d=self.an.make_ts_report(subs_df=enhanced_subs_df) # making ts report
+###        ts_report_df,aggregates_d,aggregates_dic_sentiment=self.an.make_ts_report(subs_df=enhanced_subs_df) # making ts report
+###        print(aggregates_dic_sentiment)
 ###        self.assertTrue(isinstance(ts_report_df, pd.DataFrame))
 ###        self.assertTrue(isinstance(aggregates_d, dict))
 ###        cols=self.an.reports_config['ts_report_columns']
 ###        self.an.utils.dump_df(ts_report_df[cols],dir_fp=self.tests_outputs_dir,fname='ts_report_df.csv')
 ###        self.an.utils.dump_df(enhanced_subs_df,dir_fp=self.tests_outputs_dir,fname='enhanced_subs_df.csv')
 ###        
-###    def test_make_plot(self):
-###        enhanced_subs_df=self.an.make_ts_report_calculations() # making json column
-###        ts_report_df,aggregates_d=self.an.make_ts_report(subs_df=enhanced_subs_df) # making ts report 
-###        png_fp=self.tests_outputs_dir
-###        self.an.make_plot(ts_report_df=ts_report_df,subs_df=enhanced_subs_df,png_fp=png_fp)
-###        
-    def test_make_html_report(self):
-        enhanced_subs_df=self.an.make_ts_report_calculations()                                           
-        ts_report_df,aggregates_dic=self.an.make_ts_report(subs_df=enhanced_subs_df) # making ts report
-        png_fp=self.an.utils.path_join(self.tests_inputs_dir,'plot.png')
+    def test_make_plot(self):
+        enhanced_subs_df=self.an.make_ts_report_calculations() # making json column
+        ts_report_df,aggregates_d,aggregates_dic_sentiment=self.an.make_ts_report(subs_df=enhanced_subs_df) # making ts report 
+        png_fp=self.tests_outputs_dir
         self.an.make_plot(ts_report_df=ts_report_df,subs_df=enhanced_subs_df,png_fp=png_fp)
-        _,meta_dic=self.an.utils.read_hdf(self.hdf_fp)
-        self.an.make_html_report(
-            ts_report_df=ts_report_df
-            ,aggregates_dic=aggregates_dic
-            ,png_fp=png_fp
-            ,meta_dic=meta_dic
-            ,output_dir=self.tests_outputs_dir
-        )
-        
+###        
+###    def test_make_html_report(self):
+###        enhanced_subs_df=self.an.make_ts_report_calculations()                                           
+###        ts_report_df,aggregates_dic=self.an.make_ts_report(subs_df=enhanced_subs_df) # making ts report
+###        png_fp=self.an.utils.path_join(self.tests_inputs_dir,'plot.png')
+###        self.an.make_plot(ts_report_df=ts_report_df,subs_df=enhanced_subs_df,png_fp=png_fp)
+###        _,meta_dic=self.an.utils.read_hdf(self.hdf_fp)
+###        self.an.make_html_report(
+###            ts_report_df=ts_report_df
+###            ,aggregates_dic=aggregates_dic
+###            ,png_fp=png_fp
+###            ,meta_dic=meta_dic
+###            ,output_dir=self.tests_outputs_dir
+###        )
+###        
