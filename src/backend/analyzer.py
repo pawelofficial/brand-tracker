@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.lines as mlines
 import base64
+from transformers import pipeline
 from multiprocessing import Process, freeze_support
 #pd.set_option('display.max_columns', None)  # display all columns
 #pd.set_option('display.max_rows', None)  # display all rows
@@ -63,6 +64,10 @@ class Analyzer():
         self.png_name = 'plot.png'
         self.png_fp=self.tmp_dir
         self.rp=RestorePuncts()
+        self.nlp = pipeline("text-classification"
+                            ,model='bhadresh-savani/distilbert-base-uncased-emotion'
+                            , return_all_scores=True)
+
     
     # find keywords in a string  
     def calculate_keywords(self, text, keywords=None) -> tuple:
@@ -80,10 +85,20 @@ class Analyzer():
     
     # calculates sentiment of a string 
     def calculate_sentiment_custom(self,text):
-        words = text.split()
-        positive_score = sum(self.positive_dict.get(word, 0) for word in words)
-        negative_score = sum(self.negative_dict.get(word, 0) for word in words)
-        return positive_score, negative_score
+        def parse_output(result,nlp):
+            keys_dic={v:'' for k,v in nlp.model.config.id2label.items()}
+            for d in result:
+                label=d['label']
+                score=d['score']
+                if label not in keys_dic:
+                    raise 
+                else:
+                    keys_dic[label]=np.round(score,3)*100
+            return keys_dic
+        result = self.nlp(text)[0]
+        d=parse_output(result,self.nlp)
+        return d 
+
     
     # calulate sentiment on a stinr 
     def calculate_sentiment(self, text) ->tuple:
