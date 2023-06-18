@@ -126,35 +126,43 @@ def wf__download_subs(url = None):
     ytd.utils.dump_df(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.csv'))
 
 
-def wf__make_report(url=None):
+def wf__make_html_report(url=None):
     if url is None:
         url='https://www.youtube.com/watch?v=T3UtaZB0UjY&ab_channel=DavidLin'
         url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
         url='https://www.youtube.com/watch?v=9_uvb_8Hd5I&ab_channel=DavidLin'
         url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
+        url='https://www.youtube.com/watch?v=JPGe_VXkOHU&ab_channel=DavidLin'
+        url='https://www.youtube.com/watch?v=8idT_lYJkeU&ab_channel=GregDickerson'
     ytd=Ytd()
     ytd.download_subs(url=url)
     ytd.parse_subs()
-    ytd.concat_on_time(N=15)
-    ytd.utils.dump_hdf(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.h5'),meta_dic={'url':url})
+    ytd.concat_on_time(N=30)
+    title=ytd.get_url_title(url=url)
+    meta_dic={'url':url,'title':title}
+    ytd.utils.dump_hdf(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.h5'),meta_dic=meta_dic)
     ytd.utils.dump_df(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.csv'))
+    ytd.tmp_dir=ytd.utils.path_join('data','tmp')
     
     an=Analyzer()
+    an.tmp_dir=ytd.tmp_dir
     an.subs_df,an.subs_meta=an.utils.read_hdf(hdf_fp=ytd.utils.path_join('data','tmp','subs_df.h5'))
-    an.make_calulations()
-    ts_report_df,aggregates_d=an.make_ts_report()
-    print(aggregates_d)
-    an.utils.dump_df(ts_report_df,fp=an.utils.path_join('data','tmp','ts_report_df.csv'))
-    
-    #cols=an.reports_config['rows_with_keywords_columns']
-    #an.utils.dump_df(an.subs_df[cols],fp=an.utils.path_join('data','tmp','report_df.csv'))
-    
-    an.make_plot(subs_df=an.subs_df,ts_report_df=ts_report_df)
-#    print(an.subs_df[cols].tail(25))
+    an.wind_punctuate_unwind(mutate=True)
+    enhanced_subs_df=an.make_ts_report_calculations()    
+    ts_report_df,aggregates_dic=an.make_ts_report(subs_df=enhanced_subs_df) 
+    png_fp=an.utils.path_join(an.tmp_dir,'plot.png')   
+    an.make_plot(ts_report_df=ts_report_df,subs_df=enhanced_subs_df,png_fp=png_fp)
+    an.make_html_report(
+            ts_report_df=ts_report_df
+            ,aggregates_dic=aggregates_dic
+            ,png_fp=png_fp
+            ,meta_dic=meta_dic
+            ,output_dir=an.tmp_dir
+        )
 
 
 
 if __name__=='__main__':
     #wf__recreate_schema()
     
-    wf__make_report()
+    wf__make_html_report()

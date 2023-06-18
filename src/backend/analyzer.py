@@ -1,3 +1,4 @@
+
 import os 
 import re 
 import psycopg2
@@ -11,19 +12,21 @@ import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.lines as mlines
 import base64
+from multiprocessing import Process, freeze_support
 #pd.set_option('display.max_columns', None)  # display all columns
 #pd.set_option('display.max_rows', None)  # display all rows
-pd.set_option('display.max_colwidth', None)  # display all contents of a column
+###pd.set_option('display.max_colwidth', None)  # display all contents of a column
 from fuzzywuzzy import fuzz
 import nltk 
 #nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
-
 if __name__!='__main__':    
     from .utils import Utils   # import for tests 
+    from .punctuate import RestorePuncts
 else:
     from utils import Utils 
+    from punctuate import RestorePuncts
 
 # class for analyzing and doing stuff with text 
 class Analyzer():
@@ -59,6 +62,7 @@ class Analyzer():
                                }
         self.png_name = 'plot.png'
         self.png_fp=self.tmp_dir
+        self.rp=RestorePuncts()
     
     # find keywords in a string  
     def calculate_keywords(self, text, keywords=None) -> tuple:
@@ -263,8 +267,6 @@ class Analyzer():
         df_lines.append("</table>")
         df_lines='\n'.join(df_lines)
         
-            
-        
         style = '''
             <style>
                 table {
@@ -297,24 +299,40 @@ class Analyzer():
         with open(out_fp, 'w') as file:
             file.write(email_contents)
 
+    # winds all text in df into a string, applies punctuation and unwinds back into df 
+    def wind_punctuate_unwind(self,subs_df=None,mutate=True,new_colname='txt',txt_colname='txt'):
+        if subs_df is None:
+            subs_df=self.subs_df
+        if subs_df is None:
+            subs_df=self.subs_df
+        if not mutate:
+            tmp_df=subs_df.copy()
+        else:
+            tmp_df=subs_df
+        tmp_df['len']=tmp_df[txt_colname].apply(lambda x: len(x.split()))
+        concatenated_string = ' '.join(tmp_df[txt_colname].tolist())
+        punctuated_string=self.rp.punctuate(concatenated_string)
+        split_string = punctuated_string.split()
+        prev_len=0
+        if new_colname not in tmp_df.columns:
+            tmp_df[new_colname]=''
+        for no,row in tmp_df.iterrows():
+            row_dic=row.to_dict()
+            next_len=prev_len + row_dic['len']
+            row_dic[new_colname]=' '.join(split_string[prev_len:next_len])
+            tmp_df.loc[no]=row_dic
+            prev_len=next_len
+        tmp_df.pop('len')
+        return tmp_df
+
 if __name__=='__main__':
+    
     an=Analyzer()
-    s="""like to talk about the dollar relationship but the higher dollar does put a little pressure on gold I think go all will make new heights this year there's no doubt that I think it's going higher uh I think right now you're"""
-    s='gold'
-    score=an.calculate_sentiment(s)
-    print(score)
-    exit(1)
+    subs_fp=an.utils.path_join(an.tmp_dir,'subs_df.csv')
+    an.subs_df=an.utils.read_csv(subs_fp)
+    an.subs_df=an.subs_df[:5]
+    print(an.subs_df)
+    df=an.wind_unwind()
+    print(df)
+#    exit(1)
     
-    subs_df_fp=an.utils.path_join(an.tmp_dir,'subs_df.h5')
-    an.subs_df,an.subs_meta=an.utils.read_hdf(subs_df_fp)
-
-    an.apply_to_dataframe(src_col='txt',tgt_col=['positive_sentiment','negative_sentiment'],fun=an.calculate_sentiment_custom)
-    an.apply_to_dataframe(src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neu','comp'] ,fun=an.calculate_sentiment)
-    an.apply_to_dataframe(src_col='txt',tgt_col=an.standard_columns['json_column'],fun=an.calculate_keywords)    
-    url='https://www.youtube.com/watch?v=tZe0HFFWyoc&ab_channel=DavidLin'
-    url='https://www.youtube.com/watch?v=tZe0HFFWyoc&ab_channel=DavidLin'
-    an.apply_to_dataframe(src_col='st',tgt_col=an.standard_columns['ts_url'],fun=lambda x: an.utils.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
-    
-    an.utils.dump_df(df=an.subs_df,dir_fp=an.tmp_dir,fname='subs_df.csv')
-    an.select_rows_with_keywords()
-

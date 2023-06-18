@@ -1,8 +1,8 @@
 import backend 
 from backend.pgworkflows import * 
 from backend.ytdworkflows import * 
-from backend.workflows import wf__make_report
-
+from backend.workflows import wf__make_html_report
+from multiprocessing import Process, freeze_support
 
 ####### yt
 ###wf__download_subs() # download subs 
@@ -17,16 +17,21 @@ from backend.workflows import wf__make_report
 ####wf__upload_new_transcript(vid_id='2')    # upload test video to channel_transcript table
 
 
-wf__make_report()
-
-
-
-
-
-
+#wf__make_html_report()
+if __name__=='__main__':
+    wf__make_html_report()
+    exit(1)
+    an=Analyzer()
+    subs_fp=an.utils.path_join(an.tmp_dir,'subs_df.csv')
+    an.subs_df=an.utils.read_csv(subs_fp)
+    an.subs_df=an.subs_df
+    print(an.subs_df)
+    df=an.wind_punctuate_unwind()
+    wind_unwind_fp=an.utils.path_join(an.tmp_dir,'wind_unwind_df.csv')
+    an.utils.dump_df(df,fp=wind_unwind_fp)
 # download, parse, concat subs -> upload to cosmos ->  video_subs
 # make ts report on out of video_subs              ->  video_ts_report , aggregates
 # make png out of video subs and video ts report   ->  video plot 
-# make report per user 
+# make report per user as select from cosmos       ->  user_video_report
 # send report 
 
