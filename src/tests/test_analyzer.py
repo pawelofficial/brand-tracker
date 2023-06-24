@@ -74,3 +74,8 @@ class testAnalyzer(unittest.TestCase):
 ###            ,output_dir=self.tests_outputs_dir
 ###        )
 ###        
+    def test_modify_keyword_sentiment_input(self):
+        s='bad bad good bitcoin good bad bad market bad bad'
+        s='''so is the bull market over or just getting started let's jump in take a look at the news take a look at the charts we also have BlackRock coming out with an ETF application Bitcoin spot ETF um trust application which is a little nuanced but at the end of the day they buy Spot Bitcoin and it's instantly liquid for the investors uh that are also making their bet on coinbase as the custodian and finance continues to be'''
+        s2=self.an.modify_keyword_sentiment_input(s,span=1,keywords=['bitcoin','market'])
+        print(s2)

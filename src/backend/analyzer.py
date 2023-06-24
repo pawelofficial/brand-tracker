@@ -14,6 +14,8 @@ import matplotlib.lines as mlines
 import base64
 from transformers import pipeline
 from multiprocessing import Process, freeze_support
+import datetime
+import string
 #pd.set_option('display.max_columns', None)  # display all columns
 #pd.set_option('display.max_rows', None)  # display all rows
 ###pd.set_option('display.max_colwidth', None)  # display all contents of a column
@@ -74,7 +76,7 @@ class Analyzer():
         self.nlp = pipeline("text-classification"
                             ,model='bhadresh-savani/distilbert-base-uncased-emotion'
                             , top_k=None) # ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
-
+        self.nlp_sentiments=['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
     
     # find keywords in a string  
     def calculate_keywords(self, text, keywords=None) -> tuple:
@@ -90,6 +92,37 @@ class Analyzer():
             matches[keyword] = bool(match)
         return json.dumps(matches),matches  # {'bitcoin': True, 'gold': False, ...}
     
+    # dont consider whole line when there is a keyword in string but only its vicinity for more accuracy 
+    def modify_keyword_sentiment_input(self, text,span=10,keywords=None) :
+        if keywords is None:
+            keywords = self.keywords
+        words=text.split()
+        #words_lower=[k.lower() for k in words]
+        words_lower = [k.lower().translate(str.maketrans('', '', string.punctuation)) for k in words]
+        
+        condition=[k in words_lower for k in keywords] 
+        if not any(condition):
+            return text 
+        indexes=[]
+        for keyword in keywords: # if there is more than one keyword in string then use all and a mean index 
+            try:
+                i=words_lower.index(keyword)
+            except Exception as er:
+                continue 
+            indexes.append(i)
+        mean_index=int(np.mean(indexes))
+        new_words=words[mean_index-span:mean_index+span+1]
+        #if condition:
+        #    print(text)
+        #    print('-----')
+        #    print(' '.join(new_words))
+        #    print(indexes)
+        #    print(mean_index)
+        #    input('wait') 
+        return ' '.join(new_words)
+            
+        
+    
     # calculates sentiment of a string 
     def calculate_sentiment_custom(self,text):
         def parse_output(result,nlp):
@@ -102,6 +135,7 @@ class Analyzer():
                 else:
                     keys_dic[label]=np.round(score,3)*100
             return keys_dic
+        text=self.modify_keyword_sentiment_input(text)
         result = self.nlp(text)[0]
         d=parse_output(result,self.nlp)
         
@@ -120,7 +154,7 @@ class Analyzer():
 
     
     # calulate sentiment on a stinr 
-    def calculate_sentiment(self, text) ->tuple:
+    def calculate_sentiment_basic(self, text) ->tuple:
         sia = SentimentIntensityAnalyzer()
         sentiment_score = sia.polarity_scores(text)
         strong_sentiment=False
@@ -232,6 +266,8 @@ class Analyzer():
         if aggregate_sentiment_column is not None:
             tmp_df[aggregate_sentiment_column+'_ema']=tmp_df[aggregate_sentiment_column].ewm(span=5, adjust=False).mean()
         tmp_df['st_bu']=tmp_df['st']
+        tmp_df['st_bu'] = tmp_df['st_bu'].apply(lambda x: datetime.datetime.strptime(x, '%H:%M:%S.%f').strftime('%M:%S'))
+
         tmp_df['st']=tmp_df['st'].apply(lambda x: self.utils.ts_to_flt(x))
         tmp_df['en']=tmp_df['en'].apply(lambda x: self.utils.ts_to_flt(x))
         ts_report_df['st']=ts_report_df['st'].apply(lambda x: self.utils.ts_to_flt(x))
@@ -271,10 +307,20 @@ class Analyzer():
 
         plt.legend(handles=handles, loc='center left', bbox_to_anchor=(1, 0.5))
 
-        plt.xlabel(x_col)
-        plt.ylabel('Sentiment score 1 - positive / -1 -> negative')
-        plt.title('Video sentiment')
-        plt.grid(True)
+        plt.xlabel('timestamp')
+        plt.ylabel('Emotional load')
+        plt.title('Video Emotions')
+        plt.grid(axis='y', linestyle='--', linewidth=0.5, color='black')
+        ax2 = plt.gca().twiny()
+        ax2.grid(True, linestyle='--', linewidth=0.5, color='black')
+
+        # Calculate new ticks locations assuming that 'st' and 'st_bu' have similar ranges
+        new_ticks = np.linspace(tmp_df['st'].min(), tmp_df['st'].max(), len(tmp_df['st_bu']))
+
+        # Set the new ticks and labels
+        ax2.set_xticks(new_ticks)
+        ax2.set_xticklabels(tmp_df['st_bu'], rotation=45)
+
         print(png_fp)
         plt.savefig(png_fp)
         plt.close()

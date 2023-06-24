@@ -134,6 +134,8 @@ def wf__make_html_report(url=None):
         url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
         url='https://www.youtube.com/watch?v=JPGe_VXkOHU&ab_channel=DavidLin'
         url='https://www.youtube.com/watch?v=8idT_lYJkeU&ab_channel=GregDickerson'
+        url='https://www.youtube.com/watch?v=xlHXBSE00DM&ab_channel=DavidLin'
+        url='https://www.youtube.com/watch?v=XKP6TBcL9IA&ab_channel=CommodityCulture'
     ytd=Ytd()
     ytd.download_subs(url=url)
     ytd.parse_subs()
@@ -147,9 +149,9 @@ def wf__make_html_report(url=None):
     an=Analyzer()
     an.tmp_dir=ytd.tmp_dir
     an.subs_df,an.subs_meta=an.utils.read_hdf(hdf_fp=ytd.utils.path_join('data','tmp','subs_df.h5'))
-    an.wind_punctuate_unwind(mutate=True)
+    #an.wind_punctuate_unwind(mutate=True)
     enhanced_subs_df=an.make_ts_report_calculations()    
-    ts_report_df,aggregates_dic=an.make_ts_report(subs_df=enhanced_subs_df) 
+    ts_report_df,aggregates_dic,aggregates_dic_sentiment=an.make_ts_report(subs_df=enhanced_subs_df) 
     png_fp=an.utils.path_join(an.tmp_dir,'plot.png')   
     an.make_plot(ts_report_df=ts_report_df,subs_df=enhanced_subs_df,png_fp=png_fp)
     an.make_html_report(
