@@ -16,11 +16,20 @@ index = faiss.IndexFlatL2(embedding_size)
 embedding_fn = OpenAIEmbeddings().embed_query
 vectorstore = FAISS(embedding_fn, index, InMemoryDocstore({}), {})
 
+from langchain.document_loaders import TextLoader
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Chroma
+fp=os.path.join(os.path.dirname(__file__),'state_of_the_union.txt')
+loader = TextLoader(file_path=fp,encoding="utf-8")
+documents = loader.load()
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+texts = text_splitter.split_documents(documents)
+embeddings = OpenAIEmbeddings()
+vectorstore = Chroma.from_documents(texts, embeddings)
 
 
 
-
-retriever = vectorstore.as_retriever(search_kwargs=dict(k=1))
+retriever = vectorstore.as_retriever()
 memory = VectorStoreRetrieverMemory(retriever=retriever)
 memory.save_context({"input": "My favorite food is pizza"}, {"output": "thats good to know"})
 memory.save_context({"input": "My favorite sport is soccer"}, {"output": "..."})
