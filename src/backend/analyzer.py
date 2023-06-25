@@ -49,34 +49,42 @@ class Analyzer():
         self.negative_keywords = ['bad', 'decline', 'loss', 'risk', 'down', 'decrease','sell','short','dump','crash','bearish','cliff','panic','blood','bloodbath','cautious']
         self.positive_dict = {word: 1 for word in  self.positive_keywords}
         self.negative_dict = {word: -1 for word in self.negative_keywords}
+        
+        self.rp=RestorePuncts()
+        self.nlp = pipeline("text-classification"
+                            #,model='bhadresh-savani/distilbert-base-uncased-emotion'# ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
+                            ,model='textattack/bert-base-uncased-imdb' # ['positive','negative']
+                            , top_k=None) 
+        self.nlp_labels={'LABEL_1':'positive','LABEL_0':'negative'} # mapping nlp model labels into custom labels 
+        self.model_sentiments=['sadness','joy','love','anger','fear']
+        self.model_sentiments=['positive','negative']
+        
+        self.sentiment_colors=['black' for i in range(len(self.model_sentiments))]
+        self.plot_markers=['x','o','^','s','p','*']
+        self.plot_linestyles=['-','--','-.',':','-','--']
+        self.plot_colors=['blue','gold','black','red','green','magenta']
+        self.keywords_colors=['gold','blue','royalblue','cyan','red','darkred','green','lightgreen']
         self.reports_config={
-            #'rows_with_keywords_columns':['txt','ts_url','positive_sentiment','negative_sentiment','st']
-            'rows_with_keywords_columns':['st','ts_url','txt','sadness','joy','love','anger','fear','surprise','how_strong','en']
-            ,'plot_cols':{'x':'st','y':['sadness','joy','love','anger','fear','surprise']}
-            #,'plot_markers':{'sadness':'x','joy':'x','anger':'x','fear':'x','surprise':'x','love':'x'}
-            #,'plot_linestyles':{'sadness':'-','joy':'-','anger':'-','fear':'-','surprise':'-','love':'-'}
-            ,'plot_markers': {'sadness': 'x', 'joy': 'o', 'anger': '^', 'fear': 's', 'surprise': 'p', 'love': '*'}
-            ,'plot_linestyles': {'sadness': '-', 'joy': '--', 'anger': '-.', 'fear': ':', 'surprise': '-', 'love': '--'}
-
-            ,'plot_colors':{'sadness':'blue','joy':'gold','anger':'black','fear':'red','surprise':'green','love':'magenta'}
-            
-            ,'keywords_colors':{'gold':'gold','bitcoin':'blue','crypto':'royalblue','tech':'cyan','market':'red','stock':'darkred','cash':'green','dollar':'lightgreen'}
-            #,'sentiment_colors':{'sadness':'blue','joy':'gold','anger':'black','fear':'red','surprise':'green','love':'magenta'}
-            ,'sentiment_colors':{'sadness':'black','joy':'black','anger':'black','fear':'black','surprise':'black','love':'black'}
+            'rows_with_keywords_columns':['st','ts_url','txt',*self.model_sentiments,'en']
+            ,'plot_cols':{'x':'st','y':self.model_sentiments}
+            ,'plot_markers': {k:v for k,v in zip(self.model_sentiments,self.plot_markers)}
+            ,'plot_linestyles': {k:v for k,v in zip(self.model_sentiments,self.plot_linestyles)}
+            ,'plot_colors':{k:v for k,v in zip(self.keywords,self.plot_colors)}
+            ,'keywords_colors':{k:v for k,v in zip(self.keywords,self.keywords_colors)}
+            ,'sentiment_colors':{k:v for k,v in zip(self.model_sentiments,self.sentiment_colors)}
             ,'aggregate_sentiment_column':None
-            ,'ts_report_columns':['keyword','sadness','joy','love','anger','fear','surprise','how_strong','st','ts_url','txt']
-            ,'sentiment_columns':['sadness','joy','love','anger','fear','surprise']
+            ,'ts_report_columns':['keyword',*self.model_sentiments,'st','ts_url','txt']
+            
         }
         self.standard_columns={'json_column':'json_column'
                                ,'ts_url':'ts_url'
                                }
         self.png_name = 'plot.png'
         self.png_fp=self.tmp_dir
-        self.rp=RestorePuncts()
-        self.nlp = pipeline("text-classification"
-                            ,model='bhadresh-savani/distilbert-base-uncased-emotion'
-                            , top_k=None) # ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
-        self.nlp_sentiments=['sadness', 'joy', 'love', 'anger', 'fear', 'surprise']
+
+        #self.my_labels=['very strong','somewhat strong','neutral']  # my additional custom labels 
+        self.custom_sentiments_d={'how_strong':['very strong','somewhat strong','neutral'] }
+        self.all_sentiments=self.model_sentiments+list(self.custom_sentiments_d.keys())
     
     # find keywords in a string  
     def calculate_keywords(self, text, keywords=None) -> tuple:
@@ -124,7 +132,7 @@ class Analyzer():
         
     
     # calculates sentiment of a string 
-    def calculate_sentiment_custom(self,text):
+    def calculate_sentiment_custom(self,text,map_labels=True):
         def parse_output(result,nlp):
             keys_dic={v:'' for k,v in nlp.model.config.id2label.items()}
             for d in result:
@@ -138,9 +146,14 @@ class Analyzer():
         text=self.modify_keyword_sentiment_input(text)
         result = self.nlp(text)[0]
         d=parse_output(result,self.nlp)
-        
-        my_labels=['very strong','somewhat strong','neutral']
-        for label in my_labels:
+        if map_labels:
+            d2={}
+            for k,v in self.nlp_labels.items():
+                d2[v]=d[k]
+            d=d2
+        # adding custom sentiment columns 
+        my_labels=self.custom_sentiments_d['how_strong']
+        for label in my_labels: # adding cumulative strength of sentiment 
             vals=[v for k,v in d.items()]
             if any(vals)>75:
                 label=my_labels[0]
@@ -148,9 +161,9 @@ class Analyzer():
                 label=my_labels[1]
             else:
                 label=my_labels[2]
-            
         d['how_strong']=label
-        return [d[k] for k in  d.keys()] # ['sadness', 'joy', 'love', 'anger', 'fear', 'surprise'] 
+            
+        return [d[k] for k in  d.keys()] 
 
     
     # calulate sentiment on a stinr 
@@ -202,7 +215,8 @@ class Analyzer():
             tmp_df=subs_df.copy()
             
         #self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['negative_sentiment','positive_sentiment','neutral_sentiment','sentiment','strong_sentiment'] ,fun=self.calculate_sentiment)
-        self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['sadness','joy','love','anger','fear','surprise','how_strong'] ,fun=self.calculate_sentiment_custom)
+        sentiment_columns=self.model_sentiments+list(self.custom_sentiments_d.keys()) # adding custom sentiment columns to model sentiment columns 
+        self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=self.all_sentiments ,fun=self.calculate_sentiment_custom)
         self.apply_to_dataframe(subs_df=tmp_df,src_col='txt',tgt_col=['json_column','dict_column'],fun=self.calculate_keywords)    
         self.apply_to_dataframe(subs_df=tmp_df,src_col='st',tgt_col=self.standard_columns['ts_url'],fun=lambda x: self.utils.calculate_url_ts(x,url)) # maybe i should change things so i dont have to do that 
         return tmp_df
@@ -219,7 +233,7 @@ class Analyzer():
         if keywords is None:
             keywords=self.keywords
         if sentiment_cols is None:
-            sentiment_cols=self.reports_config['sentiment_columns']
+            sentiment_cols=self.model_sentiments
         
         tmp_df=pd.DataFrame(columns=['keyword',*cols])
         # Create a boolean mask for each keyword and combine them using the logical OR operator
@@ -420,6 +434,11 @@ class Analyzer():
 if __name__=='__main__':
     
     an=Analyzer()
+    s='hello there how are you'
+    s2=an.calculate_sentiment_custom(s)
+    print(s2)
+    exit(1)
+    
     subs_fp=an.utils.path_join(an.tmp_dir,'subs_df.csv')
     an.subs_df=an.utils.read_csv(subs_fp)
     an.subs_df=an.subs_df[:5]

@@ -6,3 +6,4 @@
 *.pyc
 *.h5
 *aclimdb*
+*secrets*

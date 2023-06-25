@@ -129,17 +129,17 @@ def wf__download_subs(url = None):
 def wf__make_html_report(url=None):
     if url is None:
         url='https://www.youtube.com/watch?v=T3UtaZB0UjY&ab_channel=DavidLin'
-        url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
-        url='https://www.youtube.com/watch?v=9_uvb_8Hd5I&ab_channel=DavidLin'
-        url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
-        url='https://www.youtube.com/watch?v=JPGe_VXkOHU&ab_channel=DavidLin'
-        url='https://www.youtube.com/watch?v=8idT_lYJkeU&ab_channel=GregDickerson'
-        url='https://www.youtube.com/watch?v=xlHXBSE00DM&ab_channel=DavidLin'
-        url='https://www.youtube.com/watch?v=XKP6TBcL9IA&ab_channel=CommodityCulture'
+        #url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
+        #url='https://www.youtube.com/watch?v=9_uvb_8Hd5I&ab_channel=DavidLin'
+        #url='https://www.youtube.com/watch?v=ammoIiY3MZo&ab_channel=DavidLin'
+        #url='https://www.youtube.com/watch?v=JPGe_VXkOHU&ab_channel=DavidLin'
+        #url='https://www.youtube.com/watch?v=8idT_lYJkeU&ab_channel=GregDickerson'
+        #url='https://www.youtube.com/watch?v=xlHXBSE00DM&ab_channel=DavidLin'
+        #url='https://www.youtube.com/watch?v=XKP6TBcL9IA&ab_channel=CommodityCulture'
     ytd=Ytd()
     ytd.download_subs(url=url)
     ytd.parse_subs()
-    ytd.concat_on_time(N=30)
+    ytd.concat_on_time(N=15)
     title=ytd.get_url_title(url=url)
     meta_dic={'url':url,'title':title}
     ytd.utils.dump_hdf(ytd.subs_df,fp=ytd.utils.path_join('data','tmp','subs_df.h5'),meta_dic=meta_dic)
