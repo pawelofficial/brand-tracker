@@ -1,5 +1,7 @@
-This is DDL dump describing structure of tables available in my tpch schema 
-
+{
+'context0' :'warning the dump does contain all the tables!!'
+,'context1': 'This is DDL dump describing structure of tables available'
+,'context2':'
 DROP TABLE IF EXISTS nation CASCADE;
 DROP TABLE IF EXISTS region CASCADE;
 DROP TABLE IF EXISTS part CASCADE;
@@ -93,3 +95,5 @@ CREATE TABLE lineitem ( l_orderkey    INTEGER NOT NULL,
                         PRIMARY KEY (l_orderkey, l_linenumber),
                         FOREIGN KEY (l_orderkey) REFERENCES orders (o_orderkey),
                         FOREIGN KEY (l_partkey, l_suppkey) REFERENCES partsupp (ps_partkey, ps_suppkey));
+
+'}

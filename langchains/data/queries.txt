@@ -1,4 +1,4 @@
-these are queries for tpch schema
+--example queries for tpch 
 
 SELECT ol_number,
        sum(ol_quantity) AS sum_qty,
